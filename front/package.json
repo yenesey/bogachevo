@@ -1,0 +1,58 @@
+{
+  "name": "bogachevo-front",
+  "version": "1.0.0",
+  "description": "Denis Bogachev's personal site",
+  "author": "Denis Bogachev <denesey@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "node dev",
+    "lint": "eslint --ext .js,.vue src",
+    "build": "webpack --hide-modules --display-error-details --config webpack.config.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "*",
+    "@babel/preset-env": "*",
+    "@vue/babel-preset-app": "*",
+    "babel-loader": "*",
+    "babel-plugin-transform-runtime": "*",
+    "babel-plugin-transform-vue-jsx": "*",
+    "babel-polyfill": "*",
+    "css-loader": "*",
+    "eslint": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-node": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-standard": "*",
+    "eslint-plugin-vue": "*",
+    "eventsource-polyfill": "*",
+    "html-webpack-plugin": "*",
+    "node-sass": "*",
+    "pug": "*",
+    "pug-plain-loader": "*",
+    "sass-loader": "*",
+    "url-loader": "*",
+    "vue": "*",
+    "vue-loader": "*",
+    "vue-router": "*",
+    "vue-style-loader": "*",
+    "vue-template-compiler": "*",
+    "webpack": "*",
+    "webpack-bundle-analyzer": "*",
+    "webpack-cli": "*",
+    "webpack-dev-middleware": "*",
+    "webpack-hot-middleware": "*",
+    "webpackbar": "*"
+  },
+  "target": "web",
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
