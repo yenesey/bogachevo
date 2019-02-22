@@ -13,7 +13,7 @@ const resolve = (...dirs) => require('path').join(...[__dirname, ...dirs])
 var config = {
 
   entry: {
-    app: ['@/main.js'],
+    app: ['@/main.js']
   },
 
   output: {
@@ -94,8 +94,8 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-			favicon: resolve('src/assets', 'favicon.ico'),
-			template: resolve('src/assets', 'index.html')
+      favicon: resolve('src/assets', 'favicon.ico'),
+      template: resolve('src/assets', 'index.html')
     }),
     new VueLoaderPlugin(),
     new WebpackBar({ minimal: false })
@@ -132,4 +132,3 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = config
-	
