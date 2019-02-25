@@ -1,15 +1,9 @@
 <template lang="pug">
-.page
-  Hero
+  
 </template>
 
 <script>
-import Hero from './hero/hero'
-export default {
-  components: {
-    Hero
-  }
-}
+export default {}
 </script>
 
 <style>
