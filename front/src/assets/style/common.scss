@@ -2,13 +2,6 @@
 /**********************************************
              Responsible grid 
 ***********************************************/
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 // breakpoints map
 $breakpoints: (
   xs: 32rem,
@@ -19,58 +12,49 @@ $breakpoints: (
   xx: 120rem
 );
 
+// number of columns variable
+$column-count: 12;
+
 // media query mixin
 @mixin break($size, $min-max) {
-  @media (#{$min-max}-width: map-get($breakpoints, $size)) {
+  @media (#{$min-max}-width: $size) {
     @content;
   }
 }
 
-// number of columns variable
-$column-count: 12;
-
 // loop over the breakpoints
 @each $key, $value in $breakpoints {
   @for $i from 1 through $column-count {
-    .grid__item--#{$key}-span-#{$i} {
+    .col-#{$key}-span-#{$i} {
       flex: 0 0 100%;
-      @include break($key, 'min') {
+      @include break($value, 'min') {
         flex: 0 0 #{$i / $column-count * 100%};
+      }
+    }
+    .col-#{$key}-offset-#{$i} {
+      @include break($value, 'min') {
+        margin-left: ($i / $column-count * 100%);
       }
     }
   }
 
-//  @include break($key - 1, 'max') {
-//    .hidden-#{$key}-down {
-//      display: none !important;
-//    }
-//  }
+  @include break($value - 1, 'max') {
+    .hidden-#{$key}-down {
+      display: none !important;
+    }
+  }
 
-  @include break($key, 'min') {
+  @include break($value, 'min') {
     .hidden-#{$key}-up {
       display: none !important;
     }
   }
 }
 
-// grid container
-.grid {
+// grid row
+.grid-row {
   display: flex;
   flex-flow: row wrap;
-  margin-bottom: 1rem;
-}
-
-// grid item
-.grid__item {
-  padding: 0.5rem;
-  
-  &:nth-child(even) {
-    background-color: #eee;
-  }
-  
-  &:nth-child(odd) {
-    background-color: #ddd;
-  }
 }
 
 /**********************************************

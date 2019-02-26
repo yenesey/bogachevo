@@ -1,10 +1,9 @@
 <template lang="pug">
   .hero
-    .grid
-      .grid__item.grid__item--xs-span-2.hidden-md-up
-      .grid__item.grid__item--xs-span-8
-        | some centered
-      .grid__item.grid__item--xs-span-2
+    .grid-row(style="height:48px")
+      .item.col-sm-span-8.col-sm-offset-2
+        | HELLO WORLD
+       
 </template>
 
 <script>
@@ -27,4 +26,18 @@ $color--hero-bg-dark: #07102c;
   bottom: 0;
   height: 90vh;
 }
+
+// nth paint example
+.item {
+  // padding: 0.5rem;
+
+  &:nth-child(even) {
+    background-color: #eee;
+  }
+  
+  &:nth-child(odd) {
+    background-color: #ddd;
+  }
+}
+
 </style>
