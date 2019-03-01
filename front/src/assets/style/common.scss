@@ -1,9 +1,9 @@
 
 /**********************************************
-             Responsible grid 
+               Responsible grid 
 ***********************************************/
-// breakpoints map
-$breakpoints: (
+// BREAKPOINTS map
+$BREAKPOINTS: (
   xs: 32rem,
   sm: 48rem,
   md: 72rem,
@@ -13,52 +13,54 @@ $breakpoints: (
 );
 
 // number of columns variable
-$column-count: 12;
+$COLUMN-COUNT: 12;
 
 // media query mixin
-@mixin break($size, $min-max) {
-  @media (#{$min-max}-width: $size) {
+@mixin break($size, $min-max: 'max') {
+  $_size: if(type-of($size) == number, $size , map-get($BREAKPOINTS, $size));
+  @media (#{$min-max}-width: $_size) {
     @content;
   }
 }
 
-// loop over the breakpoints
-@each $key, $value in $breakpoints {
-  @for $i from 1 through $column-count {
-    .col-#{$key}-span-#{$i} {
-      flex: 0 0 100%;
-      @include break($value, 'min') {
-        flex: 0 0 #{$i / $column-count * 100%};
-      }
-    }
-    .col-#{$key}-offset-#{$i} {
-      @include break($value, 'min') {
-        margin-left: ($i / $column-count * 100%);
+// loop over the BREAKPOINTS
+@each $key, $value in $BREAKPOINTS {
+  .#{$key}{
+    flex: 0 0 100%;
+  }
+  @include break($value, 'min') {
+    .#{$key}{
+      @for $i from 1 through $COLUMN-COUNT {
+        &.span-#{$i} {
+            flex: 0 0 #{$i / $COLUMN-COUNT * 100%};
+        }
+        &.offset-#{$i} {
+            margin-left: #{$i / $COLUMN-COUNT * 100%};
+        }
       }
     }
   }
-
-  @include break($value - 1, 'max') {
+  @include break($value, 'max') {
     .hidden-#{$key}-down {
       display: none !important;
     }
   }
-
   @include break($value, 'min') {
     .hidden-#{$key}-up {
       display: none !important;
     }
-  }
+  } 
 }
 
 // grid row
 .grid-row {
   display: flex;
   flex-flow: row wrap;
+  width: 100%;
 }
 
 /**********************************************
-
+            Transform mixins
 ***********************************************/
 
 // generic transform
@@ -71,7 +73,7 @@ $column-count: 12;
 }
 // rotate
 @mixin rotate ($deg) {
-@include transform(rotate(#{$deg}));
+  @include transform(rotate(#{$deg}));
 }
 
 // scale
@@ -80,11 +82,11 @@ $column-count: 12;
 } 
 // translate
 @mixin translate ($x, $y) {
-@include transform(translate($x, $y));
+  @include transform(translate($x, $y));
 }
 // skew
 @mixin skew ($x, $y) {
-@include transform(skew(#{$x}, #{$y}));
+  @include transform(skew(#{$x}, #{$y}));
 }
 //transform origin
 @mixin transform-origin ($origin) {
@@ -95,3 +97,38 @@ $column-count: 12;
        transform-origin: $origin;
 }
 
+
+/**********************************************
+            Transition mixins
+***********************************************/
+
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
+@mixin transition-property($property...) {
+  -moz-transition-property:    $property;
+  -o-transition-property:      $property;
+  -webkit-transition-property: $property;
+  transition-property:         $property;
+}
+@mixin transition-duration($duration...) {
+  -moz-transition-property:    $duration;
+  -o-transition-property:      $duration;
+  -webkit-transition-property: $duration;
+  transition-property:         $duration;
+}
+@mixin transition-timing-function($timing...) {
+  -moz-transition-timing-function:    $timing;
+  -o-transition-timing-function:      $timing;
+  -webkit-transition-timing-function: $timing;
+  transition-timing-function:         $timing;
+}
+@mixin transition-delay($delay...) {
+  -moz-transition-delay:    $delay;
+  -o-transition-delay:      $delay;
+  -webkit-transition-delay: $delay;
+  transition-delay:         $delay;
+}

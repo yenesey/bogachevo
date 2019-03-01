@@ -9,7 +9,10 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "webpack --hide-modules --display-error-details --config webpack.config.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "file-loader": "^3.0.1",
+    "vue-smooth-scroll": "^1.0.13"
+  },
   "devDependencies": {
     "@babel/core": "*",
     "@babel/preset-env": "*",
