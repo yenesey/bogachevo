@@ -1,5 +1,5 @@
 <template lang="pug">
-  .page
+  .index-page
     Hero
     Works
 </template>

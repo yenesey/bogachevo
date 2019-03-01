@@ -1,5 +1,6 @@
 <template lang="pug">
   .hero
+    Animation  
     header.grid-row.header(:style="{height: headerHeight + 'px'}")
       .xs.span-12
         .grid-row
@@ -9,7 +10,6 @@
             a(href="#works" v-smooth-scroll) Мои работы
             a(href="#") Контакты
             a(href="#") Прочее...
-    Animation  
     .grid-row
       .sm.span-6.offset-1
         .wrap
@@ -154,8 +154,12 @@ img.maskot {
   display: flex;
   height: 95%;
   border-radius: 50%;
+  margin-left:30%;
+  @include translate(-50%, 0);  
+
   @include break('xs') {
     margin: auto;
+    @include translate(0, 0);  
   }
 }
 
