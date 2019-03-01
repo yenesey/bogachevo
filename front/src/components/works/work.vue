@@ -1,6 +1,6 @@
 <template lang="pug">
   .grid-row  
-    .sm.span-10.offset-1.delimiter
+    .sm.span-10.offset-1
       .bg(:style="bgStyle")
       h1.title {{title}}
 </template>
@@ -11,7 +11,7 @@ export default {
   data () {
     return {
       bgStyle: {
-        backgroundImage: `url('/static/works/backgrounds/synapse.jpg')`
+        backgroundImage: `url('/works/backgrounds/synapse.jpg')`
       }
     }
   }

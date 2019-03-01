@@ -2,7 +2,7 @@
   .grid-row#works
     .xs.span-10.offset-1.works-header
       h1.title Мои работы
-      h1.subtitle Избранные проекты в которых я принимал активное участие
+      h1.subtitle Проекты, полностью мои, и с моим участием
     
     Work(title="Synapse")
 </template>

@@ -123,6 +123,7 @@ if (process.env.NODE_ENV === 'production') {
   if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
 } else { // dev mode by default
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  config.plugins.push(new webpack.NamedModulesPlugin())
   config.plugins.push(
     new webpack.DefinePlugin({
       'baseUrl': JSON.stringify('http://localhost')

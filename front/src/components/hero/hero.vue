@@ -11,12 +11,10 @@
             a(href="#") Контакты
             a(href="#") Прочее...
     .grid-row
-      .sm.span-6.offset-1
+      .xs.span-6.offset-1
         .wrap
           span Привет!
-          br
           span Меня зовут Денис
-          br
           span Я создаю web приложения
 </template>
 
@@ -131,22 +129,28 @@ export default {
 }
 
 .wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top:0;
+  bottom:0;
   position: absolute;
   z-index: 2;
-  margin: 18rem 0rem 0rem 0rem;
 
   color: #edf4ff;
   font-family: 'Proxima Nova';
   font-size: 3rem;
-  word-break: unset;
-  line-height: 1.6em;
+ // word-break: unset;
+  line-height: 2.0em;
   @include break('md') {
     font-size: 2rem;
-    margin: 12rem 0 0 3rem;
   }
   @include break('sm') {
     font-size: 1.8rem;
-    margin: 12rem 0 0 3rem;
+  }
+  @include break('sm') {
+    font-size: 1.6rem;
+    margin: 2rem
   }
 }
 
@@ -156,7 +160,6 @@ img.maskot {
   border-radius: 50%;
   margin-left:30%;
   @include translate(-50%, 0);  
-
   @include break('xs') {
     margin: auto;
     @include translate(0, 0);  

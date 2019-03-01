@@ -3,24 +3,17 @@
 const http   = require('http')
 const config = require('./webpack.config')
 const compiler = require('webpack')(config)
+const express = require('express')
+const app = express()
 
-const dev = require('webpack-dev-middleware')(compiler, {logLevel:'error'})
-const hot = require('webpack-hot-middleware')(compiler, {log: null})
+const dev = require('webpack-dev-middleware')(compiler, {logLevel: 'error'})
+const hot = require('webpack-hot-middleware')(compiler, {log: false})
 
-function combineMiddleware(mids) {
-  return mids.reduce(function(a, b) {
-    return function(req, res, next) {
-      a(req, res, function(err) {
-        if (err) {
-          return next(err)
-        }
-        b(req, res, next)
-      })
-    }
-  })
-}
+app.use(express.static('./static'))
+app.use(dev)
+app.use(hot)
 
-const server = http.Server( combineMiddleware([dev, hot]) )
+const server = http.Server(app)
 
 server.on('clientError', (err, socket) => {
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
