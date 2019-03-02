@@ -121,7 +121,7 @@ export default {
 				c: 0,
 			},
 			mesh: null,
-			bgColor: 0
+			bgColor: '#000'
     }
   },
   computed: {
@@ -154,10 +154,16 @@ export default {
     },
 
     render (mesh, a, b, c) {
-      const { canvas } = this
+      const { canvas, ctx, bgColor } = this
     	var cx = canvas.width / 2 + 100
     	var cy = canvas.height / 2
      	var verts = rotate(mesh.verts, a, b, c)
+
+			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,90);
+			grd.addColorStop(0, '#20234e');
+			grd.addColorStop(1, bgColor);
+			ctx.fillStyle = grd;
+			ctx.fillRect(cx-100, cy-100, 200, 200);
 
     	for (var i = 0; i < verts.length; i++) {
 				let gradient = Math.min(Math.max(verts[i].z, -60), 125)

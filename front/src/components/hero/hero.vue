@@ -1,18 +1,19 @@
 <template lang="pug">
   .hero
-    Animation  
-    header.grid-row.header(:style="{height: headerHeight + 'px'}")
-      .xs.span-12
-        .grid-row
-          .xs.span-1.offset-1
-            img.maskot(src="@/assets/maskot.png")
-          .xs.span-9.nav.menu
-            a(href="#works" v-smooth-scroll) Мои работы
-            a(href="#") Контакты
-            a(href="#") Прочее...
-    .grid-row
+    Animation
+    header
+      .flex-row.header(:style="{height: headerHeight + 'px'}")
+        .xs.span-12
+          .flex-row
+            .xs.span-1.offset-1
+              img.maskot(src="@/assets/maskot.png")
+            .xs.span-9.nav.menu
+              a(href="#works" v-smooth-scroll) Мои работы
+              a(href="#contact" v-smooth-scroll) Контакты
+              a(href="#") Прочее...
+    .flex-row
       .xs.span-6.offset-1
-        .wrap
+        .flex-column.wrap
           span Привет!
           span Меня зовут Денис
           span Я создаю web приложения
@@ -129,8 +130,6 @@ export default {
 }
 
 .wrap {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   top:0;
   bottom:0;
@@ -158,8 +157,8 @@ img.maskot {
   display: flex;
   height: 95%;
   border-radius: 50%;
-  margin-left:30%;
-  @include translate(-50%, 0);  
+ // margin-left:30%;
+  //@include translate(-50%, 0);  
   @include break('xs') {
     margin: auto;
     @include translate(0, 0);  

@@ -2,16 +2,18 @@
   .index-page
     Hero
     Works
-    // Contact
+    Contact
 </template>
 
 <script>
 import Hero from './hero/hero'
 import Works from './works/works'
+import Contact from './contact'
 export default {
   components: {
     Hero,
-    Works
+    Works,
+    Contact
   }
 }
 </script>

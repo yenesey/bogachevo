@@ -1,8 +1,12 @@
 <template lang="pug">
-  .grid-row  
-    .xs.span-12.work(:style="bgStyle")
-      .xs.span-10.offset-1
-        h1.title {{title}}
+  .flex-row
+    .xs.span-12.work
+      .separator
+        .xs.span-10.offset-1
+          h1.title {{title}}
+      .work(:style="bgStyle")
+        span CONTENT
+        
 </template>
 
 <script>
@@ -21,9 +25,24 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
+.separator {
+  height: 3.5rem;
+  position: relative;
+  /*
+  border-left: 0px solid transparent;
+  border-right: 30vw solid transparent;
+  border-bottom: 3.5rem solid #dfe3ec;
+  */
+  background-color: #dfe3ec;
+  @include break('xs') {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 .work {
   position: relative;
-  height: 100px;
+  height: 600px;
   background-size: cover;
 }
 

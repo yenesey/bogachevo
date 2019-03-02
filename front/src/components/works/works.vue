@@ -1,12 +1,11 @@
 <template lang="pug">
   #works
-    .grid-row
+    .flex-row
       .xs.span-10.offset-1.works-header
         h1.title Мои работы
-        h1.subtitle Проекты, полностью мои, и с моим участием
-    .separator
+        h1.subtitle Мой собственный проект, и работа на заказ.
+    
     Work(title="Synapse")
-    .separator
     Work(title="Burn Token")
 </template>
 
@@ -23,33 +22,22 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
-
-.separator {
-  height: .5rem;
-  position: relative;
-  border-left: 50vw solid transparent;
-  border-right: 0px solid transparent;
-  border-bottom: .5rem solid #07102c;
-}
-
 .works-header {
   margin: 3rem 0rem 3rem  0rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: 'Proxima Nova';
-  // font-size: 3rem;
   word-break: unset;
 
   @include break('md') {
-    padding: 1rem;
     flex-direction: column;
     text-align: center;
   }
 }
 
 .title {
-  font-size: 3em;
+  font-size: 2rem;
   font-weight: bold;
   @include break('md') {
     margin: 0;
@@ -58,7 +46,7 @@ export default {
 
 .subtitle {
   font-style: italic;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 300;
 }
 
