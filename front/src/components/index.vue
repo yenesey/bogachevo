@@ -2,6 +2,7 @@
   .index-page
     Hero
     Works
+    // Contact
 </template>
 
 <script>

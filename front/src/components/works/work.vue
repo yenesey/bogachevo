@@ -1,8 +1,8 @@
 <template lang="pug">
   .grid-row  
-    .sm.span-10.offset-1
-      .bg(:style="bgStyle")
-      h1.title {{title}}
+    .xs.span-12.work(:style="bgStyle")
+      .xs.span-10.offset-1
+        h1.title {{title}}
 </template>
 
 <script>
@@ -21,24 +21,13 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
-.delimiter{
-  height: 88px;
-  font-family: 'Proxima Nova';
-  font-size: 3rem;
-  word-break: unset;
-  line-height: 1.6em;
-}
-/*
-.bg {
-	background: #eee;
-	background-size: cover;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+.work {
+  position: relative;
+  height: 100px;
+  background-size: cover;
 }
 
+/*
 .bg:after {
 	content: '';
 	position: absolute;

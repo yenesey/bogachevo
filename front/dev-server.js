@@ -21,7 +21,7 @@ server.on('clientError', (err, socket) => {
 
 server.listen(3000)
 
-function close() {
+function close () {
   console.log('server goes down now...')
   server.close(function () {
     console.log('all requests finished')

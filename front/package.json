@@ -5,7 +5,7 @@
   "author": "Denis Bogachev <denesey@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "node dev",
+    "dev": "node dev-server",
     "lint": "eslint --ext .js,.vue src",
     "build": "webpack --hide-modules --display-error-details --config webpack.config.js"
   },
