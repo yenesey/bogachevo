@@ -8,8 +8,8 @@
             .xs.span-1.offset-1
               img.maskot(src="@/assets/maskot.png")
             .xs.span-9.nav.menu
-              a(href="#about" v-smooth-scroll) Обо мне
               a(href="#works" v-smooth-scroll) Работы
+              a(href="#about" v-smooth-scroll) Обо мне
               a(href="#contact" v-smooth-scroll) Контакты
               a(href="#") Прочее...
     .flex-row
@@ -52,12 +52,13 @@ export default {
 </script>
 
 <style lang="scss">
-
 @import "@/assets/style/common.scss";
 
+$MENU-BK-COLOR: #07102c;
+$HERO-BK-COLOR: #07102c;
+
 .hero {
-  background-color: #07102c;
-  //background-color: #161b25;
+  background-color: $HERO-BK-COLOR;
   overflow: hidden;
   top: 0;
   left: 0;
@@ -83,7 +84,7 @@ export default {
   position: fixed;
   z-index: 12;
   align-items: center; // vertically
-  background-color: #07102c;
+  background-color: $MENU-BK-COLOR;
   border-bottom: 1px solid #333d61;
 //  justify-content: space-around;
   div { // all nested divs
@@ -92,7 +93,7 @@ export default {
 }
 
 .menu {
-  background-color: #07102c;
+  background-color: $MENU-BK-COLOR;
   font-family: 'Proxima Nova';
   font-size: 1.1rem;
   align-items: center; // vertically

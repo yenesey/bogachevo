@@ -1,8 +1,8 @@
 <template lang="pug">
   .index-page
     Hero
-    About
     Works
+    About
     Contact
 </template>
 
