@@ -159,11 +159,11 @@ export default {
     	var cy = canvas.height / 2
      	var verts = rotate(mesh.verts, a, b, c)
 
-			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,90);
-			grd.addColorStop(0, '#20234e');
+			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,150);
+			grd.addColorStop(0, '#10133e');
 			grd.addColorStop(1, bgColor);
 			ctx.fillStyle = grd;
-			ctx.fillRect(cx-100, cy-100, 200, 200);
+			ctx.fillRect(cx-150, cy-150, 300, 300);
 
     	for (var i = 0; i < verts.length; i++) {
 				let gradient = Math.min(Math.max(verts[i].z, -60), 125)

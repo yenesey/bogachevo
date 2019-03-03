@@ -3,7 +3,7 @@
     .flex-row
       .xs.span-10.offset-1.works-header
         h1.title Мои работы
-        h1.subtitle Мой собственный проект, и работа на заказ.
+        h1.subtitle Собственные проекты и фриланс
     
     Work(title="Synapse")
     Work(title="Burn Token")

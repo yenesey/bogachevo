@@ -8,7 +8,8 @@
             .xs.span-1.offset-1
               img.maskot(src="@/assets/maskot.png")
             .xs.span-9.nav.menu
-              a(href="#works" v-smooth-scroll) Мои работы
+              a(href="#about" v-smooth-scroll) Обо мне
+              a(href="#works" v-smooth-scroll) Работы
               a(href="#contact" v-smooth-scroll) Контакты
               a(href="#") Прочее...
     .flex-row
@@ -78,7 +79,7 @@ export default {
 
 .header {
   height: 88px;
-  @include transition(height .3s ease);
+  @include transition(height .3s cubic-bezier(.645,.045,.355,1));
   position: fixed;
   z-index: 12;
   align-items: center; // vertically
@@ -118,7 +119,7 @@ export default {
       width: 0;
       background: transparent;
       @include translate(50%, 0);
-      @include transition(width .3s ease, transform .3s ease,  background-color .5s ease);
+      @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
     }
 
     &:hover:after {
