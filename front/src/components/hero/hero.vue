@@ -6,20 +6,11 @@
         .flex-row
           .xs.span-1.offset-2.hidden-xs-down
             img.maskot(src="@/assets/maskot.png")
-          .xs.span-7.nav.menu
+          nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
             a(href="#hobby") Прочее...
-
-    // .xs.span-8.offset-2
-          div(style="display:flex; justify-content: space-between")
-            img.maskot(src="@/assets/maskot.png")
-            nav.menu
-              a(href="#works" v-smooth-scroll) Работы
-              a(href="#about" v-smooth-scroll) Обо мне
-              a(href="#contact" v-smooth-scroll) Контакты
-              a(href="#hobby") Прочее...
 
     .flex-row
       .xs.span-6.offset-2

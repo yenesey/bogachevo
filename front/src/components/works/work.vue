@@ -1,22 +1,26 @@
 <template lang="pug">
 div
   .flex-row.work-header
-    .xs.span-8.offset-2
-      h1.title {{title}}
+    .md.offset-3
+      .tab 
+        h1 {{title}}
 
   .flex-row
     .xs.span-12      
       .work(:style="bgStyle")
-        img(:src="`/works/images/${title}.jpg`")
-  .flex-row
-    .xs.span-8.offset-2.works-header
-      h1.title {{title}}
+        img(:src="`/works/images/${name}.jpg`")
 
+  .flex-row
+      .md.span-2.offset-2.photo
+        .flex-column
+          span.subheading(style="color: #4e4e4e") Роль: {{role}}
+      .md.span-6(style="padding: 1rem")
+          span.subheading {{description}}
 </template>
 
 <script>
 export default {
-  props: ['title'],
+  props: ['title','name', 'description', 'role'],
   data () {
     return {
       bgStyle: {
@@ -30,16 +34,26 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
+.tab {
+  width: 300px;
+  //border-radius: 1.5rem;
+  border-bottom: 2.6rem solid rgb(216, 230, 252);
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  height: 0;
+  text-align: center;
+  h1 {
+    font-size: 1.8rem;
+    margin:0;
+  }
+}
+
 .work-header {
   height: 5.5rem;
   display: flex;
-  align-items: center; // vertically
-  /*
-  border-left: 0px solid transparent;
-  border-right: 30vw solid transparent;
-  border-bottom: 3.5rem solid #dfe3ec;
-  */
-  background-color: #dfe3ec;
+  // align-items: center; 
+  align-items: flex-end;
+  // background-color: #c9f8fb;
   @include break('xs') {
     text-align: center;
   }
