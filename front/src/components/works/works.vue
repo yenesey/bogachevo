@@ -1,12 +1,13 @@
 <template lang="pug">
   #works
     .flex-row
-      .xs.span-10.offset-1.works-header
-        h1.title Мои работы
+      .xs.span-8.offset-2.works-header
+        h1.title.shadow Мои работы
         h1.subtitle Собственные проекты и фриланс
     
+    Work(title="BurnToken")
     Work(title="Synapse")
-    Work(title="Burn Token")
+
 </template>
 
 <script>

@@ -1,19 +1,28 @@
 <template lang="pug">
   .hero
     Animation
-    header
-      .flex-row.header(:style="{height: headerHeight + 'px'}")
-        .xs.span-12
-          .flex-row
-            .xs.span-1.offset-1
-              img.maskot(src="@/assets/maskot.png")
-            .xs.span-9.nav.menu
+    header.flex-row(:style="{height: headerHeight + 'px'}")
+      .sm.span-12
+        .flex-row
+          .xs.span-1.offset-2.hidden-xs-down
+            img.maskot(src="@/assets/maskot.png")
+          .xs.span-7.nav.menu
+            a(href="#works" v-smooth-scroll) Работы
+            a(href="#about" v-smooth-scroll) Обо мне
+            a(href="#contact" v-smooth-scroll) Контакты
+            a(href="#hobby") Прочее...
+
+    // .xs.span-8.offset-2
+          div(style="display:flex; justify-content: space-between")
+            img.maskot(src="@/assets/maskot.png")
+            nav.menu
               a(href="#works" v-smooth-scroll) Работы
               a(href="#about" v-smooth-scroll) Обо мне
               a(href="#contact" v-smooth-scroll) Контакты
-              a(href="#") Прочее...
+              a(href="#hobby") Прочее...
+
     .flex-row
-      .xs.span-6.offset-1
+      .xs.span-6.offset-2
         .flex-column.wrap
           span Привет!
           span Меня зовут Денис
@@ -78,7 +87,7 @@ $HERO-BK-COLOR: #07102c;
 */
 }
 
-.header {
+header {
   height: 88px;
   @include transition(height .3s cubic-bezier(.645,.045,.355,1));
   position: fixed;
@@ -105,7 +114,7 @@ $HERO-BK-COLOR: #07102c;
     text-decoration: none;
     color: #edf4ff;
 
-    @include break('xs') {
+    @include break('sm') {
       margin: auto;
     }
 

@@ -175,6 +175,7 @@ export default {
 			const { ctx, canvas, angle, bgColor } = this
 			ctx.fillStyle = bgColor
 			ctx.fillRect(0, 0, canvas.width, canvas.height)
+			// ctx.drawImage(this.bg, 0 ,0)
 			//ctx.clearRect(0, 0, canvas.width, canvas.height)
       //angle.a += 1- cos(angle.b * PI / 180)
 			angle.b -= 0.04
@@ -188,6 +189,8 @@ export default {
     }
   },
   mounted () {
+		// this.bg = new Image()
+		// this.bg.src = '/backgrounds/space.jpg'
     this.mesh = generateMesh()
 		this.resizeCanvas()
 		this.step()

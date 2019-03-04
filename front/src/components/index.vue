@@ -11,6 +11,7 @@ import Hero from './hero/hero'
 import Works from './works/works'
 import About from './about'
 import Contact from './contact'
+
 export default {
   components: {
     Hero,
@@ -22,14 +23,11 @@ export default {
 </script>
 
 <style lang="scss">
-
 body {
   margin: 0px;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-
-* {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 </style>

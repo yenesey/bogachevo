@@ -64,6 +64,12 @@ $COLUMN-COUNT: 12;
   flex-flow: column wrap;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /**********************************************
             Transform mixins
 ***********************************************/

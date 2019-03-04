@@ -1,12 +1,17 @@
 <template lang="pug">
+div
+  .flex-row.work-header
+    .xs.span-8.offset-2
+      h1.title {{title}}
+
   .flex-row
-    .xs.span-12.work
-      .separator
-        .xs.span-10.offset-1
-          h1.title {{title}}
+    .xs.span-12      
       .work(:style="bgStyle")
-        span CONTENT
-        
+        img(:src="`/works/images/${title}.jpg`")
+  .flex-row
+    .xs.span-8.offset-2.works-header
+      h1.title {{title}}
+
 </template>
 
 <script>
@@ -25,9 +30,10 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
-.separator {
-  height: 3.5rem;
-  position: relative;
+.work-header {
+  height: 5.5rem;
+  display: flex;
+  align-items: center; // vertically
   /*
   border-left: 0px solid transparent;
   border-right: 30vw solid transparent;
@@ -35,15 +41,23 @@ export default {
   */
   background-color: #dfe3ec;
   @include break('xs') {
-    flex-direction: column;
     text-align: center;
   }
 }
 
 .work {
   position: relative;
-  height: 600px;
+  display: flex;
   background-size: cover;
+  align-items: center; // vertically
+  img {
+    // flex-direction: row;
+    margin: auto; 
+    @include break('md') {
+      width: 100%;
+      min-height: 0px;
+    } 
+  }
 }
 
 /*
