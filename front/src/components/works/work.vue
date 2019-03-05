@@ -2,11 +2,10 @@
 div
   .flex-row.work-header
     .md.offset-3
-      .tab 
-        h1 {{title}}
+      tab(:caption="title" color="#faf")
 
   .flex-row
-    .xs.span-12      
+    .xs.span-12
       .work(:style="bgStyle")
         img(:src="`/works/images/${name}.jpg`")
 
@@ -16,11 +15,17 @@ div
           span.subheading(style="color: #4e4e4e") Роль: {{role}}
       .md.span-6(style="padding: 1rem")
           span.subheading {{description}}
+
 </template>
 
 <script>
+import tab from './tab'
+
 export default {
   props: ['title','name', 'description', 'role'],
+  components: {
+    tab
+  },
   data () {
     return {
       bgStyle: {
@@ -34,26 +39,15 @@ export default {
 <style lang="scss">
 @import "@/assets/style/common.scss";
 
-.tab {
-  width: 300px;
-  //border-radius: 1.5rem;
-  border-bottom: 2.6rem solid rgb(216, 230, 252);
-  border-left: 1rem solid transparent;
-  border-right: 1rem solid transparent;
-  height: 0;
-  text-align: center;
-  h1 {
-    font-size: 1.8rem;
-    margin:0;
-  }
-}
-
 .work-header {
   height: 5.5rem;
   display: flex;
-  // align-items: center; 
   align-items: flex-end;
-  // background-color: #c9f8fb;
+/*
+  z-index:-2;
+  position:relative;
+  background-color: beige;
+*/  
   @include break('xs') {
     text-align: center;
   }
