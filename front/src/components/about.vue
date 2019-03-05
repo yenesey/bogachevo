@@ -13,7 +13,7 @@
           span.subheading Работаю IT сфере, связанной с финансами. Начинал в Сберегательном Банке с системного администрирования и сопровождения, а затем занимался управлением IT услугами (ITSM). После 5 лет работы в Сбербанке, перешел в небольшой коммерческий банк, где было больше возможностей реализовать свой творческий потенциал. В настоящее время являюсь заместителем руководителя отдела программного обеспечения. Принимаю участие в разработке банковского ПО и интеграционных сервисов. В разные годы жизни, работал с разными языками, от связки VBA и TransactSQL, до Delphi, С/С++. В последнее время активно интересуюсь Web-технологиями.
 
     .flex-row
-      h2(style="display:flex; margin: auto;") Ключевые навыки
+      h2(style="display:flex; margin: auto;") Знаю - умею
 
     .flex-row
       .xs.span-8.offset-2
@@ -41,6 +41,7 @@
           span vuetify
           span nuxt
           span web3
+    .flex-row(style="height: 2rem")
 
 </template>
 
@@ -55,7 +56,8 @@ export default {
 
 .about {
   background-color: rgb(210, 227, 246);
-  background-image: url('/works/backgrounds/synapse.jpg')
+  background-image: url('/works/backgrounds/synapse.jpg');
+  background-size: cover;
 }
 .shadow {
   box-shadow: inset 0 -6px 0 rgba(170, 78, 255, 0.2);
@@ -95,7 +97,7 @@ img.me {
   border-radius: 50%;
   @include break('xs') {
     margin: auto;
-    @include translate(0, 0);  
+    //@include translate(0, 0);  
   }
 }
 

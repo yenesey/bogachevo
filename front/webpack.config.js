@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const packageInfo = require('./package.json')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
@@ -10,6 +11,7 @@ const WebpackBar = require('webpackbar')
 const resolve = (...dirs) => require('path').join(...[__dirname, ...dirs])
 
 var config = {
+  name: packageInfo['name'],
 
   entry: {
     app: ['@/main.js']

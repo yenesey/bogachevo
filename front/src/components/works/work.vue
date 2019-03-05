@@ -1,21 +1,23 @@
 <template lang="pug">
 div
-  .flex-row.work-header
+  // .flex-row.work-header
     .md.offset-3.span-7
       tab(:caption="title" color="#faf")
-
   .flex-row
     .xs.span-12
       .work(:style="bgStyle")
         // img(:src="`/works/images/${name}.jpg`")
-        video(:src="`/works/videos/${name}.mp4`" loop="loop" autoplay="autoplay")
+        .video-wrapper
+          span {{title}}  
+          video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="preload")
 
   .flex-row
       .md.span-2.offset-2.photo
         .flex-column
-          span.subheading(style="color: #4e4e4e") Роль: {{role}}
+          span.subheading(style="color: #4e4e4e") {{role}}
       .md.span-6(style="padding: 1rem")
           span.subheading {{description}}
+  .flex-row(style="height: 2rem")       
 
 </template>
 
@@ -54,11 +56,36 @@ export default {
   }
 }
 
+.video-wrapper {
+  // background-color: #fff;
+  span {
+    font-family: 'Proxima Nova';
+    font-size: 1.6rem;
+    font-weight:bold;
+    position:absolute;
+    letter-spacing: .25em;
+     //@include rotate(-90deg);
+    @include transform-origin(left);
+    @include transform(rotate(-90deg) translate(-19rem, 1.3rem) );
+    @include break('sm') {
+      @include transform(rotate(-90deg) translate(-15rem, 1.3rem) );
+    }
+    @include break('xs') {
+      font-size: 1.0rem;
+      @include transform(rotate(-90deg) translate(-8rem, 1.0rem) );
+    }
+  }
+}
+
+
 .work {
-  position: relative;
   display: flex;
+  flex-flow: row wrap;
+
   background-size: cover;
+  justify-content: center;
   align-items: center; // vertically
+  //align-items: stretch;
   img {
     // flex-direction: row;
     margin: auto; 
@@ -69,27 +96,23 @@ export default {
   }
 
   video {
+    margin: auto;
+    padding-left: 3rem;
     display: flex;
+    // flex-basis: auto;
     // flex-direction: row;
-    max-width: 960px;
-    margin: auto; 
+    // max-width: 960px;
+    max-height: 540px;
+    // margin: auto; 
     @include break('md') {
       width: 100%;
       min-height: 0px;
     } 
+    @include break('sm') {
+      padding-left: 2rem;
+    }
   }
 
 }
 
-/*
-.bg:after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(bottom, #fff, rgba(255,255,255,0) 40%);
-}
-*/
 </style>
