@@ -36,7 +36,6 @@
           span nodejs
           span mongo db
           span webpack
-          span npm
           span vue
           span vuetify
           span nuxt
@@ -101,4 +100,16 @@ img.me {
   }
 }
 
+.heading {
+  font-family: Roboto,sans-serif;
+  font-size: 1.3rem;
+  line-height: 2.5rem;
+}
+.subheading {
+  font-family: Roboto,sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  // text-align: justify;
+}
 </style>
