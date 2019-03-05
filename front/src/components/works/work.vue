@@ -1,13 +1,14 @@
 <template lang="pug">
 div
   .flex-row.work-header
-    .md.offset-3
+    .md.offset-3.span-7
       tab(:caption="title" color="#faf")
 
   .flex-row
     .xs.span-12
       .work(:style="bgStyle")
-        img(:src="`/works/images/${name}.jpg`")
+        // img(:src="`/works/images/${name}.jpg`")
+        video(:src="`/works/videos/${name}.mp4`" loop="loop" autoplay="autoplay")
 
   .flex-row
       .md.span-2.offset-2.photo
@@ -40,7 +41,7 @@ export default {
 @import "@/assets/style/common.scss";
 
 .work-header {
-  height: 5.5rem;
+  height: 4.5rem;
   display: flex;
   align-items: flex-end;
 /*
@@ -66,6 +67,18 @@ export default {
       min-height: 0px;
     } 
   }
+
+  video {
+    display: flex;
+    // flex-direction: row;
+    max-width: 960px;
+    margin: auto; 
+    @include break('md') {
+      width: 100%;
+      min-height: 0px;
+    } 
+  }
+
 }
 
 /*

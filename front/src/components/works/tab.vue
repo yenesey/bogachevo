@@ -22,6 +22,16 @@ $BK-COLOR: rgb(186, 224, 250);
   border-radius: 1.2rem 1.2rem 0 0;
   background-color: $BK-COLOR;
 
+  @include break('sm') {
+    width: 12rem;
+    height: 2.0rem;
+  }
+
+  @include break('sm') {
+    width: 10rem;
+    height: 1.8rem;
+  }
+
   .caption {
     display: flex;
     font-weight: bold;
@@ -35,16 +45,6 @@ $BK-COLOR: rgb(186, 224, 250);
     @include break('sm') {
       font-size: 1.2rem;
     }
-  }
-
-  @include break('sm') {
-    width: 12rem;
-    height: 2.0rem;
-  }
-
-  @include break('sm') {
-    width: 10rem;
-    height: 1.8rem;
   }
 
 }

@@ -160,7 +160,8 @@ export default {
      	var verts = rotate(mesh.verts, a, b, c)
 
 			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,150);
-			grd.addColorStop(0, '#10133e');
+			
+			grd.addColorStop(0, '#1d2d41');
 			grd.addColorStop(1, bgColor);
 			ctx.fillStyle = grd;
 			ctx.fillRect(cx-150, cy-150, 300, 300);
