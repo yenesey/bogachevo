@@ -16,7 +16,7 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #627891;
+  background-color: #627891;
 }
 ::-webkit-scrollbar {
     width: .6rem;

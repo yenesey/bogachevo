@@ -2,9 +2,8 @@
 
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const WebpackBar = require('webpackbar')
 
@@ -18,14 +17,14 @@ var config = {
 
   output: {
     path: resolve('dst'),
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/'
   },
 
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
-      'hmr$': 'webpack-hot-middleware/client.js',
       'vue$': 'vue/dist/vue.common.js',
       'vue-router$': 'vue-router/dist/vue-router.common.js'
     }
@@ -92,11 +91,11 @@ var config = {
   devtool: 'cheap-eval-source-map',
 
   plugins: [
-    new HtmlWebpackPlugin({
+   /* new HtmlWebpackPlugin({
       inject: true,
       favicon: resolve('src/assets', 'favicon.ico'),
       template: resolve('src/assets', 'index.html')
-    }),
+    }),*/
     new VueLoaderPlugin(),
     new WebpackBar({ minimal: false })
     // new HardSourceWebpackPlugin()
@@ -120,16 +119,13 @@ var config = {
 if (process.env.NODE_ENV === 'production') {
   config.mode = 'production'
   config.devtool = 'source-map'
-  if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
+  // if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
 } else { // dev mode by default
-  config.plugins.push(new webpack.HotModuleReplacementPlugin())
-  config.plugins.push(new webpack.NamedModulesPlugin())
   config.plugins.push(
     new webpack.DefinePlugin({
       'baseUrl': JSON.stringify('http://localhost')
     })
   )
-  config.entry.app.unshift('@/ie-hmr.js')
 }
 
 module.exports = config

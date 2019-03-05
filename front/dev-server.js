@@ -1,43 +1,52 @@
 'use strict'
 
-const http   = require('http')
 const config = require('./webpack.config')
-const compiler = require('webpack')(config)
-const express = require('express')
-const app = express()
+const webpack = require('webpack')
+const compiler = webpack(config)
+const serve = require('koa-static')
 
-const dev = require('webpack-dev-middleware')(compiler, {logLevel: 'error'})
-const hot = require('webpack-hot-middleware')(compiler, {log: false})
+const Koa = require('koa')
+const app = new Koa()
 
-app.use(express.static('./static'))
-app.use(dev)
-app.use(hot)
+const koaWebpack = require('koa-webpack');
 
-const server = http.Server(app)
+(async function () {
+  const middleware = await koaWebpack(
+    {
+      compiler: compiler,
+      devMiddleware: {
+        logLevel: 'error'
+      }
+    }
+  )
 
-server.listen(3000)
+  app.use(middleware)
+  app.use(serve('./static'))
 
-function close () {
-  console.log('server goes down now...')
-  server.close(function () {
-    console.log('all requests finished')
+  const server = app.listen(3000)
+
+  function close () {
+    console.log('server goes down now...')
+    server.close(function () {
+      console.log('all requests finished')
+      process.exit()
+    })
+    setTimeout(function () {
+      server.emit('close')
+    }, 5000)
+  }
+
+  server.on('clientError', (err, socket) => {
+    socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
+  })
+
+  server.on('error', (err) => {
+    console.log(err)
     process.exit()
-  });
-  setTimeout(function(){
-    server.emit('close')
-  }, 5000)
-}
+  })
 
-server.on('clientError', (err, socket) => {
-  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
-})
-
-server.on('error', (err) => {
-  console.log(err)
-  process.exit()
-})
-
-process
-  .on('SIGHUP', close)
-  .on('SIGTERM', close)
-  .on('SIGINT', close)
+  process
+    .on('SIGHUP', close)
+    .on('SIGTERM', close)
+    .on('SIGINT', close)
+})()

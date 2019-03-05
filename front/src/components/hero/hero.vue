@@ -170,68 +170,15 @@ img.maskot {
 //-------------------------------------------------------------------------------
 
 
-@-webkit-keyframes RGBshift{
-	0%{
-		-webkit-transform:rotate(0deg);
-    text-shadow:5px 10px 0px rgb(245, 245, 241);
-    opacity:1;
-	}
-	6%{
-	  -webkit-transform:rotate(0.5deg) scale(1.01);
-    text-shadow:
-     1px 1px 0px rgba(255,0,0,0.5),
-     -5px -2px 0px rgba(0,255,0,0.5),
-     -2px 4px 0px rgba(0,0,255,0.5);
-    opacity:1;
-	}
-  10%{
-    -webkit-transform:rotate(0deg);
-    text-shadow:
-     8px -2px 0px rgba(255,0,0,0.5),
-     -5px -2px 0px rgba(0,255,0,0.5),
-     2px -2px 0px rgba(0,0,255,0.5);
-    opacity:0.6;
-  }
-  12%{
-    text-shadow:none;
-    opacity:1;
-  }
-  58%{
-    -webkit-transform:rotate(0deg);
-    text-shadow:none;
-    opacity:1;
-  }
-  59%{
-     text-shadow:-5px -8px 0px rgb(245, 245, 241);
-    opacity:0.6;
-  }
-  62%{
-    -webkit-transform:rotate(-0.5deg) scale(1.01);
-    text-shadow:
-     8px -2px 0px rgba(255,0,0,0.5),
-     -5px -2px 0px rgba(0,255,0,0.5),
-     2px -2px 0px rgba(0,0,255,0.5);
-    opacity:1;
-  }
-  64%{
-    -webkit-transform:rotate(-0.75deg) scale(1.01);
-  }
-  67%{
-    text-shadow:none;
-    -webkit-transform:rotate(0deg);
-  }
-	100%{
-    -webkit-transform:rotate(0deg);
-	}
-}
 @keyframes RGBshift{
 	0%{
-		transform:rotate(0deg);
+		@include rotate(0deg);
     text-shadow:5px 10px 0px rgb(245, 245, 241);
     opacity:1;
 	}
 	6%{
-	 transform:rotate(0.5deg) scale(1.01);
+   @include rotate(0.5deg);
+   @include scale(1.01);
     text-shadow:
      1px 1px 0px rgba(255,0,0,0.5),
      -5px -2px 0px rgba(0,255,0,0.5),
@@ -239,7 +186,7 @@ img.maskot {
     opacity:1;
 	}
   10%{
-    transform:rotate(0deg);
+    @include rotate(0deg);
     text-shadow:
      8px -2px 0px rgba(255,0,0,0.5),
      -5px -2px 0px rgba(0,255,0,0.5),
@@ -251,7 +198,7 @@ img.maskot {
     opacity:1;
   }
   58%{
-    transform:rotate(0deg);
+    @include rotate(0deg);
     text-shadow:none;
     opacity:1;
   }
@@ -260,7 +207,8 @@ img.maskot {
     opacity:0.6;
   }
   62%{
-    transform:rotate(-0.5deg) scale(1.01);
+    @include rotate(-0.5deg);
+    @include scale(1.01);
     text-shadow:
      8px -2px 0px rgba(255,0,0,0.5),
      -5px -2px 0px rgba(0,255,0,0.5),
@@ -268,21 +216,20 @@ img.maskot {
     opacity:1;
   }
   64%{
-    transform:rotate(-0.75deg) scale(1.01);
+    @include rotate(-0.75deg);
+    @include scale(1.01);
   }
   67%{
     text-shadow:none;
-    transform:rotate(0deg);
+    @include rotate(0deg);
   }
 	100%{
-    transform:rotate(0deg);
+    @include rotate(0deg);
 	}
 }
 
 #logo{
-	color:#f5f5f1;
-  -webkit-animation:RGBshift 2s infinite alternate;
-  animation:RGBshift 2s infinite alternate;
+  animation: RGBshift 5s infinite alternate;
 }
 
 
