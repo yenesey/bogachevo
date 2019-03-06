@@ -55,8 +55,8 @@ export default {
 @import "@/assets/style/common.scss";
 
 //$MENU-BK-COLOR: #07102c;
-// $HERO-BK-COLOR: #07102c;
-$HERO-BK-COLOR: rgb(13, 29, 49);
+ $HERO-BK-COLOR: #07102c;
+//$HERO-BK-COLOR: rgb(13, 29, 49);
 
 .hero {
   background-color: $HERO-BK-COLOR;

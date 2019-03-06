@@ -5,9 +5,9 @@ div
       tab(:caption="title" color="#faf")
   .flex-row
     .xs.span-12
-      .work(:style="bgStyle")
+      .work(:style="bgStyle" @click="perspective=!perspective")
         // img(:src="`/works/images/${name}.jpg`")
-        .video-wrapper
+        .video-wrapper(:class="perspective?'perspective':''")
           span {{title}}
           video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
@@ -28,7 +28,8 @@ export default {
     return {
       bgStyle: {
         backgroundImage: `url('/works/backgrounds/synapse.jpg')`
-      }
+      },
+      perspective: true
     }
   }
 }
@@ -52,13 +53,8 @@ export default {
 }
 
 .video-wrapper {
-  // background-color: #fff;
-  //transform-style: preserve-3d;
-
-  //@include transform-origin(center center);
   //transform: matrix3d(0.866122, 0, -0.499833, 0, 0.203238, 0.913601, 0.352176, 0, 0.456648, -0.406612, 0.79129, 0, 0, 0, 0, 1);
 
-  //box-shadow: 2px 2px 3px black;
   box-shadow: -4px 5px 13px black;
   border: 1px outset transparent;
   transform-style: preserve-3d;
@@ -66,33 +62,46 @@ export default {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   // outline: 1px solid transparent;
-  @include transform(rotateX(15deg)  rotateY(25deg)  rotateZ(-4.62deg));
+  @include transition(all .5s ease)
+  @include transform-origin(left);
 
+  @include transform(rotateX(0deg) rotateY(0deg) rotateZ(0deg)  translateX(0rem) );
+  &.perspective { 
+    @include transform(rotateX(14deg) rotateY(24deg) rotateZ(-4.0deg)  translateX( 2rem) );
+  }
+  &.perspective:hover {
+    @include transform(rotateX(15deg) rotateY(25deg) rotateZ(-4.62deg)  translateX( 2rem) );
+  }
+  &:hover {
+    @include transform(rotateX(1deg) rotateY(3deg) rotateZ(0deg)  translateX( 0rem) );
+  }
+  text-align: center;
   span {
     font-family: 'Proxima Nova';
     font-size: 1.6rem;
     font-weight:bold;
-    // position:absolute;
+    //position:absolute;
     letter-spacing: .25em;
-     //@include rotate(-90deg);
-    /* 
+    /*
+    @include rotate(-90deg);
+
     @include transform-origin(left);
     @include transform(rotate(-90deg) translate(-19rem, 1.3rem) );
     @include break('sm') {
       @include transform(rotate(-90deg) translate(-15rem, 1.3rem) );
     }
+    */
     @include break('xs') {
       font-size: 1.0rem;
-      @include transform(rotate(-90deg) translate(-8rem, 1.0rem) );
+      // @include transform(rotate(-90deg) translate(-8rem, 1.0rem) );
     }
-    */
+  
   }
 }
 
 
 .work {
-  @include perspective(1500px);
-
+  @include perspective(1200px);
   display: flex;
   flex-flow: row wrap;
   background-size: cover;
@@ -110,19 +119,20 @@ export default {
 
   video {
     margin: auto;
-    // padding-left: 3rem;
+    //margin-left: 3rem;
     display: flex;
     // flex-basis: auto;
     // flex-direction: row;
-    max-width: 720px;
+    max-width: 920px;
     //max-height: 480px;
     // margin: auto; 
     @include break('md') {
       width: 100%;
-      min-height: 0px;
+      //min-height: 0px;
     } 
     @include break('sm') {
-      padding-left: 2rem;
+      //margin: auto;
+     // margin-left: 2rem;
     }
   }
 

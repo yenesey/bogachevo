@@ -9,7 +9,9 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "acorn": "^6.1.1"
+  },
   "devDependencies": {
     "@babel/core": "*",
     "@babel/preset-env": "*",
