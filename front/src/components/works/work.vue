@@ -8,7 +8,7 @@ div
       .work(:style="bgStyle")
         // img(:src="`/works/images/${name}.jpg`")
         .video-wrapper
-          // span {{title}}
+          span {{title}}
           video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
   .flex-row
@@ -22,13 +22,8 @@ div
 </template>
 
 <script>
-import tab from './tab'
-
 export default {
   props: ['title','name', 'description', 'role'],
-  components: {
-    tab
-  },
   data () {
     return {
       bgStyle: {
@@ -77,9 +72,10 @@ export default {
     font-family: 'Proxima Nova';
     font-size: 1.6rem;
     font-weight:bold;
-    position:absolute;
+    // position:absolute;
     letter-spacing: .25em;
      //@include rotate(-90deg);
+    /* 
     @include transform-origin(left);
     @include transform(rotate(-90deg) translate(-19rem, 1.3rem) );
     @include break('sm') {
@@ -89,6 +85,7 @@ export default {
       font-size: 1.0rem;
       @include transform(rotate(-90deg) translate(-8rem, 1.0rem) );
     }
+    */
   }
 }
 
@@ -113,7 +110,7 @@ export default {
 
   video {
     margin: auto;
-    //padding-left: 3rem;
+    // padding-left: 3rem;
     display: flex;
     // flex-basis: auto;
     // flex-direction: row;

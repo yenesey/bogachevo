@@ -30,8 +30,8 @@ const createNotifierCallback = () => {
 
     const message = fileName
       ? path.relative(__dirname, fileName) + ' (' + line + ')'
-      : error.message.split('\n').filter(row=>row.length > 10).splice(3, 3).join('\n')
-
+      : error.message.split('\n').filter(row=>row.length > 10).join('\n')
+    
     notifier.notify({
       // title: packageInfo.name,
       title: error.name,
