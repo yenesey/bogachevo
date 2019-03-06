@@ -1,17 +1,47 @@
 'use strict'
 
-const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const packageInfo = require('./package.json')
+const webpack = require('webpack')
+const path = require('path')
+
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const WebpackBar = require('webpackbar')
+
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
-const WebpackBar = require('webpackbar')
 
-const resolve = (...dirs) => require('path').join(...[__dirname, ...dirs])
+const resolve = (...dirs) => path.join(...[__dirname, ...dirs])
+
+const createNotifierCallback = () => {
+  const notifier = require('node-notifier')
+
+  return (severity, errors) => {
+    // if (severity !== 'error') return
+    const error = errors[0]
+    const wpError = error.webpackError.error
+
+    console.log('-----------------------------')
+    console.log(Object.keys(wpError))
+    const fileName = wpError.filename || wpError.file
+    const line = wpError.line || 'unknown'
+
+    const message = fileName
+      ? path.relative(__dirname, fileName) + ' (' + line + ')'
+      : error.message.split('\n').filter(row=>row.length > 10).splice(3, 3).join('\n')
+
+    notifier.notify({
+      // title: packageInfo.name,
+      title: error.name,
+      icon: resolve('/static/images/logo.png'),
+      message: message
+    })
+  }
+}
 
 var config = {
-  name: packageInfo['name'],
+  name: packageInfo.name,
 
   entry: {
     app: ['@/main.js']
@@ -126,6 +156,15 @@ if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
     new webpack.DefinePlugin({
       'baseUrl': JSON.stringify('http://localhost')
+    })
+  )
+
+  config.plugins.push(
+    new FriendlyErrorsPlugin({
+      /*compilationSuccessInfo: {
+        messages: [`Your application is running here:`]
+      },*/
+      onErrors: createNotifierCallback()
     })
   )
 }

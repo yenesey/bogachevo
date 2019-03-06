@@ -8,8 +8,8 @@ div
       .work(:style="bgStyle")
         // img(:src="`/works/images/${name}.jpg`")
         .video-wrapper
-          span {{title}}  
-          video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="preload")
+          // span {{title}}
+          video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
   .flex-row
       .md.span-2.offset-2.photo
@@ -58,6 +58,21 @@ export default {
 
 .video-wrapper {
   // background-color: #fff;
+  //transform-style: preserve-3d;
+
+  //@include transform-origin(center center);
+  //transform: matrix3d(0.866122, 0, -0.499833, 0, 0.203238, 0.913601, 0.352176, 0, 0.456648, -0.406612, 0.79129, 0, 0, 0, 0, 1);
+
+  //box-shadow: 2px 2px 3px black;
+  box-shadow: -4px 5px 13px black;
+  border: 1px outset transparent;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  // outline: 1px solid transparent;
+  @include transform(rotateX(15deg)  rotateY(25deg)  rotateZ(-4.62deg));
+
   span {
     font-family: 'Proxima Nova';
     font-size: 1.6rem;
@@ -79,9 +94,10 @@ export default {
 
 
 .work {
+  @include perspective(1500px);
+
   display: flex;
   flex-flow: row wrap;
-
   background-size: cover;
   justify-content: center;
   align-items: center; // vertically
@@ -97,12 +113,12 @@ export default {
 
   video {
     margin: auto;
-    padding-left: 3rem;
+    //padding-left: 3rem;
     display: flex;
     // flex-basis: auto;
     // flex-direction: row;
-    // max-width: 960px;
-    max-height: 540px;
+    max-width: 720px;
+    //max-height: 480px;
     // margin: auto; 
     @include break('md') {
       width: 100%;

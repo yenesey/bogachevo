@@ -5,7 +5,7 @@
       .sm.span-12
         .flex-row
           .xs.span-1.offset-2.hidden-xs-down
-            img.maskot(src="@/assets/maskot.png")
+            img.maskot(src="/images/logo.png")
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
@@ -229,7 +229,7 @@ img.maskot {
 }
 
 #logo{
-  animation: RGBshift 5s infinite alternate;
+  animation: RGBshift 15s infinite alternate;
 }
 
 
