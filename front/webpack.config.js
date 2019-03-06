@@ -8,6 +8,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const WebpackBar = require('webpackbar')
 
+// const PrerenderSPAPlugin = require('prerender-spa-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
@@ -152,6 +153,16 @@ if (process.env.NODE_ENV === 'production') {
   config.mode = 'production'
   config.devtool = 'source-map'
   // if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
+/*
+  config.plugins.push(
+    new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: resolve('dst'),
+      // Required - Routes to render.
+      routes: [ '/', '/about', '/works', '/contact' ],
+    })
+  )
+*/
 } else { // dev mode by default
   config.plugins.push(
     new webpack.DefinePlugin({

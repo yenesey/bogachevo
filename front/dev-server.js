@@ -22,6 +22,7 @@ const koaWebpack = require('koa-webpack');
 
   app.use(middleware)
   app.use(serve('./static'))
+  // app.use(serve('./dst'))
 
   const server = app.listen(3000)
 
