@@ -1,9 +1,9 @@
 <template lang="pug">
   .hero
     Animation
-    header.flex-row(:style="{height: headerHeight + 'px'}")
+    header.flex.row(:style="{height: headerHeight + 'px'}")
       .sm.span-12
-        .flex-row
+        .flex.row
           .xs.span-1.offset-2.hidden-xs-down
             img.maskot(src="/images/logo.png")
           nav.xs.span-7.menu
@@ -12,12 +12,12 @@
             a(href="#contact" v-smooth-scroll) Контакты
             a(href="#hobby") Прочее...
 
-    .flex-row
+    .flex.row
       .xs.span-6.offset-2
-        .flex-column.wrap
-          span#logo Привет!
-          span#logo Меня зовут Денис
-          span#logo Я создаю web приложения
+        .greeting.flex.column
+          span Привет!
+          span Меня зовут Денис
+          span Я создаю web приложения
 </template>
 
 <script>
@@ -52,7 +52,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/style/common.scss";
 
 //$MENU-BK-COLOR: #07102c;
  $HERO-BK-COLOR: #07102c;
@@ -65,18 +64,6 @@ export default {
   left: 0;
   right: 0;
   height: 90vh;
-/*
-  &:after {
-    content: '';
-    position: absolute;
-    top: 88px;
-    left: 0;
-    right: 0;
-    height: 80vh;
-    background-image: radial-gradient(circle at 15%,rgba(33,42,57, .42 ) 10%,rgba(25,32,43,0));
-    z-index: 3;
-  }
-*/
 }
 
 header {
@@ -87,7 +74,6 @@ header {
   align-items: center; // vertically
   background-color: $HERO-BK-COLOR;
   border-bottom: 1px solid #333d61;
-//  justify-content: space-around;
   div { // all nested divs
     height: 100%
   }
@@ -132,18 +118,18 @@ header {
   }
 }
 
-.wrap {
+.greeting {
   justify-content: center;
   top:0;
   bottom:0;
   position: absolute;
   z-index: 2;
-
   color: #edf4ff;
-  font-family: 'Proxima Nova';
   font-size: 3rem;
- // word-break: unset;
   line-height: 2.0em;
+  
+  animation: RGBshift 15s infinite alternate;
+
   @include break('md') {
     font-size: 2rem;
   }
@@ -227,13 +213,5 @@ img.maskot {
     @include rotate(0deg);
 	}
 }
-
-#logo{
-  animation: RGBshift 15s infinite alternate;
-}
-
-
-
-
 
 </style>

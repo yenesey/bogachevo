@@ -1,8 +1,12 @@
+//
+// NOTE: this available for each Vue component <style> section
+//       via webpack.config.js rule for "sass-loader"
+//       opions.data: `@import "@/assets/styles/base.scss";`
 
-/**********************************************
-               Responsible grid 
-***********************************************/
-// BREAKPOINTS map
+
+//****************** Responsible grid *****************
+
+// breakpoints map
 $BREAKPOINTS: (
   xs: 32rem,
   sm: 48rem,
@@ -23,57 +27,8 @@ $COLUMN-COUNT: 12;
   }
 }
 
-// loop over the BREAKPOINTS
-@each $key, $value in $BREAKPOINTS {
-  .#{$key}{
-    flex: 0 0 100%;
-  }
-  @include break($value, 'min') {
-    .#{$key}{
-      @for $i from 1 through $COLUMN-COUNT {
-        &.span-#{$i} {
-            flex: 0 0 #{$i / $COLUMN-COUNT * 100%};
-        }
-        &.offset-#{$i} {
-            margin-left: #{$i / $COLUMN-COUNT * 100%};
-        }
-      }
-    }
-  }
-  @include break($value, 'max') {
-    .hidden-#{$key}-down {
-      display: none !important;
-    }
-  }
-  @include break($value, 'min') {
-    .hidden-#{$key}-up {
-      display: none !important;
-    }
-  } 
-}
 
-//
-.flex-row {
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-}
-
-.flex-column {
-  display: flex;
-  flex-flow: column wrap;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/**********************************************
-            Transform mixins
-***********************************************/
-
+//****************** Transform mixins*****************
 // generic transform
 @mixin transform($transforms) {
     -moz-transform: $transforms;
@@ -116,9 +71,8 @@ $COLUMN-COUNT: 12;
   perspective: $pers;
 }
 
-/**********************************************
-            Transition mixins
-***********************************************/
+
+//******************  Transition mixins ********************
 
 @mixin transition($transition...) {
   -moz-transition:    $transition;
@@ -152,9 +106,8 @@ $COLUMN-COUNT: 12;
 }
 
 
-/**********************************************
-        Keyframe animation mixins
-***********************************************/
+
+//******************Keyframe animation mixins*******************
 
 @mixin keyframes($name) {
   @-o-keyframes $name { @content };
@@ -162,7 +115,7 @@ $COLUMN-COUNT: 12;
   @-webkit-keyframes $name { @content }; 
   @-keyframes $name { @content };
 }
-/*
+
 @mixin animation-name($name...) {
   -o-animation-name: $name;
   -moz-animation-name: $name;
@@ -218,4 +171,3 @@ $COLUMN-COUNT: 12;
   -webkit-animation: $animation;
   animation: $animation;
 }
-*/

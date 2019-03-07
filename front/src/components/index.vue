@@ -21,13 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-body {
-  margin: 0px;
-  -o-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-</style>

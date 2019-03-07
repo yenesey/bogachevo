@@ -1,23 +1,21 @@
 <template lang="pug">
-div
-  // .flex-row.work-header
-    .md.offset-3.span-7
-      tab(:caption="title" color="#faf")
-  .flex-row
-    .xs.span-12
-      .work(:style="bgStyle" @click="perspective=!perspective")
-        // img(:src="`/works/images/${name}.jpg`")
-        .video-wrapper(:class="perspective?'perspective':''")
-          span {{title}}
-          video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
+  div
+    .flex.row
+      .xs.span-12
+        .work(:style="bgStyle" @click="perspective=!perspective")
+          .video-container(:class="perspective?'perspective':''")
+            span {{title}}
+            video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
-  .flex-row
-      .md.span-2.offset-2.photo
-        .flex-column
-          span.subheading(style="color: #4e4e4e") {{role}}
-      .md.span-6(style="padding: 1rem")
-          span.subheading {{description}}
-  .flex-row(style="height: 2rem")       
+    .flex.row
+        .md.span-2.offset-2.photo
+          .flex.column
+            span.flex.subheading Роль
+            span.flex.subheading(style="color: #4e4e4e;") {{role}}
+        .md.span-6(style="padding: 1rem")
+          .flex.column
+            span.subheading(style="text-align: justify; margin:auto") {{description}}
+    .flex.row(style="height: 2rem")       
 
 </template>
 
@@ -36,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/style/common.scss";
 
 .work-header {
   height: 4.5rem;
@@ -52,32 +49,42 @@ export default {
   }
 }
 
-.video-wrapper {
-  //transform: matrix3d(0.866122, 0, -0.499833, 0, 0.203238, 0.913601, 0.352176, 0, 0.456648, -0.406612, 0.79129, 0, 0, 0, 0, 1);
+.work {
+  @include perspective(1200px);
+  display: flex;
+  flex-flow: row wrap;
+  background-size: cover;
+  justify-content: center;
+  align-items: center; // vertically
+}
 
-  box-shadow: -4px 5px 13px black;
+.video-container {
+  //transform: matrix3d(0.866122, 0, -0.499833, 0, 0.203238, 0.913601, 0.352176, 0, 0.456648, -0.406612, 0.79129, 0, 0, 0, 0, 1);
   border: 1px outset transparent;
   transform-style: preserve-3d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  // outline: 1px solid transparent;
-  @include transition(all .5s ease)
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+  outline: 1px solid transparent;
+  @include transition(all .5s ease);
   @include transform-origin(left);
+  box-shadow: -1px 1px 2px black;
 
   @include transform(rotateX(0deg) rotateY(0deg) rotateZ(0deg)  translateX(0rem) );
   &.perspective { 
     @include transform(rotateX(14deg) rotateY(24deg) rotateZ(-4.0deg)  translateX( 2rem) );
+    box-shadow: -4px 4px 13px black;
   }
   &.perspective:hover {
     @include transform(rotateX(15deg) rotateY(25deg) rotateZ(-4.62deg)  translateX( 2rem) );
   }
   &:hover {
     @include transform(rotateX(1deg) rotateY(3deg) rotateZ(0deg)  translateX( 0rem) );
+    box-shadow: -2px 2px 13px black;
   }
   text-align: center;
   span {
-    font-family: 'Proxima Nova';
+    // font-family: 'Proxima Nova';
     font-size: 1.6rem;
     font-weight:bold;
     //position:absolute;
@@ -95,45 +102,15 @@ export default {
       font-size: 1.0rem;
       // @include transform(rotate(-90deg) translate(-8rem, 1.0rem) );
     }
-  
-  }
-}
-
-
-.work {
-  @include perspective(1200px);
-  display: flex;
-  flex-flow: row wrap;
-  background-size: cover;
-  justify-content: center;
-  align-items: center; // vertically
-  //align-items: stretch;
-  img {
-    // flex-direction: row;
-    margin: auto; 
-    @include break('md') {
-      width: 100%;
-      min-height: 0px;
-    } 
   }
 
   video {
     margin: auto;
-    //margin-left: 3rem;
     display: flex;
-    // flex-basis: auto;
-    // flex-direction: row;
     max-width: 920px;
-    //max-height: 480px;
-    // margin: auto; 
     @include break('md') {
       width: 100%;
-      //min-height: 0px;
     } 
-    @include break('sm') {
-      //margin: auto;
-     // margin-left: 2rem;
-    }
   }
 
 }

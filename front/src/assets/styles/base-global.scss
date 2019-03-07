@@ -1,0 +1,63 @@
+//
+// NOTE: this part of base needs to be included once in root component of index.js
+//
+
+body {
+  font-family: 'Sans Serif';
+  margin: 0px;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+//
+.flex {
+  display: flex;
+  margin: auto;
+  &.row {
+    flex-flow: row wrap;
+    width: 100%;
+  }
+  &.column {
+    flex-flow: column wrap;   
+  }
+  &.nowrap {
+    flex-wrap: nowrap;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// loop over the BREAKPOINTS
+@each $key, $value in $BREAKPOINTS {
+  .#{$key}{
+    flex: 0 0 100%;
+  }
+  @include break($value, 'min') {
+    .#{$key}{
+      @for $i from 1 through $COLUMN-COUNT {
+        &.span-#{$i} {
+            flex: 0 0 #{$i / $COLUMN-COUNT * 100%};
+        }
+        &.offset-#{$i} {
+            margin-left: #{$i / $COLUMN-COUNT * 100%};
+        }
+      }
+    }
+  }
+  @include break($value, 'max') {
+    .hidden-#{$key}-down {
+      display: none !important;
+    }
+  }
+  @include break($value, 'min') {
+    .hidden-#{$key}-up {
+      display: none !important;
+    }
+  } 
+}

@@ -23,8 +23,8 @@ const createNotifierCallback = () => {
     const error = errors[0]
     const wpError = error.webpackError.error
 
-    console.log('-----------------------------')
-    console.log(Object.keys(wpError))
+    // console.log('-----------------------------')
+    // console.log(Object.keys(wpError))
     const fileName = wpError.filename || wpError.file
     const line = wpError.line || 'unknown'
 
@@ -96,17 +96,23 @@ var config = {
           }
         }
       },
-
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: [
+          'vue-style-loader', 
+          'css-loader', 
+          {
+            loader: 'sass-loader',
+            options: {
+              data: `@import "@/assets/styles/base.scss";`
+            }
+          }
+        ]
       },
-
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
       },
-
       {
         test: /\.(png|jpg|gif|svg|woff|woff2|eot|ttf)$/,
         use: {
