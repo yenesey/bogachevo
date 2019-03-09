@@ -10,11 +10,11 @@
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
-            a(href="#hobby") Прочее...
+            a.disabled(href="#hobby") Прочее...
 
     .flex.row
       .xs.span-6.offset-2
-        .greeting.flex.column
+        .flex.column.greeting
           span Привет!
           span Меня зовут Денис
           span Я создаю web приложения
@@ -79,6 +79,12 @@ header {
   }
 }
 
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: gray !important;
+}
+
 .menu {
   background-color: $HERO-BK-COLOR;
   font-family: 'Proxima Nova';
@@ -106,13 +112,11 @@ header {
       height: 2px;
       width: 0;
       background: transparent;
-      @include translate(50%, 0);
       @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
     }
 
     &:hover:after {
-      @include translate(0, 0);
-      width: 90%;
+      width: 95%;
       background-color: #7ed8f3;
     }
   }
@@ -136,9 +140,9 @@ header {
   @include break('sm') {
     font-size: 1.8rem;
   }
-  @include break('sm') {
+  @include break('xs') {
     font-size: 1.6rem;
-    margin: 2rem
+    margin: 1rem !important;
   }
 }
 
@@ -146,15 +150,13 @@ img.maskot {
   display: flex;
   height: 95%;
   border-radius: 50%;
- // margin-left:30%;
-  //@include translate(-50%, 0);  
   @include break('xs') {
     margin: auto;
     @include translate(0, 0);  
   }
 }
-//-------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------
 
 @keyframes RGBshift{
 	0%{

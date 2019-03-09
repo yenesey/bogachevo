@@ -7,21 +7,26 @@
             span {{title}}
             video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
-    .flex.row
-        .md.span-2.offset-2.photo
-          .flex.column
-            span.flex.subheading Роль
-            span.flex.subheading(style="color: #4e4e4e;") {{role}}
-        .md.span-6(style="padding: 1rem")
-          .flex.column
-            span.subheading(style="text-align: justify; margin:auto") {{description}}
+    .flex.row(style="padding: 1rem;")
+      .md.span-8.offset-2.link
+        a(v-if="link" :href="link") {{link}}
+        a(v-if="git" :href="git") {{git}}
+      
+      .md.span-2.offset-2
+        .flex.column
+          span.flex.subheading(style="padding-bottom: 1rem;") Роль: {{role}}
+      .md.span-6
+        .flex.column
+          span.subheading(style="text-align: justify; margin:auto") {{description}}
+
+
     .flex.row(style="height: 2rem")       
 
 </template>
 
 <script>
 export default {
-  props: ['title','name', 'description', 'role'],
+  props: ['title','name', 'description', 'role', 'link', 'git'],
   data () {
     return {
       bgStyle: {
@@ -34,20 +39,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-.work-header {
-  height: 4.5rem;
-  display: flex;
-  align-items: flex-end;
-/*
-  z-index:-2;
-  position:relative;
-  background-color: beige;
-*/  
-  @include break('xs') {
-    text-align: center;
-  }
-}
 
 .work {
   @include perspective(1200px);
@@ -114,5 +105,33 @@ export default {
   }
 
 }
+
+.link {
+  padding-bottom: .2rem;
+  display: flex;
+  a {
+    margin: auto;
+    text-decoration: none;
+    font-size: 1.2rem;
+    &:hover {
+      color: #0406a0;
+    }
+    &:after {
+      content: '';
+      display: block;
+      margin: auto;
+      height: 1px;
+      width: 0;
+      background: transparent;
+      @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
+    }
+
+    &:hover:after {
+      width: 100%;
+      background-color: #0406a0;
+    }
+  }
+}
+
 
 </style>

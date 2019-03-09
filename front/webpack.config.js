@@ -30,8 +30,8 @@ const createNotifierCallback = () => {
 
     const message = fileName
       ? path.relative(__dirname, fileName) + ' (' + line + ')'
-      : error.message.split('\n').filter(row=>row.length > 10).join('\n')
-    
+      : error.message.split('\n').filter(row => row.length > 10).join('\n')
+
     notifier.notify({
       // title: packageInfo.name,
       title: error.name,
@@ -43,9 +43,8 @@ const createNotifierCallback = () => {
 
 var config = {
   name: packageInfo.name,
-
   entry: {
-    app: ['@/main.js']
+    app: ['@/main.js', '@/assets/styles/base-global.scss']
   },
 
   output: {
@@ -99,8 +98,8 @@ var config = {
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader', 
-          'css-loader', 
+          'vue-style-loader',
+          'css-loader',
           {
             loader: 'sass-loader',
             options: {

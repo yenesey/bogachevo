@@ -1,5 +1,5 @@
 //
-// NOTE: this part of base needs to be included once in root component of index.js
+// NOTE: this part included in entry point in webpack.config.js
 //
 
 body {
@@ -20,10 +20,10 @@ body {
     width: 100%;
   }
   &.column {
-    flex-flow: column wrap;   
+    flex-flow: column wrap;
   }
   &.nowrap {
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 }
 

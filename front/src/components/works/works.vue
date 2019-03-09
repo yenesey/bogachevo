@@ -48,18 +48,4 @@ export default {
   }
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  @include break('md') {
-    margin: 0;
-  }
-}
-
-.subtitle {
-  font-style: italic;
-  font-size: 1.5rem;
-  font-weight: 300;
-}
-
 </style>

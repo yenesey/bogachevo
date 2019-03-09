@@ -1,7 +1,7 @@
 <template lang="pug">
   .flex.row.contact#contact
     .flex.row
-      .xs.span-8.offset-2.contact
+      .xs.span-8.offset-2.works-header
         h1.title.shadow(style="color:#7ed8f3;") Контакты
         
 </template>
