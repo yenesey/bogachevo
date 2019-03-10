@@ -13,11 +13,12 @@
         a(v-if="git" :href="git") {{git}}
       
       .md.span-2.offset-2
-        .flex.column
-          span.flex.subheading(style="padding-bottom: 1rem;") Роль: {{role}}
+        .flex.row
+          .flex.subheading(style="padding: 0.5rem;text-align:center") 
+            span Роль: {{role}}
       .md.span-6
         .flex.column
-          span.subheading(style="text-align: justify; margin:auto") {{description}}
+          span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}
 
 
     .flex.row(style="height: 2rem")       
@@ -109,27 +110,11 @@ export default {
 .link {
   padding-bottom: .2rem;
   display: flex;
+  font-family: inherit;
+  font-size: 1.2rem;
   a {
     margin: auto;
-    text-decoration: none;
-    font-size: 1.2rem;
-    &:hover {
-      color: #0406a0;
-    }
-    &:after {
-      content: '';
-      display: block;
-      margin: auto;
-      height: 1px;
-      width: 0;
-      background: transparent;
-      @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
-    }
-
-    &:hover:after {
-      width: 100%;
-      background-color: #0406a0;
-    }
+    @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233))
   }
 }
 

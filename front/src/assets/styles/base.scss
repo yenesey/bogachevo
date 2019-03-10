@@ -171,3 +171,30 @@ $COLUMN-COUNT: 12;
   -webkit-animation: $animation;
   animation: $animation;
 }
+
+//******************Link animation mixin*******************
+
+@mixin animated-link($color, $hover-color) {
+
+  text-decoration: none;
+  color: $color;
+
+  &:hover {
+    color: $hover-color;
+  }
+  
+  &:after {
+    content: '';
+    margin: auto;
+    display: block;
+    height: 1px;
+    width: 0;
+    background: transparent;
+    @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
+  }
+  
+  &:hover:after {
+    width: 100%;
+    background-color: $hover-color;
+  }
+}

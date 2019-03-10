@@ -103,7 +103,7 @@ var config = {
           {
             loader: 'sass-loader',
             options: {
-              data: `@import "@/assets/styles/base.scss";`
+              data: `@import "@/assets/styles/base.scss"; @import "@/assets/styles/variables.scss";`
             }
           }
         ]

@@ -54,7 +54,7 @@ export default {
 <style lang="scss">
 
 //$MENU-BK-COLOR: #07102c;
- $HERO-BK-COLOR: #07102c;
+
 //$HERO-BK-COLOR: rgb(13, 29, 49);
 
 .hero {
@@ -67,7 +67,7 @@ export default {
 }
 
 header {
-  height: 88px;
+  height:  6.125rem;
   @include transition(height .3s cubic-bezier(.645,.045,.355,1));
   position: fixed;
   z-index: 12;
@@ -96,7 +96,7 @@ header {
   a {
     margin-left: 2em;
     text-decoration: none;
-    color: #edf4ff;
+    color: $NAV-ITEM-COLOR;
 
     @include break('sm') {
       margin: auto;
