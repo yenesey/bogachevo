@@ -57,7 +57,7 @@ export default {
     padding : 1rem;
     @include transition(all .5s cubic-bezier(0.39, 0.575, 0.565, 1));
     &:hover{
-      background: rgb(210, 212, 223);
+      background: $HIGHLIGHT-ITEM-COLOR;
     }
   }
 

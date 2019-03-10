@@ -18,10 +18,7 @@
             span Роль: {{role}}
       .md.span-6
         .flex.column
-          span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}
-
-
-    .flex.row(style="height: 2rem")       
+          span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}  
 
 </template>
 
@@ -110,7 +107,6 @@ export default {
 .link {
   padding-bottom: .2rem;
   display: flex;
-  font-family: inherit;
   font-size: 1.2rem;
   a {
     margin: auto;

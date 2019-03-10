@@ -26,8 +26,8 @@ export default {
 </script>
 
 <style lang="scss">
-span {
-  font-family:Proxima Nova;
+h1, h2, a, span {
+  font-family: $FONT-FACE-BASIC;
 }
 
 .title {
@@ -42,13 +42,11 @@ span {
 }
 
 .heading {
-  font-family: Roboto,sans-serif;
   font-size: 1.3rem;
   line-height: 2.5rem;
 }
 
 .subheading {
-  font-family: Roboto,sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -58,7 +56,7 @@ span {
 }
 
 .shadow {
-  box-shadow: inset 0 -6px 0 rgba(48, 106, 172, 0.39);
+  box-shadow: inset 0 -6px 0 $HIGHLIGHT-ITEM-COLOR;
 }
 
 </style>
