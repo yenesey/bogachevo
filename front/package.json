@@ -10,12 +10,13 @@
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
   "dependencies": {
-    "acorn": "^6.1.1"
+    "vue-flash-message": "^0.7.2"
   },
   "devDependencies": {
     "@babel/core": "*",
     "@babel/preset-env": "*",
     "@vue/babel-preset-app": "*",
+    "acorn": "^6.1.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "*",
     "babel-plugin-transform-runtime": "*",

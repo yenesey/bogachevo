@@ -53,10 +53,6 @@ export default {
 
 <style lang="scss">
 
-//$MENU-BK-COLOR: #07102c;
-
-//$HERO-BK-COLOR: rgb(13, 29, 49);
-
 .hero {
   background-color: $HERO-BK-COLOR;
   overflow: hidden;
@@ -95,30 +91,10 @@ header {
   
   a {
     margin-left: 2em;
-    text-decoration: none;
-    color: $NAV-ITEM-COLOR;
-
     @include break('sm') {
       margin: auto;
     }
-
-    &:hover {
-      color: #7ed8f3;
-    }
-    &:after {
-      content: '';
-      display: block;
-      margin: auto;
-      height: 2px;
-      width: 0;
-      background: transparent;
-      @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
-    }
-
-    &:hover:after {
-      width: 95%;
-      background-color: #7ed8f3;
-    }
+    @include  animated-link($NAV-ITEM-COLOR, #7ed8f3)
   }
 }
 

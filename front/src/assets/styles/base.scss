@@ -190,7 +190,7 @@ $COLUMN-COUNT: 12;
     height: 1px;
     width: 0;
     background: transparent;
-    @include transition(width .3s cubic-bezier(.645,.045,.355,1), transform .3s cubic-bezier(.645,.045,.355,1),  background-color .5s ease);
+    @include transition(width .3s cubic-bezier(0.39, 0.575, 0.565, 1), transform .3s cubic-bezier(0.39, 0.575, 0.565, 1),  background-color .3s cubic-bezier(0.39, 0.575, 0.565, 1));
   }
   
   &:hover:after {

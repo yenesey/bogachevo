@@ -3,19 +3,19 @@
     Icons
     .xs.span-8.offset-2.works-header
       h1.title.shadow Контакты
-      .flex.row
+      .flex.row(style="width:auto")
         .flex
-          .wrap-contact
+          .wrap-contact(@click="clipboard('+7(923)30-66664')")
             svg.icon
               use(xlink:href="#phone")
             span +7(923)30-66664
         .flex
-          .wrap-contact
+          .wrap-contact(@click="follow('https://t.me/bacchuss')")
             svg.icon
               use(xlink:href="#telegram")
             span https://t.me/bacchuss
         .flex
-          .wrap-contact
+          .wrap-contact(@click="follow('mailto:d.enisei@yandex.ru')")
             svg.icon
               use(xlink:href="#mail")
             span d.enisei@yandex.ru
@@ -28,13 +28,26 @@ import Icons from './icons'
 export default {
   components: {
     Icons
+  },
+  methods: {
+    follow (link) {
+      window.open(link, '_newtab')
+      this.flash('Открыто в соседней вкладке', 'info', {timeout: 6000})
+    },
+    clipboard (text) {
+      if (typeof text === 'undefined') return
+      var copytext = document.createElement('input')
+      document.body.appendChild(copytext)
+      copytext.select()
+      document.execCommand('copy')
+      document.body.removeChild(copytext)
+      this.flash('Скопировано в буфер обмена', 'info', {timeout: 6000})
+    }
   }
 }
 </script>
 
 <style lang="scss">
-
-
 
 .contact { 
   display: flex;
@@ -51,7 +64,8 @@ export default {
   }
 
   .wrap-contact {
-    // border-radius: 1rem;
+    cursor: pointer;
+    border-radius: .2rem;
     display: flex;
     align-items: center;
     padding : 1rem;
