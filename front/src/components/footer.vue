@@ -23,23 +23,23 @@ footer {
   font-family: "Proxima Nova";
   height: 6.125rem;
   justify-content: center;
+}
 
-  > span {
-    margin: 0 auto;
-  }
+.links {
+  align-content: center; //v
+  justify-content: center; // h
+  margin: 0 !important;
+  padding-bottom: .5rem;
+  font-size:1.1rem;
+
   a {
     color: $NAV-ITEM-COLOR;
-    line-height: 1.5rem;
     @include animated-link($NAV-ITEM-COLOR, rgb(144, 180, 226))
   }
+
   span {
-    line-height: 1.5rem;
     color: $NAV-ITEM-COLOR;
-    font-size:1.1rem;
   }
-  .links {
-    justify-content: center;
-    margin: 0;
-  }
+
 }
 </style>

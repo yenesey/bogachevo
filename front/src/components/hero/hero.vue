@@ -5,12 +5,12 @@
       .sm.span-12
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down
-            img.maskot(src="/images/logo.png")
+            img.maskot(src="/images/logo.png" @click="clickLogo")
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
-            a.disabled(href="#hobby") Прочее...
+            a.disabled(href="#hobby" @click="clickOther") Прочее...
 
     .flex.row
       .xs.span-6.offset-2
@@ -18,6 +18,12 @@
           span Привет!
           span Меня зовут Денис
           span Я создаю web приложения
+   
+    .scroll
+        svg(width="40px" height="100%" viewBox="0 0 247 590" version="1.1"  xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink")
+          path#wheel(d="M123.359,79.775l0,72.843", style="fill:none;stroke:#fff;stroke-width:20px;")
+          path#mouse(d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z", style="fill:none;stroke:#fff;stroke-width:20px;")
+    
 </template>
 
 <script>
@@ -40,6 +46,12 @@ export default {
     window.addEventListener('scroll', this.onScroll)
   },
   methods: {
+    clickLogo () {
+      this.flash('Это маскот сайта. Его нарисовали мои доченьки, так что он пока поживет здесь!', 'info', {timeout: 6000})
+    },
+    clickOther () {
+      this.flash('Раздел "Прочее" сейчас в процессе. Планирую добавить образовательный материал для школьников, связанный тригонометрией и 3D графикой', 'info', {timeout: 6000})
+    },
     onScroll() {
       if (window.pageYOffset > 10) {
         this.headerHeight=44
@@ -66,7 +78,7 @@ header {
   height:  6.125rem;
   @include transition(height .3s cubic-bezier(.645,.045,.355,1));
   position: fixed;
-  z-index: 12;
+  z-index: 10;
   align-items: center; // vertically
   background-color: $HERO-BK-COLOR;
   border-bottom: 1px solid #333d61;
@@ -76,7 +88,7 @@ header {
 }
 
 .disabled {
-  pointer-events: none;
+  //pointer-events: none;
   cursor: default;
   color: gray !important;
 }
@@ -132,7 +144,28 @@ img.maskot {
   }
 }
 
-//-------------------------------------------------------------------------------
+//--------------------animate scroll down image--------------------------------
+@keyframes scroll {
+	0% {
+		transform: translateY(0);
+	}
+	30% {
+		transform: translateY(60px);
+	}
+}
+
+svg #wheel {
+	animation: scroll ease 2s infinite;
+}
+
+.scroll{
+  z-index: 9;
+  position: absolute;
+  top: 78vh;
+  margin-left: 80%;
+
+}
+//----------------------animate hello text---------------------------------
 
 @keyframes RGBshift{
 	0%{

@@ -12,6 +12,7 @@ export default {}
 </script>
 
 <style lang="scss">
+
 .flashpool {
   z-index: 12;
   position:fixed;
@@ -19,8 +20,10 @@ export default {}
   top:6.125rem;
   right:20px;
   max-height:400px;
+  width:260px;
   font-size:1.0rem;
   font-family: $FONT-FACE-BASIC;
+  perspective:400px;
 }
 
 .flash__message.info{
