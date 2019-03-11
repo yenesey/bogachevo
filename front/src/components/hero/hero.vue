@@ -91,7 +91,7 @@ export default {
 
 header {
   height:  6.125rem;
-  @include transition(height .3s cubic-bezier(.645,.045,.355,1));
+  @include transition(height .5s ease);
   position: fixed;
   z-index: 10;
   align-items: center; // vertically
