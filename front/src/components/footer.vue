@@ -30,7 +30,7 @@ footer {
   justify-content: center; // h
   margin: 0 !important;
   padding-bottom: .5rem;
-  font-size:1.1rem;
+  font-size:0.95rem;
 
   a {
     color: $NAV-ITEM-COLOR;

@@ -7,16 +7,17 @@
             span {{title}}
             video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
-    .flex.row(style="padding: 1rem;")
-      .md.span-8.offset-2.link
-        a(v-if="link" :href="link") {{link}}
-        a(v-if="git" :href="git") {{git}}
-      
-      .md.span-2.offset-2
-        .flex.row
-          .flex.subheading(style="padding: 0.5rem;text-align:center") 
+    .flex.row(style="padding: .5rem;")
+      .md.span-8.offset-2
+        .flex.row(style="flex-flow: row wrap-reverse !important;")
+          .md.span-6.link
             span Роль: {{role}}
-      .md.span-6
+          .md.span-6.link
+            a(v-if="link" :href="link") {{link}}
+            a(v-if="git" :href="git") {{git}}
+
+    .flex.row
+      .md.span-8.offset-2
         .flex.column
           span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}  
 
@@ -109,8 +110,17 @@ export default {
   display: flex;
   font-size: 1.2rem;
   a {
-    margin: auto;
+    margin-left: auto;
     @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233))
+    @include break('md'){
+      margin: auto;
+    }
+  }
+  span {
+    @include break('md'){
+      margin: auto;
+      text-align: center;
+    }
   }
 }
 
