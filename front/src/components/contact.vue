@@ -37,6 +37,7 @@ export default {
     clipboard (text) {
       if (typeof text === 'undefined') return
       var copytext = document.createElement('input')
+      copytext.value = text
       document.body.appendChild(copytext)
       copytext.select()
       document.execCommand('copy')
