@@ -4,7 +4,7 @@
     header.flex.row(:style="{height: headerHeight + 'px'}")
       .sm.span-12
         .flex.row
-          .xs.span-1.offset-2.hidden-xs-down
+          .xs.span-1.offset-2.hidden-xs-down(ref="maskot")
             img.maskot(src="/images/logo.png" @click="clickLogo")
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
@@ -44,10 +44,25 @@ export default {
   
   mounted () {
     window.addEventListener('scroll', this.onScroll)
+    
+    var panel = this.$refs.maskot
+    var maskot = panel.querySelector(".maskot");
+
+    panel.addEventListener('mouseout', e => {
+    		maskot.style.transform = `perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
+    })
+
+    panel.addEventListener('mousemove', e => {
+      let w = panel.clientWidth;
+    	let h = panel.clientHeight;
+    	let y = (e.offsetX - w * 0.5) / w * 55;
+    	let x = (1 - (e.offsetY - h * 0.5)) / h * 55;
+    	maskot.style.transform = `perspective(300px) rotateX(${x}deg) rotateY(${y}deg)`;
+    })
   },
   methods: {
     clickLogo () {
-      this.flash('Это маскот сайта. Его нарисовали мои доченьки, так что он пока поживет здесь!', 'info', {timeout: 6000})
+      this.flash('Это маскот сайта. Его нарисовали мои доченьки, так что он пока поселился здесь!', 'info', {timeout: 6000})
     },
     clickOther () {
       this.flash('Раздел "Прочее" сейчас в процессе. Планирую добавить образовательный материал для школьников, связанный тригонометрией и 3D графикой', 'info', {timeout: 6000})
@@ -138,19 +153,20 @@ img.maskot {
   display: flex;
   height: 95%;
   border-radius: 50%;
+  @include transition(all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1));
   @include break('xs') {
     margin: auto;
-    @include translate(0, 0);  
+    @include translate(0, 0);
   }
 }
 
 //--------------------animate scroll down image--------------------------------
 @keyframes scroll {
 	0% {
-		transform: translateY(0);
+		@include translateY(0);
 	}
 	30% {
-		transform: translateY(60px);
+		@include translateY(60px);
 	}
 }
 
