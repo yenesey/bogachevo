@@ -45,16 +45,16 @@ export default {
   mounted () {
     window.addEventListener('scroll', this.onScroll)
     
-    var panel = this.$refs.maskot
-    var maskot = panel.querySelector(".maskot");
+    var back = this.$refs.maskot
+    var maskot = back.querySelector(".maskot");
 
-    panel.addEventListener('mouseout', e => {
-    		maskot.style.transform = `perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
+    back.addEventListener('mouseout', e => {
+    	maskot.style.transform = `perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
     })
 
-    panel.addEventListener('mousemove', e => {
-      let w = panel.clientWidth;
-    	let h = panel.clientHeight;
+    back.addEventListener('mousemove', e => {
+      let w = back.clientWidth;
+    	let h = back.clientHeight;
     	let y = (e.offsetX - w * 0.5) / w * 55;
     	let x = (1 - (e.offsetY - h * 0.5)) / h * 55;
     	maskot.style.transform = `perspective(300px) rotateX(${x}deg) rotateY(${y}deg)`;
