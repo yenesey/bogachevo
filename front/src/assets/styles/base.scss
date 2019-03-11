@@ -180,22 +180,21 @@ $COLUMN-COUNT: 12;
 
 //******************Link animation mixin*******************
 
-@mixin animated-link($color, $hover-color) {
+@mixin animated-link($color, $hover-color, $shadow-size: 1px) {
 
   text-decoration: none;
   color: $color;
 
   &:hover {
     color: $hover-color;
-  }
+ }
   
   &:after {
     content: '';
     margin: auto;
     display: block;
-    height: 1px;
+    height: $shadow-size;
     width: 0;
-    background: transparent;
     @include transition(width .3s cubic-bezier(0.39, 0.575, 0.565, 1), transform .3s cubic-bezier(0.39, 0.575, 0.565, 1),  background-color .3s cubic-bezier(0.39, 0.575, 0.565, 1));
   }
   

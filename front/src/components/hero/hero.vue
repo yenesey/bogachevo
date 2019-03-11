@@ -111,7 +111,7 @@ header {
 .menu {
   background-color: $HERO-BK-COLOR;
   font-family: 'Proxima Nova';
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   align-items: center; // vertically
   display: flex;
   justify-content: flex-end;
@@ -121,7 +121,7 @@ header {
     @include break('sm') {
       margin: auto;
     }
-    @include  animated-link($NAV-ITEM-COLOR, #7ed8f3)
+    @include animated-link($NAV-ITEM-COLOR, #7ed8f3, 2px);
   }
 }
 
@@ -175,6 +175,7 @@ svg #wheel {
 }
 
 .scroll{
+  @include scale(0.7);
   z-index: 9;
   position: absolute;
   top: 78vh;
