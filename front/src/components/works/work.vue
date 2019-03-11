@@ -7,9 +7,9 @@
             span {{title}}
             video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
-    .flex.row(style="padding: .5rem;")
+    .flex.row
       .md.span-8.offset-2
-        .flex.row(style="flex-flow: row wrap-reverse !important;")
+        .flex.row(style="flex-flow: row wrap-reverse !important;padding: .5rem;")
           .md.span-6.link
             span Роль: {{role}}
           .md.span-6.link
