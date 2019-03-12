@@ -26,14 +26,14 @@ export default {}
   perspective:400px;
 }
 
-.flash__message.info{
+.flash__message.info {
   background: $HERO-BK-COLOR;
   color: $NAV-ITEM-COLOR;
   border: none; 
   @include transition(all .5s);
 }
 
-.flash-enter,.flash-leave-to{
+.flash-enter,.flash-leave-to {
   opacity:0;
   @include transform(rotateX(-30deg) scale(.88) translateY(-30px));
 }  

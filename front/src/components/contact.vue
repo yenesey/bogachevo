@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Icons from './icons'
+import Icons from './common/icons'
 
 export default {
   components: {

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Flash from './flash'
+import Flash from './common/flash'
 import Hero from './hero/hero'
 import Works from './works/works'
 import About from './about'
