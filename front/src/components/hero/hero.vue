@@ -12,17 +12,17 @@
             a(href="#contact" v-smooth-scroll) Контакты
             a.disabled(href="#hobby" @click="clickOther") Прочее...
 
-    .flex.row
-      .xs.span-6.offset-2
-        .flex.column.greeting
-          span Привет!
-          span Меня зовут Денис
-          span Я создаю web приложения
+
+    .xs.span-6.offset-2
+      .flex.column.greeting
+        span Привет!
+        span Меня зовут Денис
+        span Я создаю web приложения
    
     .scroll
-        svg(width="40px" height="100%" viewBox="0 0 247 590" version="1.1"  xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink")
-          path#wheel(d="M123.359,79.775l0,72.843", style="fill:none;stroke:#fff;stroke-width:20px;")
-          path#mouse(d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z", style="fill:none;stroke:#fff;stroke-width:20px;")
+      svg(width="40px" height="100%" viewBox="0 0 247 590" version="1.1"  xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink")
+        path#wheel(d="M123.359,79.775l0,72.843", style="fill:none;stroke:#fff;stroke-width:20px;")
+        path#mouse(d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z", style="fill:none;stroke:#fff;stroke-width:20px;")
     
 </template>
 
@@ -90,8 +90,8 @@ export default {
 }
 
 header {
-  height:  6.125rem;
-  @include transition(height .3s cubic-bezier(.645,.045,.355,1));
+  height: 6.125rem;
+  @include transition(height .5s ease);
   position: fixed;
   z-index: 10;
   align-items: center; // vertically
@@ -111,7 +111,7 @@ header {
 .menu {
   background-color: $HERO-BK-COLOR;
   font-family: 'Proxima Nova';
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   align-items: center; // vertically
   display: flex;
   justify-content: flex-end;
@@ -121,14 +121,14 @@ header {
     @include break('sm') {
       margin: auto;
     }
-    @include  animated-link($NAV-ITEM-COLOR, #7ed8f3)
+    @include animated-link($NAV-ITEM-COLOR, #7ed8f3, 2px);
   }
 }
 
 .greeting {
   justify-content: center;
-  top:0;
-  bottom:0;
+  top: 89px;
+  height: 75vh;
   position: absolute;
   z-index: 2;
   color: #edf4ff;
@@ -175,11 +175,11 @@ svg #wheel {
 }
 
 .scroll{
+  @include scale(0.7);
   z-index: 9;
   position: absolute;
   top: 78vh;
   margin-left: 80%;
-
 }
 //----------------------animate hello text---------------------------------
 
