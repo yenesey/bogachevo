@@ -4,7 +4,7 @@
 //       opions.data: `@import "@/assets/styles/base.scss";`
 
 
-//****************** Responsible grid *****************
+//------------------ Responsible grid -----------------
 
 // breakpoints map
 $BREAKPOINTS: (
@@ -28,7 +28,7 @@ $COLUMN-COUNT: 12;
 }
 
 
-//****************** Transform mixins*****************
+//------------------ Transform mixins-----------------
 // generic transform
 @mixin transform($transforms) {
     -moz-transform: $transforms;
@@ -78,7 +78,7 @@ $COLUMN-COUNT: 12;
   perspective: $pers;
 }
 
-//******************  Transition mixins ********************
+//------------------  Transition mixins --------------------
 
 @mixin transition($transition...) {
   -moz-transition:    $transition;
@@ -113,7 +113,7 @@ $COLUMN-COUNT: 12;
 
 
 
-//******************Keyframe animation mixins*******************
+//------------------Keyframe animation mixins-------------------
 
 @mixin keyframes($name) {
   @-o-keyframes $name { @content };
@@ -178,7 +178,7 @@ $COLUMN-COUNT: 12;
   animation: $animation;
 }
 
-//******************Link animation mixin*******************
+//------------------Link animation mixin-------------------
 
 @mixin animated-link($color, $hover-color) {
 
