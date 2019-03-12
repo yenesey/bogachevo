@@ -6,7 +6,7 @@
     .flex.row
       .xs.span-2.offset-2
         .flex.column.photo
-          img.me(src="@/assets/me.png")
+          img.me(src="/images/me.png")
           span.heading Денис Богачев
           span.subheading(style="color: #4e4e4e") Web-разработчик
           span.subheading(style="color: #4e4e4e") специалист IT
