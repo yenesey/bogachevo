@@ -5,7 +5,7 @@
       .sm.span-12
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down(ref="maskot")
-            img.maskot(src="/images/logo.png" @click="clickLogo")
+            img.maskot(src="/images/logo.png" @click="clickLogo" v-tooltip="'You have new messages.'")
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне

@@ -10,7 +10,6 @@
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
   "dependencies": {
-    "v-tooltip": "^2.0.0-rc.33",
     "vue-flash-message": "^0.7.2"
   },
   "devDependencies": {
