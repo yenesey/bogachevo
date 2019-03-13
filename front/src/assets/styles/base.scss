@@ -27,7 +27,29 @@ $COLUMN-COUNT: 12;
   }
 }
 
+<<<<<<< HEAD
 
+=======
+// -------------- Scrollbars
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  ::-webkit-scrollbar {
+    width:  $size;
+    height: $size;
+    border: 1px solid #e6ecf8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+  ::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+  // IE
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+>>>>>>> 21c0d5ffd0ec00d81ec663116f4d6ee52835aa02
 //------------------ Transform mixins-----------------
 // generic transform
 @mixin transform($transforms) {

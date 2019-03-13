@@ -15,11 +15,13 @@ export default {
 	src: url('./assets/fonts/ProximaNova-Regular.woff') format('woff'); 
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #627891;
+@font-face {
+	font-family: 'Play';
+	src: url('./assets/fonts/Play.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
-::-webkit-scrollbar {
-    width: .6rem;
-    border-left: 1px solid #e6ecf8;
-}
+
+@include scrollbars(.6rem, #627891, white);
+
 </style>
