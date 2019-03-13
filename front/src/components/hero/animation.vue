@@ -26,8 +26,8 @@ function Vertex(_x, _y, _z) {
 // процедурно генерируем меш (polygon mesh)
 function generateMesh () {
 	// ---------------------------------------------
-	var GALAXY_ARMS_COUNT = 5
-	var GALAXY_STARS_PER_ARM = 750
+	var GALAXY_ARMS_COUNT = 3
+	var GALAXY_STARS_PER_ARM = 550
 
 	var VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT // всего вершин
 	var verts = new Array(VERT_COUNT)  // массив вершин
@@ -41,7 +41,7 @@ function generateMesh () {
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 3.5*PI / GALAXY_STARS_PER_ARM
+			var b = j * 3.1*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = Math.floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm()*r1
@@ -119,9 +119,18 @@ export default {
       	a: -75,
       	b: 0,
 				c: 0,
+				da: 0,
+				db: -0.07,
+				dc: 0
 			},
 			mesh: null,
-			bgColor: '#000'
+			bgColor: '#000',
+
+			showFps: false,
+			timestamp: 0,
+			timepast: 0,
+			fps: 0,
+			count: 0,
     }
   },
   computed: {
@@ -133,9 +142,15 @@ export default {
     }
   },
   methods: {
+		onKey(e) {
+			if (e.keyCode === 70) this.showFps = !this.showFps
+			if (e.keyCode === 37) this.angle.db += 0.01
+			if (e.keyCode === 39) this.angle.db -= 0.01
+			//console.log(e.keyCode)
+		},
 		resizeCanvas() {
 			const { canvas } = this
-			let { height, width } = document.querySelector('.hero').getBoundingClientRect()
+			let { height, width } = this.$parent.$el.getBoundingClientRect()
 			canvas.width  = width
 			canvas.height = height - 89
 		},
@@ -154,13 +169,32 @@ export default {
     },
 
     render (mesh, a, b, c) {
-      const { canvas, ctx, bgColor } = this
+			const { canvas, ctx, bgColor } = this
+			
+			ctx.fillStyle = bgColor
+			ctx.fillRect(0, 0, canvas.width, canvas.height)
+			// vs ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+			var now = Date.now()
+			this.timepast += now - this.timestamp
+			this.timestamp = now
+			this.count++
+			if (this.timepast >= 1000) {
+				this.fps = this.count
+				this.count = 0
+				this.timepast = 0
+			}
+			if (this.showFps) {
+				ctx.fillStyle = '#fff'
+				ctx.font = '12px Play'
+				ctx.fillText(this.fps + ' fps', 20, 20)
+			}
+
     	var cx = canvas.width / 2 + 100
     	var cy = canvas.height / 2
      	var verts = rotate(mesh.verts, a, b, c)
 
 			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,150);
-			
 			grd.addColorStop(0, '#122231');
 			grd.addColorStop(1, bgColor);
 			ctx.fillStyle = grd;
@@ -173,29 +207,28 @@ export default {
 			}
     },
     step () {
-			const { ctx, canvas, angle, bgColor } = this
-			ctx.fillStyle = bgColor
-			ctx.fillRect(0, 0, canvas.width, canvas.height)
-			// ctx.drawImage(this.bg, 0 ,0)
-			//ctx.clearRect(0, 0, canvas.width, canvas.height)
-      //angle.a += 1- cos(angle.b * PI / 180)
-			angle.b -= 0.04
-			//angle.c += sin(angle.b * PI / 180)
+			const { angle } = this
+
+			//angle.a += 1- cos(angle.b * PI / 180)
+			angle.a += angle.da
+			angle.b += angle.db
+			angle.c += angle.dc
       
 		  if (angle.a > 360) angle.a -= 360
 		  if (angle.b > 360) angle.b -= 360
 		  if (angle.c > 360) angle.c -= 360
 			this.render(this.mesh,  angle.a, angle.b, angle.c)
+
 			requestAnimationFrame(this.step)
     }
   },
   mounted () {
-		// this.bg = new Image()
-		// this.bg.src = '/backgrounds/space.jpg'
-    this.mesh = generateMesh()
-		this.resizeCanvas()
+		this.mesh = generateMesh()
+		this.$nextTick(() => this.resizeCanvas())
+		this.bgColor = window.getComputedStyle( this.$parent.$el, null).backgroundColor
+		window.addEventListener('keydown', this.onKey, false)
+
 		this.step()
-		this.bgColor = window.getComputedStyle( document.querySelector('.hero'), null).backgroundColor
 		var self = this
 		window.addEventListener('resize', function(event) {
 			self.resizeCanvas()
