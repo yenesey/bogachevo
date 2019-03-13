@@ -5,13 +5,12 @@
       .sm.span-12
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down(ref="maskot")
-            img.maskot(src="/images/logo.png" @click="clickLogo" v-tooltip="'You have new messages.'")
+            img.maskot(src="/images/logo.png" @click="clickLogo")
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
             a.disabled(href="#hobby" @click="clickOther") Прочее...
-
 
     .xs.span-6.offset-2
       .flex.column.greeting
@@ -28,9 +27,6 @@
 
 <script>
 import Animation from './animation'
-import Vue from 'vue'
-import vueSmoothScroll from 'vue-smooth-scroll'
-Vue.use(vueSmoothScroll)
 
 export default {
   data () {
@@ -110,7 +106,6 @@ header {
 
 .menu {
   background-color: $HERO-BK-COLOR;
-  font-family: 'Proxima Nova';
   font-size: 1.2rem;
   align-items: center; // vertically
   display: flex;

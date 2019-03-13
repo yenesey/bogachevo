@@ -17,6 +17,11 @@ export default {
   width: 260px;
   font-size: 1.0rem;
   font-family: $FONT-FACE-BASIC;
+  
+  background: $HERO-BK-COLOR;
+  color: $NAV-ITEM-COLOR;
+  border: none; 
+  @include transition(all .5s);
 
   &:before {
     top: -20px;
@@ -26,18 +31,9 @@ export default {
   }
 }
 
-.flash__message.info {
-  background: $HERO-BK-COLOR;
-  color: $NAV-ITEM-COLOR;
-  border: none; 
-  @include transition(all .5s);
-}
-
-.flash-enter,.flash-leave-to {
+.tooltip-enter,.tooltip-leave-to {
   opacity:0;
   @include transform(rotateX(-30deg) scale(.88) translateY(-30px));
 }  
-.flash-leave-active {
-  position: absolute;
-}
+
 </style>

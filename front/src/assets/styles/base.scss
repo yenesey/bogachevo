@@ -27,10 +27,7 @@ $COLUMN-COUNT: 12;
   }
 }
 
-<<<<<<< HEAD
-
-=======
-// -------------- Scrollbars
+//------------------ Scrollbars -----------------
 @mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
   ::-webkit-scrollbar {
     width:  $size;
@@ -49,7 +46,7 @@ $COLUMN-COUNT: 12;
     scrollbar-track-color: $background-color;
   }
 }
->>>>>>> 21c0d5ffd0ec00d81ec663116f4d6ee52835aa02
+
 //------------------ Transform mixins-----------------
 // generic transform
 @mixin transform($transforms) {

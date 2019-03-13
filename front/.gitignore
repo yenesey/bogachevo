@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-dst/
+dist/
 package-lock.json
 
 # Editor directories and files

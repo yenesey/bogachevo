@@ -22,6 +22,7 @@
     "babel-plugin-transform-runtime": "*",
     "babel-plugin-transform-vue-jsx": "*",
     "babel-polyfill": "*",
+    "copy-webpack-plugin": "^5.0.1",
     "css-loader": "*",
     "eslint": "*",
     "eslint-config-standard": "*",

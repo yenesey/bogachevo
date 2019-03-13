@@ -1,6 +1,5 @@
 <template lang="pug">
-  .index-page
-    Flash
+  .index
     Hero
     Works
     About
@@ -9,7 +8,6 @@
 </template>
 
 <script>
-import Flash from './common/flash'
 import Hero from './hero/hero'
 import Works from './works/works'
 import About from './about'
@@ -18,7 +16,6 @@ import Footer from './footer'
 
 export default {
   components: {
-    Flash,
     Hero,
     About,
     Works,

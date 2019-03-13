@@ -6,13 +6,18 @@ const path = require('path')
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 const WebpackBar = require('webpackbar')
 
+// theese may be useful:
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const PrerenderSPAPlugin = require('prerender-spa-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
+const devMode = process.env.NODE_ENV !== 'production'
 const resolve = (...dirs) => path.join(...[__dirname, ...dirs])
 
 const createNotifierCallback = () => {
@@ -22,9 +27,6 @@ const createNotifierCallback = () => {
     // if (severity !== 'error') return
     const error = errors[0]
     const wpError = error.webpackError.error
-
-    // console.log('-----------------------------')
-    // console.log(Object.keys(wpError))
     const fileName = wpError.filename || wpError.file
     const line = wpError.line || 'unknown'
 
@@ -48,7 +50,7 @@ var config = {
   },
 
   output: {
-    path: resolve('dst'),
+    path: resolve('dist'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -96,9 +98,10 @@ var config = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           'vue-style-loader',
+          //devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
@@ -107,10 +110,6 @@ var config = {
             }
           }
         ]
-      },
-      {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|woff|woff2|eot|ttf)$/,
@@ -129,12 +128,15 @@ var config = {
   devtool: 'cheap-eval-source-map',
 
   plugins: [
-   /* new HtmlWebpackPlugin({
+    /*
+    new HtmlWebpackPlugin({
       inject: true,
       favicon: resolve('src/assets', 'favicon.ico'),
       template: resolve('src/assets', 'index.html')
-    }),*/
+    }),
+    */
     new VueLoaderPlugin(),
+    // new MiniCssExtractPlugin({ filename: '[name].css' }),
     new WebpackBar({ minimal: false })
     // new HardSourceWebpackPlugin()
   ],
@@ -154,21 +156,7 @@ var config = {
   }
 }
 
-if (process.env.NODE_ENV === 'production') {
-  config.mode = 'production'
-  config.devtool = 'source-map'
-  // if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
-/*
-  config.plugins.push(
-    new PrerenderSPAPlugin({
-      // Required - The path to the webpack-outputted app to prerender.
-      staticDir: resolve('dst'),
-      // Required - Routes to render.
-      routes: [ '/', '/about', '/works', '/contact' ],
-    })
-  )
-*/
-} else { // dev mode by default
+if (devMode) {
   config.plugins.push(
     new webpack.DefinePlugin({
       'baseUrl': JSON.stringify('http://localhost')
@@ -177,12 +165,39 @@ if (process.env.NODE_ENV === 'production') {
 
   config.plugins.push(
     new FriendlyErrorsPlugin({
-      /*compilationSuccessInfo: {
+      /*
+      compilationSuccessInfo: {
         messages: [`Your application is running here:`]
-      },*/
+      },
+      */
       onErrors: createNotifierCallback()
     })
   )
+} else {
+  config.mode = 'production'
+  config.devtool = ''
+  // if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
+
+  config.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        from: resolve('static'),
+        to: resolve('dist'),
+        ignore: ['.*']
+      }
+    ])
+  )
+
+  /*
+  config.plugins.push(
+    new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: resolve('dst'),
+      // Required - Routes to render.
+      routes: [ '/', '/about', '/works', '/contact' ],
+    })
+  )
+  */
 }
 
 module.exports = config
