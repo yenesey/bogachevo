@@ -27,7 +27,7 @@ function Vertex(_x, _y, _z) {
 function generateMesh () {
 	// ---------------------------------------------
 	var GALAXY_ARMS_COUNT = 3
-	var GALAXY_STARS_PER_ARM = 550
+	var GALAXY_STARS_PER_ARM = 850
 
 	var VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT // всего вершин
 	var verts = new Array(VERT_COUNT)  // массив вершин
@@ -41,7 +41,7 @@ function generateMesh () {
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 3.1*PI / GALAXY_STARS_PER_ARM
+			var b = j * 3.2*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = Math.floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm()*r1
@@ -175,8 +175,7 @@ export default {
 			ctx.fillRect(0, 0, canvas.width, canvas.height)
 			// vs ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-			//TODO: performance.now()
-			var now = Date.now()
+			var now = performance.now()
 			this.timepast += now - this.timestamp
 			this.timestamp = now
 			this.count++
