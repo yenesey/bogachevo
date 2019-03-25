@@ -16,7 +16,7 @@
             a(v-if="link" :href="link") {{link}}
             a(v-if="git" :href="git") {{git}}
 
-    .flex.row
+    .flex.row(style="margin-bottom: 2rem;")
       .md.span-8.offset-2
         .flex.column
           span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}  
