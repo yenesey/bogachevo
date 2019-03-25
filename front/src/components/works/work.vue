@@ -9,17 +9,17 @@
 
     .flex.row
       .md.span-8.offset-2
-        .flex.row(style="flex-flow: row wrap-reverse !important;padding: .5rem;")
+        .flex.row.requisites
           .md.span-6.link
-            span Роль: {{role}}
-          .md.span-6.link
+            span.subheading Роль: {{role}}
+          .md.span-4.link
             a(v-if="link" :href="link") {{link}}
             a(v-if="git" :href="git") {{git}}
 
     .flex.row(style="margin-bottom: 2rem;")
       .md.span-8.offset-2
         .flex.column
-          span.subheading(style="text-align: justify; margin:auto;padding: .5rem") {{description}}  
+          span.subheading(style="text-align: justify; margin:auto;padding: .5rem;") {{description}}  
 
 </template>
 
@@ -105,11 +105,19 @@ export default {
 
 }
 
+.requisites {
+  flex-flow: row wrap-reverse !important;
+  padding: .5rem; 
+  justify-content: space-between; 
+  //align-items: center;
+}
+
 .link {
   padding-bottom: .2rem;
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   a {
+    line-height:1.5rem;
     margin-left: auto;
     @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233))
     @include break('md'){
