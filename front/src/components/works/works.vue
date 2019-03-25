@@ -4,7 +4,13 @@
       .xs.span-8.offset-2.works-header
         h1.title.shadow Мои работы
         h2.subtitle Фриланс и собственные проекты
-    
+    Work(
+      title="Telegram coding contest", 
+      name="telegram-contest", 
+      role="Разработка с чистого листа", 
+      description="Написать приложение для отображения графиков без использования каких либо сторонних библиотек. Прицел на отзывчивость, плавность анимаций и минимальный размер"
+      link="https://yenesey.github.io/vanilla-chart/"
+    )
     Work(
       title="Burn Token", 
       name="burntoken", 

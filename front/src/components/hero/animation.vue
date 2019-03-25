@@ -175,6 +175,7 @@ export default {
 			ctx.fillRect(0, 0, canvas.width, canvas.height)
 			// vs ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+			//TODO: performance.now()
 			var now = Date.now()
 			this.timepast += now - this.timestamp
 			this.timestamp = now
