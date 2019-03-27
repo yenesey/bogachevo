@@ -117,7 +117,8 @@ export default {
   display: flex;
   font-size: 1.0rem;
   a {
-    line-height:1.5rem;
+    margin-top: 0.2rem;
+    line-height:1.1rem;
     margin-left: auto;
     @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233))
     @include break('md'){
