@@ -3,6 +3,7 @@
 </template>
 
 <script>
+//TODO: rewrite with WebGL
 
 var sin = Math.sin
 var cos = Math.cos
@@ -27,7 +28,7 @@ function Vertex(_x, _y, _z) {
 function generateMesh () {
 	// ---------------------------------------------
 	var GALAXY_ARMS_COUNT = 3
-	var GALAXY_STARS_PER_ARM = 850
+	var GALAXY_STARS_PER_ARM = 750
 
 	var VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT // всего вершин
 	var verts = new Array(VERT_COUNT)  // массив вершин
@@ -41,7 +42,7 @@ function generateMesh () {
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 3.2*PI / GALAXY_STARS_PER_ARM
+			var b = j * 3.4*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = Math.floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm()*r1

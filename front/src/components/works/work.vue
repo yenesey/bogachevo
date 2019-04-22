@@ -8,7 +8,7 @@
             video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
     .flex.row
-      .md.span-8.offset-2
+      .xs.span-8.offset-2
         .flex.row.requisites
           .md.span-6.link
             span.subheading Роль: {{role}}
@@ -17,7 +17,7 @@
             a(v-if="git" :href="git") {{git}}
 
     .flex.row(style="margin-bottom: 2rem;")
-      .md.span-8.offset-2
+      .xs.span-8.offset-2
         .flex.column
           span.subheading(style="text-align: justify; margin:auto;padding: .5rem;") {{description}}  
 
@@ -124,7 +124,7 @@ export default {
     @include break('md'){
       margin: auto;
     }
-  }
+  }  
   span {
     @include break('md'){
       margin: auto;

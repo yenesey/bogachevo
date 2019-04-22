@@ -9,19 +9,18 @@
           img.me(src="/images/me.png")
           span.heading Денис Богачев
           span.subheading(style="color: #4e4e4e") Web-разработчик
-          span.subheading(style="color: #4e4e4e") специалист IT
+          span.subheading(style="color: #4e4e4e") инженер IT
       .xs.span-6(style="padding: 1rem")
           span.subheading Работаю IT сфере, связанной с финансами. Начинал в Сберегательном Банке с системного администрирования и сопровождения, а затем занимался управлением IT услугами (ITSM). После 5 лет работы в Сбербанке, перешел в небольшой коммерческий банк, где было больше возможностей реализовать свой творческий потенциал. В настоящее время являюсь заместителем руководителя отдела программного обеспечения. Принимаю участие в разработке банковского ПО и интеграционных сервисов. В разные годы жизни, работал с разными языками, от связки VBA и TransactSQL, до Delphi, С/С++. В последнее время активно интересуюсь Web-технологиями.
 
     .flex.row
-      h2.heading(style="display:flex; margin: auto;") Знаю / умею
+      h2.heading(style="display:flex; margin: auto;") Умею
 
     .flex.row
       .xs.span-8.offset-2
         .skills.flex.row
           span html 
-          span css
-          span sass
+          span css(sass/scss)
           span js(es6)
 
     .flex.row
@@ -34,6 +33,10 @@
           span vuetify
           span nuxt
           span web3
+
+    .flex.row
+      h2.heading(style="display:flex; margin: auto;") Использую
+
     .flex.row
       .xs.span-8.offset-2
         .flex.row.skills
