@@ -9,7 +9,8 @@
       name="telegram-contest", 
       role="разработка с чистого листа", 
       description="Написать приложение для отображения графиков по предложенному варианту дизайна. Использование сторонних библиотек не допускается. Оцениваются отзывчивость, плавность анимаций и минимальный размер."
-      link="https://yenesey.github.io/vanilla-chart/"
+      link="https://yenesey.github.io/vanilla-chart"
+      git="https://github.com/yenesey/vanilla-chart"
     )
     Work(
       title="Burn Token", 
