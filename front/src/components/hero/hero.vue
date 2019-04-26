@@ -1,16 +1,20 @@
 <template lang="pug">
   .hero
     Animation
+    transition(name="popover")
+      popover(name="maskot") Я - маскот сайта.
+    transition(name="popover")  
+      popover(name="other") Раздел "Прочее" сейчас в процессе. Планирую добавить образовательный материал для школьников, связанный тригонометрией и 3D графикой
     header.flex.row(:style="{height: headerHeight + 'px'}")
       .sm.span-12
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down(ref="maskot")
-            img.maskot(src="/images/logo.png" @click="clickLogo")
+            img.maskot(src="/images/logo.png" v-popover:maskot)
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
-            a.disabled(href="#hobby" @click="clickOther") Прочее...
+            a.disabled(href="#hobby" v-popover:other) Прочее...
 
     .xs.span-6.offset-2
       .flex.column.greeting
@@ -57,12 +61,6 @@ export default {
     })
   },
   methods: {
-    clickLogo () {
-      this.flash('Это маскот сайта. Его нарисовали мои доченьки, так что он пока поселился здесь!', 'info', {timeout: 6000})
-    },
-    clickOther () {
-      this.flash('Раздел "Прочее" сейчас в процессе. Планирую добавить образовательный материал для школьников, связанный тригонометрией и 3D графикой', 'info', {timeout: 6000})
-    },
     onScroll() {
       if (window.pageYOffset > 10) {
         this.headerHeight=44

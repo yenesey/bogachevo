@@ -1,21 +1,27 @@
 <template lang="pug">
   .flex.row.contact#contact
+    transition(name="popover")
+      popover(name="phone") Скопировано в буфер обмена
+    transition(name="popover")
+      popover(name="telegram") Открыто в соседней вкладке
+    transition(name="popover")
+      popover(name="mail") Открыто почтовом клиенте
     Icons
     .xs.span-8.offset-2.works-header
       h1.title.shadow Контакты
       .flex.row(style="width:auto")
         .flex
-          .wrap-contact(@click="clipboard('+7(923)30-66664')")
+          .wrap-contact(@click="clipboard('+7(923)30-66664')" v-popover:phone.top)
             svg.icon
               use(xlink:href="#phone")
             span +7(923)30-66664
         .flex
-          .wrap-contact(@click="follow('https://t.me/bacchuss')")
+          .wrap-contact(@click="follow('https://t.me/bacchuss')" v-popover:telegram.top)
             svg.icon
               use(xlink:href="#telegram")
             span https://t.me/bacchuss
         .flex
-          .wrap-contact(@click="follow('mailto:d.enisei@yandex.ru')")
+          .wrap-contact(@click="follow('mailto:d.enisei@yandex.ru')" v-popover:mail.top)
             svg.icon
               use(xlink:href="#mail")
             span d.enisei@yandex.ru
@@ -32,7 +38,6 @@ export default {
   methods: {
     follow (link) {
       window.open(link, '_newtab')
-      this.flash('Открыто в соседней вкладке', 'info', {timeout: 6000})
     },
     clipboard (text) {
       if (typeof text === 'undefined') return
@@ -42,7 +47,6 @@ export default {
       copytext.select()
       document.execCommand('copy')
       document.body.removeChild(copytext)
-      this.flash('Скопировано в буфер обмена', 'info', {timeout: 6000})
     }
   }
 }

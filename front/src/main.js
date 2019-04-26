@@ -3,7 +3,9 @@ import App from './app'
 import router from './router'
 
 import vueSmoothScroll from 'vue-smooth-scroll'
+import Popover from 'vue-js-popover'
 Vue.use(vueSmoothScroll)
+Vue.use(Popover)
 
 Vue.config.productionTip = false
 

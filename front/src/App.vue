@@ -1,17 +1,11 @@
 <template lang="pug">
   div#app(vue-app-mounted-here)
     router-view
-    Flash
 </template>
 
 <script>
-import Flash from './components/common/flash'
-
 export default {
-  name: 'App',
-  components: {
-    Flash
-  }
+  name: 'App'
 }
 </script>
 
@@ -27,5 +21,26 @@ export default {
 }
 
 @include scrollbars(.6rem, #627891, transparent);
+
+div[data-popover] {
+  background: $HERO-BK-COLOR;
+  color: $NAV-ITEM-COLOR;
+  font: normal .9em 'Play';
+  line-height: 1.5;
+  margin: 5px;
+  &.dropdown-position-bottom:before {
+    border-bottom: 6px solid $HERO-BK-COLOR;
+  }
+  &.dropdown-position-top:before {
+    border-top: 6px solid $HERO-BK-COLOR;
+  }
+}
+
+.popover-enter-active, .popover-leave-active {
+  transition: opacity .5s;
+}
+.popover-enter, .popover-leave-to {
+  opacity: 0;
+}
 
 </style>

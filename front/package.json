@@ -10,7 +10,7 @@
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
   "dependencies": {
-    "vue-flash-message": "^0.7.2"
+    "vue-js-popover": "^1.1.8"
   },
   "devDependencies": {
     "@babel/core": "*",
