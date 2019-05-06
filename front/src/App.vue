@@ -10,13 +10,11 @@ export default {
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('./assets/fonts/ProximaNova-Regular.woff') format('woff'); 
-}
 
 @font-face {
   font-family: 'Play';
+  font-style: normal;
+  font-weight: 400;
   src: url('./assets/fonts/Play.woff') format('woff');
 }
 

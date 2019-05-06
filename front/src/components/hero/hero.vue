@@ -2,9 +2,9 @@
   .hero
     Animation
     transition(name="popover")
-      popover(name="maskot") Я - маскот сайта.
+      popover(name="maskot") Я - маскот сайта. При моем создании эксплуатировался детский труд :)
     transition(name="popover")  
-      popover(name="other") Раздел "Прочее" сейчас в процессе. Планирую добавить образовательный материал для школьников, связанный тригонометрией и 3D графикой
+      popover(name="other") Раздел "Прочее" сейчас в процессе. Планирую добавить базовый материал для школьников по тригонометрии и 3D графике.
     header.flex.row(:style="{height: headerHeight + 'px'}")
       .sm.span-12
         .flex.row

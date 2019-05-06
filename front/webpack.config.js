@@ -13,7 +13,7 @@ const WebpackBar = require('webpackbar')
 // theese may be useful:
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const PrerenderSPAPlugin = require('prerender-spa-plugin')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
@@ -125,7 +125,7 @@ var config = {
   },
 
   mode: 'development',
-  devtool: 'cheap-eval-source-map',
+  devtool: '#source-map',
 
   plugins: [
     /*
@@ -176,7 +176,7 @@ if (devMode) {
 } else {
   config.mode = 'production'
   config.devtool = ''
-  // if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
+  if (process.env.npm_config_report) config.plugins.push(new BundleAnalyzerPlugin({analyzerMode: 'static'}))
 
   config.plugins.push(
     new CopyWebpackPlugin([

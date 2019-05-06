@@ -20,7 +20,7 @@ export default {
 <style lang="scss">
 footer {
   background-color: $HERO-BK-COLOR;
-  font-family: "Proxima Nova";
+  // font-family: "Proxima Nova";
   height: 6.125rem;
   justify-content: center;
 }

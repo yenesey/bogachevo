@@ -46,7 +46,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Proxima Nova';
+  // font-family: 'Proxima Nova';
   word-break: unset;
 
   @include break('md') {

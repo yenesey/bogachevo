@@ -78,7 +78,6 @@ export default {
   }
   text-align: center;
   span {
-    // font-family: 'Proxima Nova';
     font-size: 1.6rem;
     font-weight:bold;
     //position:absolute;

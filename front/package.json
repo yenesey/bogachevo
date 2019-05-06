@@ -10,7 +10,8 @@
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
   "dependencies": {
-    "vue-js-popover": "^1.1.8"
+    "vue-js-popover": "^1.1.8",
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "*",
