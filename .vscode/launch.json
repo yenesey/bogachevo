@@ -4,21 +4,21 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "vuejs: chrome",
+      "name": "Launch Chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/front/src",
       "breakOnLoad": true,
+      /*
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }
+      */
     },
     {
-      "type": "firefox",
-      "request": "launch",
-      "name": "vuejs: firefox",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceFolder}/front/src",
-      "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }]
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach Chrome",  // params for launching Chrome (before attach): --remote-debugging-port=9222
+      "port": 9222,
     }
   ]
 }
