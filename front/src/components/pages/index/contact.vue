@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Icons from './common/icons'
+import Icons from '@/components/common/icons'
 
 export default {
   components: {

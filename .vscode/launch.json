@@ -19,6 +19,11 @@
       "request": "attach",
       "name": "Attach Chrome",  // params for launching Chrome (before attach): --remote-debugging-port=9222
       "port": 9222,
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/front/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
     }
   ]
 }

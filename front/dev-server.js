@@ -38,7 +38,7 @@ const koaWebpack = require('koa-webpack');
   }
 
   server.on('clientError', (err, socket) => {
-    socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
+    if (err && socket.writable) socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
   })
 
   server.on('error', (err) => {

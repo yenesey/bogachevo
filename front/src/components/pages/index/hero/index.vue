@@ -3,18 +3,17 @@
     Animation
     transition(name="popover")
       popover(name="maskot") Я - маскот сайта. При моем создании эксплуатировался детский труд :)
-    transition(name="popover")  
-      popover(name="other") Раздел "Прочее" сейчас в процессе. Планирую добавить базовый материал для школьников по тригонометрии и 3D графике.
-    header.flex.row(:style="{height: headerHeight + 'px'}")
+   
+    header.flex.row(:style="{height: headerHeight + 'px'}" v-scroll="scroll")
       .sm.span-12
         .flex.row
-          .xs.span-1.offset-2.hidden-xs-down(ref="maskot")
+          .xs.span-1.offset-2.hidden-xs-down(@mousemove="maskotMouseMove" @mouseout="maskotMouseOut")
             img.maskot(src="/images/logo.png" v-popover:maskot)
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
-            a.disabled(href="#hobby" v-popover:other) Прочее...
+            a(href="demo" @click.prevent.stop="$router.push('demo')") Прочее...
 
     .xs.span-6.offset-2
       .flex.column.greeting
@@ -42,26 +41,21 @@ export default {
     Animation
   },
   
-  mounted () {
-    window.addEventListener('scroll', this.onScroll)
-    
-    var back = this.$refs.maskot
-    var maskot = back.querySelector(".maskot");
-
-    back.addEventListener('mouseout', e => {
-    	maskot.style.transform = `perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
-    })
-
-    back.addEventListener('mousemove', e => {
-      let w = back.clientWidth;
-    	let h = back.clientHeight;
-    	let y = (e.offsetX - w * 0.5) / w * 55;
-    	let x = (1 - (e.offsetY - h * 0.5)) / h * 55;
-    	maskot.style.transform = `perspective(300px) rotateX(${x}deg) rotateY(${y}deg)`;
-    })
-  },
   methods: {
-    onScroll() {
+    maskotMouseMove(e) {
+      let bg = e.currentTarget
+      let maskot = bg.querySelector(".maskot");
+      let w = bg.clientWidth;
+    	let h = bg.clientHeight;
+    	let y = (e.offsetX - w * 0.5) / w * 55;
+      let x = (1 - (e.offsetY - h * 0.5)) / h * 55;
+    	maskot.style.transform = `perspective(300px) rotateX(${x}deg) rotateY(${y}deg)`
+    },
+    maskotMouseOut(e) {
+      let maskot = e.currentTarget.querySelector(".maskot");
+    	maskot.style.transform = `perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`
+    },
+    scroll(e) {
       if (window.pageYOffset > 10) {
         this.headerHeight=44
       } else {

@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Hero from './hero/hero'
-import Works from './works/works'
+import Hero from './hero'
+import Works from './works'
 import About from './about'
 import Contact from './contact'
-import Footer from './footer'
+import Footer from '../../common/footer'
 
 export default {
   components: {
