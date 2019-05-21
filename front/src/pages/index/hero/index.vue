@@ -13,7 +13,7 @@
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contact" v-smooth-scroll) Контакты
-            a(href="demo" @click.prevent.stop="$router.push('demo')") Прочее...
+            router-link(to="/other") Прочее...
 
     .xs.span-6.offset-2
       .flex.column.greeting

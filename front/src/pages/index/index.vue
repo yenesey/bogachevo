@@ -12,7 +12,7 @@ import Hero from './hero'
 import Works from './works'
 import About from './about'
 import Contact from './contact'
-import Footer from '../../common/footer'
+import Footer from '@/components/common/footer'
 
 export default {
   components: {

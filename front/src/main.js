@@ -3,7 +3,6 @@ import App from './app'
 import router from './router'
 
 import vueSmoothScroll from 'vue-smooth-scroll'
-// import Popover from './components/common/popover'
 import Popover from 'vue-js-popover'
 Vue.use(vueSmoothScroll)
 Vue.use(Popover)

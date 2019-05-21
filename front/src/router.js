@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/pages/index'
-import Demo from '@/components/pages/demo'
+import Index from './pages/index'
+import Other from './pages/other'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: Index
     },
     {
-      path: '/demo',
-      name: 'demo',
-      component: Demo
+      path: '/other',
+      name: 'other',
+      component: Other
     }
   ],
   mode: 'history',
@@ -24,8 +24,10 @@ export default new Router({
       return savedPosition
     }
     if (to.hash) {
+      // return window.scroll({ top: document.querySelector(to.hash).offsetTop, behavior: 'smooth' })
       return { selector: to.hash }
     }
+    // return window.scrollTo({ top: 0, behavior: 'smooth' })
     return { x: 0, y: 0 }
   }
 })
