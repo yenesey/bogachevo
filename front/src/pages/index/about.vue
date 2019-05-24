@@ -1,5 +1,5 @@
 <template lang="pug">
-  #about.about
+  section#about
     .flex.row
       .xs.span-8.offset-2.works-header
         h1.title.shadow Обо мне
@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss">
 
-.about {
+#about {
   background-color: rgb(210, 227, 246);
   background-image: url('/works/backgrounds/synapse.jpg');
   background-size: cover;

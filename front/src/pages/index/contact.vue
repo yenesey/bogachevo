@@ -1,5 +1,5 @@
 <template lang="pug">
-  .flex.row.contact#contact
+  section.flex.row#contact
     transition(name="popover")
       popover(name="phone") Скопировано в буфер обмена
     transition(name="popover")
@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss">
 
-.contact { 
+#contact { 
   display: flex;
 
   .flex{ 

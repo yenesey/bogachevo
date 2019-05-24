@@ -1,5 +1,5 @@
 <template lang="pug">
-  #works
+  section#works
     .flex.row
       .xs.span-8.offset-2.works-header
         h1.title.shadow Мои работы
