@@ -2,10 +2,10 @@
   div
     .flex.row
       .xs.span-12
-        .work(:style="bgStyle" @click="perspective=!perspective")
+        .work(@click="perspective=!perspective")
           .video-container(:class="perspective?'perspective':''")
             span {{title}}
-            video(:src="`/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
+            video(:src="`/main/works/videos/${name}.mp4`" autoplay="autoplay" loop="loop"  preload="auto" muted="muted" type="video/mp4")
 
     .flex.row
       .xs.span-8.offset-2
@@ -32,9 +32,6 @@ export default {
   props: ['title','name', 'description', 'role', 'link', 'git'],
   data () {
     return {
-      bgStyle: {
-        backgroundImage: `url('/works/backgrounds/synapse.jpg')`
-      },
       perspective: true
     }
   }
@@ -45,15 +42,18 @@ export default {
 
 .work {
   @include perspective(1200px);
+  background: url('/main/images/bg/clowdy.jpg');
+  background-size: cover;
+
   display: flex;
   flex-flow: row wrap;
-  background-size: cover;
   justify-content: center;
   align-items: center; // vertically
 }
 
 .video-container {
   //transform: matrix3d(0.866122, 0, -0.499833, 0, 0.203238, 0.913601, 0.352176, 0, 0.456648, -0.406612, 0.79129, 0, 0, 0, 0, 1);
+  //background-color: antiquewhite;
   border: 1px outset transparent;
   transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -123,7 +123,7 @@ export default {
     margin-top: 0.2rem;
     margin-left: auto;
     line-height:1.1rem;
-    @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233))
+    @include animated-link(rgb(2, 8, 93), rgb(87, 121, 233));
     @include break('md'){
       margin: auto;
     }

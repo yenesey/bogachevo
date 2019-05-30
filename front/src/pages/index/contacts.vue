@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.flex.row#contact
+  section.flex.row#contacts
     transition(name="popover")
       popover(name="phone") Скопировано в буфер обмена
     transition(name="popover")
@@ -9,22 +9,19 @@
     Icons
     .xs.span-8.offset-2.works-header
       h1.title.shadow Контакты
-      .flex.row(style="width:auto")
-        .flex
-          .wrap-contact(@click="clipboard('+7(923)30-66664')" v-popover:phone.top)
-            svg.icon
-              use(xlink:href="#phone")
-            span +7(923)30-66664
-        .flex
-          .wrap-contact(@click="follow('https://t.me/bacchuss')" v-popover:telegram.top)
-            svg.icon
-              use(xlink:href="#telegram")
-            span https://t.me/bacchuss
-        .flex
-          .wrap-contact(@click="follow('mailto:d.enisei@yandex.ru')" v-popover:mail.top)
-            svg.icon
-              use(xlink:href="#mail")
-            span d.enisei@yandex.ru
+      .flex.row.contacts
+        .contact(@click="clipboard('+7(923)30-66664')" v-popover:phone.top)
+          svg.icon
+            use(xlink:href="#phone")
+          span +7(923)30-66664
+        .contact(@click="follow('https://t.me/bacchuss')" v-popover:telegram.top)
+          svg.icon
+            use(xlink:href="#telegram")
+          span https://t.me/bacchuss
+        .contact(@click="follow('mailto:d.enisei@yandex.ru')" v-popover:mail.top)
+          svg.icon
+            use(xlink:href="#mail")
+          span d.enisei@yandex.ru
 
 </template>
 
@@ -54,13 +51,8 @@ export default {
 
 <style lang="scss">
 
-#contact { 
+#contacts { 
   display: flex;
-
-  .flex{ 
-    justify-content: space-between;
-    align-items: center;
-  }
 
   svg {
     margin-right: .5rem;
@@ -68,17 +60,25 @@ export default {
     height:32px; 
   }
 
-  .wrap-contact {
-    cursor: pointer;
-    border-radius: .2rem;
-    display: flex;
-    align-items: center;
-    padding : 1rem;
-    @include transition(all .5s cubic-bezier(0.39, 0.575, 0.565, 1));
-    &:hover{
-      background: $HIGHLIGHT-ITEM-COLOR;
+  .contacts {
+    justify-content: center;
+    @include break('md') {
+      justify-content: space-around;
     }
-  }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      padding : 1rem;
+      cursor: pointer;
+      border-radius: .2rem;
+      //margin: auto;
+      @include transition(all .5s cubic-bezier(0.39, 0.575, 0.565, 1));
+      &:hover{
+        background: $HIGHLIGHT-ITEM-COLOR;
+      }
+    }
+  }  
 
 }
 

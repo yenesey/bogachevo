@@ -1,5 +1,5 @@
 <template lang="pug">
-  div#app(vue-app-mounted-here)
+  div#app.app(vue-app-mounted-here)
     router-view
 </template>
 
@@ -19,6 +19,13 @@ export default {
 }
 
 @include scrollbars(.6rem, #627891, transparent);
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+}
 
 div[data-popover] {
   background: $HERO-BK-COLOR;

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './pages/index'
-import Other from './pages/other'
+import Demos from './pages/demos'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: Index
     },
     {
-      path: '/other',
-      name: 'other',
-      component: Other
+      path: '/demos',
+      name: 'demos',
+      component: Demos
     }
   ],
   mode: 'history',

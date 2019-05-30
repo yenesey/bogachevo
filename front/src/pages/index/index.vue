@@ -3,7 +3,7 @@
     Hero
     Works
     About
-    Contact
+    Contacts
     Footer
 </template>
 
@@ -11,7 +11,7 @@
 import Hero from './hero'
 import Works from './works'
 import About from './about'
-import Contact from './contact'
+import Contacts from './contacts'
 import Footer from '@/components/common/footer'
 
 export default {
@@ -19,7 +19,7 @@ export default {
     Hero,
     About,
     Works,
-    Contact,
+    Contacts,
     Footer
   }
 }

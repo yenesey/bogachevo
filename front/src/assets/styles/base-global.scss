@@ -16,7 +16,7 @@ body {
 //
 .flex {
   display: flex;
-  margin: auto;
+  // margin: auto;
   &.row {
     flex-flow: row wrap;
     width: 100%;
@@ -40,7 +40,7 @@ body {
   .#{$key}{
     flex: 0 0 100%;
   }
-  @include break($value, 'min') {
+  @include break($value, 'up') {
     .#{$key}{
       @for $i from 1 through $COLUMN-COUNT {
         &.span-#{$i} {
@@ -52,12 +52,12 @@ body {
       }
     }
   }
-  @include break($value, 'max') {
+  @include break($value, 'down') {
     .hidden-#{$key}-down {
       display: none !important;
     }
   }
-  @include break($value, 'min') {
+  @include break($value, 'up') {
     .hidden-#{$key}-up {
       display: none !important;
     }

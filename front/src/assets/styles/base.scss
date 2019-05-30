@@ -1,6 +1,6 @@
 //
 // NOTE: this vars/mixins available for each component <style> section
-//       over webpack.config.js rule for "sass-loader"
+//       via setting in webpack.config.js rule for "sass-loader"
 //       opions.data: `@import "@/assets/styles/base.scss";`
 
 
@@ -8,6 +8,7 @@
 
 // breakpoints map
 $BREAKPOINTS: (
+  df: 0rem,
   xs: 32rem,
   sm: 48rem,
   md: 72rem,
@@ -20,8 +21,9 @@ $BREAKPOINTS: (
 $COLUMN-COUNT: 12;
 
 // media query mixin
-@mixin break($size, $min-max: 'max') {
-  $_size: if(type-of($size) == number, $size , map-get($BREAKPOINTS, $size));
+@mixin break($size, $up-down: 'down') { // 'max' means from $size and down, 'min' means from $size and up
+  $_size: if(type-of($size) == number, $size, map-get($BREAKPOINTS, $size));
+  $min-max: map-get((up: 'min', down: 'max'), $up-down);
   @media (#{$min-max}-width: $_size) {
     @content;
   }
@@ -49,7 +51,7 @@ $COLUMN-COUNT: 12;
 
 //------------------ Transform mixins-----------------
 // generic transform
-@mixin transform($transforms) {
+@mixin transform($transforms...) {
     -moz-transform: $transforms;
       -o-transform: $transforms;
      -ms-transform: $transforms;
@@ -70,8 +72,8 @@ $COLUMN-COUNT: 12;
   @include transform(rotate(#{$deg}));
 }
 
-@mixin scale($scale) {
-  @include transform(scale($scale));
+@mixin scale($x, $y) {
+  @include transform(scale($x, $y));
 } 
 
 @mixin translate ($x, $y) {

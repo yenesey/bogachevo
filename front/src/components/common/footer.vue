@@ -19,17 +19,16 @@ export default {
 
 <style lang="scss">
 footer {
+  padding: .1rem;
   background-color: $HERO-BK-COLOR;
-  height: 6.125rem;
-  justify-content: center;
-  margin: 0px !important;
+  height: auto;
+  justify-content: space-around;
 }
 
 .links {
   align-content: center; //v
   justify-content: center; // h
   margin: 0 !important;
-  padding-bottom: .5rem;
   font-size:0.95rem;
 
   a {

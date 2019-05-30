@@ -8,12 +8,12 @@
       .sm.span-12
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down(@mousemove="maskotMouseMove" @mouseout="maskotMouseOut")
-            img.maskot(src="/images/logo.png" v-popover:maskot)
+            img.maskot(src="/main/images/logo.png" v-popover:maskot)
           nav.xs.span-7.menu
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
-            a(href="#contact" v-smooth-scroll) Контакты
-            router-link(to="/other") Прочее...
+            a(href="#contacts" v-smooth-scroll) Контакты
+            router-link(to="/demos") Разное
 
     .xs.span-6.offset-2
       .flex.column.greeting
@@ -34,7 +34,7 @@ import Animation from './animation'
 export default {
   data () {
     return {
-      headerHeight: 88
+      headerHeight: 80
     }
   },
   components: {
@@ -57,9 +57,9 @@ export default {
     },
     scroll(e) {
       if (window.pageYOffset > 10) {
-        this.headerHeight=44
+        this.headerHeight=52
       } else {
-        this.headerHeight=88
+        this.headerHeight=80
       }  
     }
   }
@@ -78,7 +78,6 @@ export default {
 }
 
 header {
-  height: 6.125rem;
   @include transition(height .5s ease);
   position: fixed;
   z-index: 10;
@@ -162,7 +161,7 @@ svg #wheel {
 }
 
 .scroll{
-  @include scale(0.7);
+  @include scale(0.7, 0.7);
   z-index: 9;
   position: absolute;
   top: 78vh;
@@ -178,7 +177,7 @@ svg #wheel {
 	}
 	6%{
    @include rotate(0.5deg);
-   @include scale(1.01);
+   @include scale(1.01, 1.01);
     text-shadow:
      1px 1px 0px rgba(255,0,0,0.5),
      -5px -2px 0px rgba(0,255,0,0.5),
@@ -208,7 +207,7 @@ svg #wheel {
   }
   62%{
     @include rotate(-0.5deg);
-    @include scale(1.01);
+    @include scale(1.01, 1.01);
     text-shadow:
      8px -2px 0px rgba(255,0,0,0.5),
      -5px -2px 0px rgba(0,255,0,0.5),
@@ -217,7 +216,7 @@ svg #wheel {
   }
   64%{
     @include rotate(-0.75deg);
-    @include scale(1.01);
+    @include scale(1.01, 1.01);
   }
   67%{
     text-shadow:none;

@@ -6,7 +6,7 @@
     .flex.row
       .xs.span-2.offset-2
         .flex.column.photo
-          img.me(src="/images/me.png")
+          img.me(src="/main/images/me.png")
           span.heading Денис Богачев
           span.subheading(style="color: #4e4e4e") Web-разработчик
           span.subheading(style="color: #4e4e4e") инженер IT
@@ -59,7 +59,7 @@ export default {
 
 #about {
   background-color: rgb(210, 227, 246);
-  background-image: url('/works/backgrounds/synapse.jpg');
+  background-image: url('/main/images/bg/clowdy.jpg');
   background-size: cover;
 }
 

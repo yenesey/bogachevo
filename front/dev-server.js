@@ -2,14 +2,13 @@
 
 const config = require('./webpack.config')
 const webpack = require('webpack')
-const compiler = webpack(config)
 const serve = require('koa-static')
 const Koa = require('koa')
 const app = new Koa()
 const koaWebpack = require('koa-webpack')
 
 koaWebpack({
-  compiler: compiler,
+  compiler: webpack(config),
   devMiddleware: {
     logLevel: 'error'
   }
