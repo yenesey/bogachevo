@@ -3,10 +3,12 @@
     CommonIcons
     .xs.span-8.offset-2
       .flex.row.mv-20
-        .md.span-6
-          span.fs-15 Модуль отображения графиков для конкурска разработчиков Telegram
-
-        .md.span-6
+        .md.span-8
+          .flex.row
+            span.fs-15 Модуль отображения графиков для конкурска разработчиков Telegram
+          .flex.row.mv-10
+            span.fs-10 Чистый JS и Canvas. Cторонние библиотеки не допускается
+        .md.span-4
           .flex.row.link
             svg(height="24" width="32"  style="margin-left:auto;")
               use(xlink:href="#github")

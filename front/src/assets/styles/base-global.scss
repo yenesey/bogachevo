@@ -77,6 +77,12 @@ body {
   .pb-#{$i} {
     padding-bottom: #{$i / 10}em;
   }
+  .pl-#{$i} {
+    padding-left: #{$i / 10}em;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i / 10}em;
+  }
   .pv-#{$i} {
     padding-top: #{$i / 10}em;
     padding-bottom: #{$i / 10}em;
@@ -93,6 +99,12 @@ body {
   }
   .mb-#{$i} {
     margin-bottom: #{$i / 10}em;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i / 10}em;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i / 10}em;
   }
   .mv-#{$i} {
     margin-top: #{$i / 10}em;
