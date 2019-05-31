@@ -1,37 +1,35 @@
 <template lang="pug">
   section.flex.row#contacts
+    CommonIcons
+    
     transition(name="popover")
       popover(name="phone") Скопировано в буфер обмена
     transition(name="popover")
       popover(name="telegram") Открыто в соседней вкладке
     transition(name="popover")
       popover(name="mail") Открыто почтовом клиенте
-    Icons
+
     .xs.span-8.offset-2.works-header
       h1.title.shadow Контакты
       .flex.row.contacts
         .contact(@click="clipboard('+7(923)30-66664')" v-popover:phone.top)
-          svg.icon
+          svg
             use(xlink:href="#phone")
           span +7(923)30-66664
         .contact(@click="follow('https://t.me/bacchuss')" v-popover:telegram.top)
-          svg.icon
+          svg
             use(xlink:href="#telegram")
           span https://t.me/bacchuss
         .contact(@click="follow('mailto:d.enisei@yandex.ru')" v-popover:mail.top)
-          svg.icon
+          svg
             use(xlink:href="#mail")
           span d.enisei@yandex.ru
 
 </template>
 
 <script>
-import Icons from '@/components/common/icons'
 
 export default {
-  components: {
-    Icons
-  },
   methods: {
     follow (link) {
       window.open(link, '_newtab')
@@ -61,6 +59,7 @@ export default {
   }
 
   .contacts {
+    width: 100%;
     justify-content: center;
     @include break('md') {
       justify-content: space-around;

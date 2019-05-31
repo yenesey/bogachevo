@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './pages/index'
 import Demos from './pages/demos'
+import DemosMenu from './pages/demos/menu'
+import Tc from './pages/demos/telegram-contest'
 
 Vue.use(Router)
 
@@ -14,8 +16,18 @@ export default new Router({
     },
     {
       path: '/demos',
-      name: 'demos',
-      component: Demos
+      component: Demos,
+      children: [
+        {
+          path: '',
+          name: 'demos',
+          component: DemosMenu
+        },
+        {
+          path: 'telegram-contest',
+          component: Tc
+        }
+      ]
     }
   ],
   mode: 'history',

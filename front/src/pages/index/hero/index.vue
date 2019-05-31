@@ -9,7 +9,7 @@
         .flex.row
           .xs.span-1.offset-2.hidden-xs-down(@mousemove="maskotMouseMove" @mouseout="maskotMouseOut")
             img.maskot(src="/main/images/logo.png" v-popover:maskot)
-          nav.xs.span-7.menu
+          nav.xs.span-7.menu.flex
             a(href="#works" v-smooth-scroll) Работы
             a(href="#about" v-smooth-scroll) Обо мне
             a(href="#contacts" v-smooth-scroll) Контакты
@@ -79,6 +79,7 @@ export default {
 
 header {
   @include transition(height .5s ease);
+  width: 100%;
   position: fixed;
   z-index: 10;
   align-items: center; // vertically
@@ -99,7 +100,6 @@ header {
   background-color: $HERO-BK-COLOR;
   font-size: 1.2rem;
   align-items: center; // vertically
-  display: flex;
   justify-content: flex-end;
   
   a {
@@ -136,7 +136,6 @@ header {
 }
 
 img.maskot {
-  display: flex;
   height: 95%;
   border-radius: 50%;
   @include transition(all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1));

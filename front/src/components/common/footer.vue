@@ -39,6 +39,5 @@ footer {
   span {
     color: $NAV-ITEM-COLOR;
   }
-
 }
 </style>

@@ -4,24 +4,17 @@
       .xs.span-8.offset-2
         h1 Demos
     section.content
-      .flex.row(style="height:2em")
-      .flex.row
-        .xs.span-8.offset-2
-          .flex.row(style="justify-content: center;")
-            Demo
-            Demo
-            Demo
- 
+      router-view  
     Footer
 </template>
 
 <script>
+import Menu from './menu'
 import Footer from '@/components/common/footer'
-import Demo from './demo'
 
 export default {
   components: {
-    Demo,
+    Menu,
     Footer
   }
 }
@@ -35,18 +28,16 @@ export default {
   min-height: 100vh;
   height: 100vh;
 }
-
 .content {
   flex: 1 0 auto;
 }
-
 .head {
-  height: 52px;
+  min-height: 52px;
   background-color: $HERO-BK-COLOR;
   align-items: center; // vertically
   h1 {
     color: white;
-    margin: auto !important;
+    margin: auto;
     @include break('xs') {
       margin-left: 1rem;
     }

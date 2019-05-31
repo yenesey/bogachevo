@@ -4,11 +4,13 @@ import 'iterators-polyfill'
 import Vue from 'vue'
 import App from './app'
 import router from './router'
+import Icons from '@/components/common/icons'
 
 import vueSmoothScroll from 'vue-smooth-scroll'
 import Popover from 'vue-js-popover'
 Vue.use(vueSmoothScroll)
 Vue.use(Popover)
+Vue.component('CommonIcons', Icons)
 
 Vue.config.productionTip = false
 

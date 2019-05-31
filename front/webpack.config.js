@@ -125,7 +125,7 @@ var config = {
   },
 
   mode: 'development',
-  devtool: 'source-map',
+  devtool: '#source-map',
 
   plugins: [
     /*
