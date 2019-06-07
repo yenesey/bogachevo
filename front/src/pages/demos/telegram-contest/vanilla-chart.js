@@ -92,10 +92,11 @@
 
     var _justifySize = function () {
       var rect = this.canvas.parentNode.getBoundingClientRect()
+//      console.log(rect.width)
       this.vw = rect.width
       this.vh = rect.height
-      this.canvas.width = this.vw
-      this.canvas.height = this.vh
+      this.canvas.width = rect.width
+      this.canvas.height = rect.height
       this.minimap.left = _round(this.vw * this.minimap.rlLeft)
       this.minimap.right = _round(this.vw * this.minimap.rlRight)
       this.minimap.vh = _round(this.vh * this.options.minimapHeightRel)

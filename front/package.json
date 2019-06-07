@@ -10,8 +10,7 @@
     "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
   },
   "dependencies": {
-    "iterators-polyfill": "^1.0.2",
-    "promise-polyfill": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
     "vue-js-popover": "^1.1.8",
     "webpack-bundle-analyzer": "^3.3.2"
   },

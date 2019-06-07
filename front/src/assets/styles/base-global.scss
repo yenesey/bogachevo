@@ -16,6 +16,7 @@ body {
 //
 .flex {
   display: flex;
+  // flex: 1 1 100%;
   // margin: auto;
   &.row {
     flex-flow: row wrap;
@@ -64,54 +65,56 @@ body {
   } 
 }
 
+$dv : 10;
+
 @for $i from 1 through 40 {
   .fs-#{$i} {
-    font-size: #{$i / 10}em;
+    font-size: #{$i / $dv}em;
   }
   .p-#{$i} {
-    padding: #{$i / 10}em;
+    padding: #{$i / $dv}em;
   }
   .pt-#{$i} {
-    padding-top: #{$i / 10}em;
+    padding-top: #{$i / $dv}em;
   }
   .pb-#{$i} {
-    padding-bottom: #{$i / 10}em;
+    padding-bottom: #{$i / $dv}em;
   }
   .pl-#{$i} {
-    padding-left: #{$i / 10}em;
+    padding-left: #{$i / $dv}em;
   }
   .pr-#{$i} {
-    padding-right: #{$i / 10}em;
+    padding-right: #{$i / $dv}em;
   }
   .pv-#{$i} {
-    padding-top: #{$i / 10}em;
-    padding-bottom: #{$i / 10}em;
+    padding-top: #{$i / $dv}em;
+    padding-bottom: #{$i / $dv}em;
   }
   .ph-#{$i} {
-    padding-left: #{$i / 10}em;
-    padding-right: #{$i / 10}em;
+    padding-left: #{$i / $dv}em;
+    padding-right: #{$i / $dv}em;
   }
   .m-#{$i} {
-    margin: #{$i / 10}em;
+    margin: #{$i / $dv}em;
   }
   .mt-#{$i} {
-    margin-top: #{$i / 10}em;
+    margin-top: #{$i / $dv}em;
   }
   .mb-#{$i} {
-    margin-bottom: #{$i / 10}em;
+    margin-bottom: #{$i / $dv}em;
   }
   .ml-#{$i} {
-    margin-left: #{$i / 10}em;
+    margin-left: #{$i / $dv}em;
   }
   .mr-#{$i} {
-    margin-right: #{$i / 10}em;
+    margin-right: #{$i / $dv}em;
   }
   .mv-#{$i} {
-    margin-top: #{$i / 10}em;
-    margin-bottom: #{$i / 10}em;
+    margin-top: #{$i / $dv}em;
+    margin-bottom: #{$i / $dv}em;
   }
   .mh-#{$i} {
-    margin-left: #{$i / 10}em;
-    margin-right: #{$i / 10}em;
+    margin-left: #{$i / $dv}em;
+    margin-right: #{$i / $dv}em;
   }
 }

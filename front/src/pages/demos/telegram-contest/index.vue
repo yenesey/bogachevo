@@ -1,23 +1,22 @@
 <template lang="pug">
-  .flex.row
+  .article(ref="article")
+    //.flex.row(style="padding: .5em")
     CommonIcons
-    .xs.span-8.offset-2
-      .flex.row.mv-20
-        .md.span-8
-          .flex.row
-            span.fs-15 Модуль отображения графиков для конкурска разработчиков Telegram
-          .flex.row.mv-10
-            span.fs-10 Чистый JS и Canvas. Cторонние библиотеки не допускается
-        .md.span-4
-          .flex.row.link
-            svg(height="24" width="32"  style="margin-left:auto;")
-              use(xlink:href="#github")
-            a(href="https://github.com/yenesey/vanilla-chart" style="margin-left:0 !important") https://github.com/yenesey/vanilla-chart
-
-      .flex.row
-        .xs.span-6(v-for="(chart, i) in chartData" style="justify-content: center")
-          span.fs-15 Chart {{i}}
-          .chart-container.flex.mh-8(:id="'chart'+i")
+    .flex.row.mv-10
+      .md.span-8
+        .flex.row
+          span.fs-15 Модуль отображения графиков для конкурска разработчиков Telegram
+        .flex.row.mv-10
+          span.fs-10 Чистый JS и Canvas. Cторонние библиотеки не допускается
+      .md.span-4
+        .link
+          svg(height="24" width="32"  style="margin-left:auto;")
+            use(xlink:href="#github")
+          a(href="https://github.com/yenesey/vanilla-chart" style="margin-left:0 !important") https://github.com/yenesey/vanilla-chart
+    .flex.row
+      .xs.span-6.p-10(v-for="(chart, i) in chartData" style="justify-content: center")
+        span.fs-15 Chart {{i}}
+        .chart-container(:id="'chart'+i")
 </template>
 
 <script>

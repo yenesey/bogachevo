@@ -18,6 +18,7 @@ koaWebpack({
  * history api support
  * rememeber! production server need the same way config (mod_rewrite etc.)
  */
+
 app.use((ctx, next) => {
   let { url, headers: { accept }, method } = ctx
   if (
@@ -32,6 +33,7 @@ app.use((ctx, next) => {
 })
 
 app.use(serve('./static'))
+
 
 const server = app.listen(3000)
 

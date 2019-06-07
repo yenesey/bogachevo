@@ -4,6 +4,7 @@ import Index from './pages/index'
 import Demos from './pages/demos'
 import DemosMenu from './pages/demos/menu'
 import Tc from './pages/demos/telegram-contest'
+import Articles3D from './pages/demos/3d-graphics/index.vue'
 
 Vue.use(Router)
 
@@ -26,6 +27,10 @@ export default new Router({
         {
           path: 'telegram-contest',
           component: Tc
+        },
+        {
+          path: '3d-graphics/:part',
+          component: Articles3D
         }
       ]
     }

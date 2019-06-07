@@ -1,6 +1,8 @@
 
-import 'promise-polyfill/src/polyfill'
-import 'iterators-polyfill'
+// import 'promise-polyfill/src/polyfill'
+// import 'iterators-polyfill'
+import 'babel-polyfill'
+
 import Vue from 'vue'
 import App from './app'
 import router from './router'
