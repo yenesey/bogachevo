@@ -1,3 +1,4 @@
+/* eslint-disable */
 // URL: https://observablehq.com/d/7a8c74eb2072bca4
 // Title: 3D graphics - first steps - part 1
 // Author: Denis Bogachev

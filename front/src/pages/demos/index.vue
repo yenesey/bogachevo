@@ -1,8 +1,10 @@
 <template lang="pug">
   .demos
-    div.flex.row.head
-      .xs.span-8.offset-2
-        h1 Demos
+    .flex.row.head
+      .xs.span-8.offset-2.menu
+        .flex.row.head
+          h1 Demos
+          router-link(to="/") На главную 
     section.content
       router-view  
     Footer
@@ -35,11 +37,13 @@ export default {
   min-height: 52px;
   background-color: $HERO-BK-COLOR;
   align-items: center; // vertically
-  h1 {
+  justify-content: space-between;
+  h1,a{
     color: white;
-    margin: auto;
+    margin: 0;
     @include break('xs') {
       margin-left: 1rem;
+      margin-right: 1rem;
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // URL: https://observablehq.com/d/c1e791ba4476a9a5
 // Title: 3D graphics - first steps - part 2
 // Author: Denis Bogachev
@@ -482,7 +483,7 @@ slider({
   max: 2*PI,
   value: 0,
   step: 0.01,
-  label: 'Ось y ',
+  label: 'Ось x ',
   format: v => `α = ${Math.round(v / PI * 1000) / 1000 } Pi`,
 })
 );}),
