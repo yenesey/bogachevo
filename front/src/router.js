@@ -40,11 +40,15 @@ export default new Router({
     if (savedPosition) {
       return savedPosition
     }
+    var isIe = (window.navigator.userAgent.indexOf('Trident') !== -1)
+    var top = 0
+
     if (to.hash) {
-      // return window.scroll({ top: document.querySelector(to.hash).offsetTop, behavior: 'smooth' })
-      return { selector: to.hash }
+      top = document.querySelector(to.hash).offsetTop
+      // return { selector: to.hash }
     }
-    // return window.scrollTo({ top: 0, behavior: 'smooth' })
-    return { x: 0, y: 0 }
+
+    return isIe ? window.scrollTo(0, top) : window.scrollTo({ top: top, behavior: 'smooth' })
+    // return { x: 0, y: 0 }
   }
 })

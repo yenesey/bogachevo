@@ -1,4 +1,5 @@
 <template lang="pug">
+  //v-smooth-scroll="{duration: 1000}"
   .hero
     Animation
     transition(name="popover")
@@ -10,9 +11,10 @@
           .xs.span-1.offset-2.hidden-xs-down(@mousemove="maskotMouseMove" @mouseout="maskotMouseOut")
             img.maskot(src="/main/images/logo.png" v-popover:maskot)
           nav.xs.span-7.menu.flex
-            a(href="#works" v-smooth-scroll="{duration: 1000}") Работы
-            a(href="#about" v-smooth-scroll="{duration: 1000}") Обо мне
-            a(href="#contacts" v-smooth-scroll="{duration: 1000}") Контакты
+            //a(href="#about") Обо мне
+            router-link(to="#works") Работы  
+            router-link(to="#about") Обо мне
+            router-link(to="#contacts") Контакты
             router-link(to="/demos") Разное
 
     .xs.span-6.offset-2
