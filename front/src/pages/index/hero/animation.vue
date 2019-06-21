@@ -3,11 +3,14 @@
 </template>
 
 <script>
-//TODO: rewrite with WebGL
 
-var sin = Math.sin
-var cos = Math.cos
-var PI  = Math.PI
+const GALAXY_ARMS_COUNT = 3
+const GALAXY_STARS_PER_ARM = 17500
+const VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT// всего вершин
+
+const sin = Math.sin
+const cos = Math.cos
+const PI  = Math.PI
 
 // Standard Normal variate using Box-Muller transform.
 function randn_bm() {
@@ -17,25 +20,12 @@ function randn_bm() {
     return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )
 }
 
-// определяем точку в пространстве (вершину)
-function Vertex(_x, _y, _z) {
-	this.x = Math.floor(_x)
-	this.y = Math.floor(_y)
-	this.z = Math.floor(_z)
-}
+function generateGalaxy () {
+	var verts = new Float32Array(VERT_COUNT * 3)  // массив вершин
+//	var sizes = new Array(VERT_COUNT)
 
-// процедурно генерируем меш (polygon mesh)
-function generateMesh () {
-	// ---------------------------------------------
-	var GALAXY_ARMS_COUNT = 3
-	var GALAXY_STARS_PER_ARM = 750
-
-	var VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT // всего вершин
-	var verts = new Array(VERT_COUNT)  // массив вершин
-	var sizes = new Array(VERT_COUNT)
-
-	var R = 36 // радиус шага витка спирали (радиус галактики больше т.к. учавствует экспонента + крутим до 3.5Pi)
-	var r = 25 // радиус балджа (центральное скопление)
+	var R = 37 // радиус шага витка спирали (радиус галактики больше т.к. учавствует экспонента + крутим до 3.5Pi)
+	var r = 30 // радиус балджа (центральное скопление)
 
 	for (var i = 0; i < GALAXY_ARMS_COUNT; i++) {
 		var a = i * 2*PI / GALAXY_ARMS_COUNT
@@ -58,75 +48,30 @@ function generateMesh () {
 			var x = R * Math.exp(0.27*b)*cos(b)
 			var y = R * Math.exp(0.27*b)*sin(b)
 
-			verts[i * GALAXY_STARS_PER_ARM + j] = new Vertex(
-				(x * cos(a) - y * sin(a)) + rr1,
-				(x * sin(a) + y * cos(a)) + rr2,
-				rr3
-			)
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = (x * cos(a) - y * sin(a)) + rr1
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = (x * sin(a) + y * cos(a)) + rr2 
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 2] = rr3
 
-			var bm = Math.abs(randn_bm())
-			sizes[i * GALAXY_STARS_PER_ARM + j] = bm > 2.8 ? 3 : (bm > 1.6 ? 2 : 1)
-
+/*
+			verts[i * GALAXY_STARS_PER_ARM + j + 0] = Math.random() * 2 - 1
+			verts[i * GALAXY_STARS_PER_ARM + j + 1] = Math.random() * 2 - 1
+			verts[i * GALAXY_STARS_PER_ARM + j + 2] = Math.random() * 2 - 1
+*/
+			//var bm = Math.abs(randn_bm())
+			//sizes[i * GALAXY_STARS_PER_ARM + j] = bm > 2.8 ? 3 : (bm > 1.6 ? 2 : 1)
 		}
 	}
 
-	return {
-		verts: verts,
-		sizes: sizes
-	}	
+	return verts
 }
-
-function rotate(verts, a, b, c) {
-	var vertsRotated = new Array(verts.length)
-
-	// конвертируем градусные углы в радианные
-	a = a * PI / 180
-	b = b * PI / 180
-	c = c * PI / 180
-
-  for (var i = 0; i < verts.length; i++) {
-		var x = verts[i].x
-		var y = verts[i].y
-		var z = verts[i].z
-    var x1, y1, z1
-		// вращение в плоскости YZ вокруг оси x
-		y1 = y * cos(a) - z * sin(a)
-		z1 = y * sin(a) + z * cos(a)
-		y = y1
-		z = z1
-		// вращение в плоскости XZ вокруг оси y
-		// помним, что на мониторе ось y "перевернута" и отсчитывается сверху -> вниз
-		x1 = x * cos(b) + z * sin(b)
-		z1 = -x * sin(b) + z * cos(b) 
-		x = x1
-		z = z1
-		// вращение в плоскости XY вокруг оси z
-		x1 = x * cos(c) - y * sin(c)
-		y1 = x * sin(c) + y * cos(c)
-		x = x1
-		y = y1
-
-		vertsRotated[i] = new Vertex(x, y, z)
-	}
-	return vertsRotated
-}
-
 
 //---------------------------------------------------
 export default {
   data () {
     return {
-			angle: {
-      	a: -75,
-      	b: 0,
-				c: 0,
-				da: 0,
-				db: -0.07,
-				dc: 0
-			},
-			mesh: null,
+			u_a: null,
+			a: 0,
 			bgColor: '#000',
-
 			showFps: false,
 			timestamp: 0,
 			timepast: 0,
@@ -138,8 +83,8 @@ export default {
     canvas () {
       return this.$el
     },
-    ctx () {
-      return this.canvas.getContext('2d', { alpha: false })
+    gl () {
+      return this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl')
     }
   },
   methods: {
@@ -150,32 +95,13 @@ export default {
 			//console.log(e.keyCode)
 		},
 		resizeCanvas() {
-			const { canvas } = this
+			const { canvas, gl } = this
 			let { height, width } = this.$parent.$el.getBoundingClientRect()
 			canvas.width  = width
 			canvas.height = height - 89
+			gl.viewport(0, 0, canvas.width, canvas.height)
 		},
-    
-    drawPt(x, y, color, sz) {
-      var ctx = this.ctx
-			ctx.fillStyle = color
-			if (sz <=2) {
-				ctx.fillRect(x, y, sz, sz)
-				return
-			} 
-			ctx.beginPath()
-			ctx.arc(x, y, sz-1, 0, 2*PI, false)
-			ctx.fill()
-    	//ctx.closePath()
-    },
-
-    render (mesh, a, b, c) {
-			const { canvas, ctx, bgColor } = this
-			
-			ctx.fillStyle = bgColor
-			ctx.fillRect(0, 0, canvas.width, canvas.height)
-			// vs ctx.clearRect(0, 0, canvas.width, canvas.height)
-
+    /*
 			var now = performance.now()
 			this.timepast += now - this.timestamp
 			this.timestamp = now
@@ -186,50 +112,159 @@ export default {
 				this.timepast = 0
 			}
 			if (this.showFps) {
-				ctx.fillStyle = '#fff'
-				ctx.font = '12px Play'
-				ctx.fillText(this.fps + ' fps', 20, 20)
+				gl.fillStyle = '#fff'
+				gl.font = '12px Play'
+				gl.fillText(this.fps + ' fps', 20, 20)
 			}
+		*/
 
-    	var cx = canvas.width / 2 + 100
-    	var cy = canvas.height / 2
-     	var verts = rotate(mesh.verts, a, b, c)
+		step () {
+			const { gl } = this
+			this.a =  this.a + 0.002
+			if (this.a > 2*PI) this.a = this.a - 2*PI
 
-			var grd = ctx.createRadialGradient(cx,cy,0, cx,cy,150);
-			grd.addColorStop(0, '#122231');
-			grd.addColorStop(1, bgColor);
-			ctx.fillStyle = grd;
-			ctx.fillRect(cx-150, cy-150, 300, 300);
+			gl.uniform1f(this.u_a, this.a)
 
-    	for (var i = 0; i < verts.length; i++) {
-				let gradient = Math.min(Math.max(verts[i].z, -60), 125)
-	      let color = Number(124 + gradient)
-        this.drawPt( cx + verts[i].x, cy - verts[i].y,	'rgb('+ color +',' + color + ',' + color + ')', mesh.sizes[i])
-			}
-    },
-    step () {
-			const { angle } = this
-
-			//angle.a += 1- cos(angle.b * PI / 180)
-			angle.a += angle.da
-			angle.b += angle.db
-			angle.c += angle.dc
-      
-		  if (angle.a > 360) angle.a -= 360
-		  if (angle.b > 360) angle.b -= 360
-		  if (angle.c > 360) angle.c -= 360
-			this.render(this.mesh,  angle.a, angle.b, angle.c)
-
+			gl.drawArrays(gl.POINTS, 0, VERT_COUNT)
 			requestAnimationFrame(this.step)
-    }
+		},
+
+		vertexShader () {
+			const { gl } = this
+			const shader = gl.createShader(gl.VERTEX_SHADER)
+			gl.shaderSource(shader, `
+				precision highp float;
+
+				mat4 rotationX( in float angle ) {
+					return mat4(	1.0,		0,			0,			0,
+									0, 	cos(angle),	-sin(angle),		0,
+									0, 	sin(angle),	 cos(angle),		0,
+									0, 			0,			  0, 		1);
+				}
+
+				mat4 rotationY( in float angle ) {
+					return mat4(	cos(angle),		0,		sin(angle),	0,
+											0,		1.0,			 0,	0,
+									-sin(angle),	0,		cos(angle),	0,
+											0, 		0,				0,	1);
+				}
+
+				mat4 rotationZ( in float angle ) {
+					return mat4(	
+									cos(angle),		-sin(angle),	0,	0,
+									sin(angle),		cos(angle),		0,	0,
+											0,				0,		1,	0,
+											0,				0,		0,	1);
+				}
+
+				mat4 view_frustum(
+						float angle_of_view,
+						float aspect_ratio,
+						float z_near,
+						float z_far
+				) {
+						return mat4(
+								vec4(1.0/tan(angle_of_view),           0.0, 0.0, 0.0),
+								vec4(0.0, aspect_ratio/tan(angle_of_view),  0.0, 0.0),
+								vec4(0.0, 0.0,    (z_far+z_near)/(z_far-z_near), 1.0),
+								vec4(0.0, 0.0, -2.0*z_far*z_near/(z_far-z_near), 0.0)
+						);
+				}
+
+				mat4 scale(float x, float y, float z)	{
+						return mat4(
+								vec4(x,   0.0, 0.0, 0.0),
+								vec4(0.0, y,   0.0, 0.0),
+								vec4(0.0, 0.0, z,   0.0),
+								vec4(0.0, 0.0, 0.0, 1.0)
+						);
+				}
+			
+				mat4 translate(float x, float y, float z) {
+						return mat4(
+								vec4(1.0, 0.0, 0.0, 0.0),
+								vec4(0.0, 1.0, 0.0, 0.0),
+								vec4(0.0, 0.0, 1.0, 0.0),
+								vec4(x,   y,   z,   1.0)
+						);
+				}
+
+				attribute vec3 position;
+				uniform float timer;
+
+				void main() {
+						const mat4 projection = mat4(
+								vec4(3.0/4.0, 0.0, 0.0, 0.0),
+								vec4(    0.0, 1.0, 0.0, 0.0),
+								vec4(    0.0, 0.0, 0.5, 0.5),
+								vec4(    0.0, 0.0, 0.0, 510.0)
+						);
+
+			
+						gl_Position = translate(0.3, 0.0, 0.0) * projection * rotationY(-timer) * rotationX(radians(-70.0)) * scale(4.0/3.0, 1.0, 1.0) * vec4(position, 1.0);
+				
+						gl_PointSize = 0.05;
+				}
+				`)
+				gl.compileShader(shader)
+				if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
+				// invalidation.then(() => gl.deleteShader(shader));
+				return shader
+		},
+
+
+		fragmentShader () {
+			const { gl } = this
+			const shader = gl.createShader(gl.FRAGMENT_SHADER)
+			gl.shaderSource(shader, `
+				precision highp float;
+
+				void main() {
+					gl_FragColor = vec4(1.1, 1.1, 1.1, 1.0);
+				}
+			`)
+			gl.compileShader(shader)
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
+			// invalidation.then(() => gl.deleteShader(shader))
+			return shader
+		},
+
+		vertexBuffer () {
+			const { gl } = this
+			const array = generateGalaxy()
+			const buffer = gl.createBuffer()
+			gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+			gl.bufferData(gl.ARRAY_BUFFER, array, gl.STATIC_DRAW)
+			//invalidation.then(() => gl.deleteBuffer(buffer))
+			return buffer
+		}
+		
   },
   mounted () {
-		this.mesh = generateMesh()
+		window.tst = this
+		const { gl } = this
+		const program = gl.createProgram()
+  	gl.attachShader(program, this.vertexShader())
+  	gl.attachShader(program, this.fragmentShader())
+  	gl.linkProgram(program)
+  	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw gl.getProgramInfoLog(program)
+  	//invalidation.then(() => gl.deleteProgram(program));
+
+		gl.useProgram(program)
+		const a_position = gl.getAttribLocation(program, 'position')
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer())
+		gl.vertexAttribPointer(a_position, 3, gl.FLOAT, false, 0, 0)
+		gl.enableVertexAttribArray(a_position)
+
+		this.u_a = gl.getUniformLocation(program, "timer")
+		
+		this.step()
+
+
 		this.$nextTick(() => this.resizeCanvas())
-		this.bgColor = window.getComputedStyle( this.$parent.$el, null).backgroundColor
+		//this.bgColor = window.getComputedStyle( this.$parent.$el, null).backgroundColor
 		window.addEventListener('keydown', this.onKey, false)
 
-		this.step()
 		var self = this
 		window.addEventListener('resize', function(event) {
 			self.resizeCanvas()
