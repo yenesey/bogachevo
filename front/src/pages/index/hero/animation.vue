@@ -8,19 +8,17 @@ const GALAXY_ARMS_COUNT = 3
 const GALAXY_STARS_PER_ARM = 17500
 const VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT// всего вершин
 
-const sin = Math.sin
-const cos = Math.cos
-const PI  = Math.PI
-
-// Standard Normal variate using Box-Muller transform.
-function randn_bm() {
-    var u = 0, v = 0
-    while(u === 0) u = Math.random() //Converting [0,1) to (0,1)
-    while(v === 0) v = Math.random()
-    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )
-}
 
 function generateGalaxy () {
+	const {sin, cos, PI, floor, exp, log, random, sqrt} = Math
+
+	function randn_bm() { // Standard Normal variate using Box-Muller transform.
+    var u = 0, v = 0
+    while(u === 0) u = random() //Converting [0,1) to (0,1)
+    while(v === 0) v = random()
+    return sqrt( -2.0 * log( u ) ) * cos( 2.0 * PI * v )
+	}
+
 	var verts = new Float32Array(VERT_COUNT * 3)  // массив вершин
 //	var sizes = new Array(VERT_COUNT)
 
@@ -34,7 +32,7 @@ function generateGalaxy () {
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
 			var b = j * 3.4*PI / GALAXY_STARS_PER_ARM
 
-			var r1 = Math.floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
+			var r1 = floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm()*r1
 			var rr2 = randn_bm()*r1
 			var rr3 = randn_bm()*r1
@@ -45,8 +43,8 @@ function generateGalaxy () {
 				x(c) = a*Math.exp(b*c)*cos(c)
 				y(c) = a*Math.exp(b*c)*sin(c)
 			*/	
-			var x = R * Math.exp(0.27*b)*cos(b)
-			var y = R * Math.exp(0.27*b)*sin(b)
+			var x = R * exp(0.27*b)*cos(b)
+			var y = R * exp(0.27*b)*sin(b)
 
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = (x * cos(a) - y * sin(a)) + rr1
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = (x * sin(a) + y * cos(a)) + rr2 
@@ -121,7 +119,7 @@ export default {
 		step () {
 			const { gl } = this
 			this.a =  this.a + 0.002
-			if (this.a > 2*PI) this.a = this.a - 2*PI
+			if (this.a > 2*Math.PI) this.a = this.a - 2*Math.PI
 
 			gl.uniform1f(this.u_a, this.a)
 
