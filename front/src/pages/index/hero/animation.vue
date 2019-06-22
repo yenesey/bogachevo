@@ -61,8 +61,10 @@ function generateGalaxy () {
 export default {
   data () {
     return {
-			u_a: null,
-			a: 0,
+			u_alpha: null,
+			alpha: 0,
+			u_distance: null,
+			distance: 0,
 			bgColor: '#000',
 			showFps: false,
 			timestamp: 0,
@@ -82,8 +84,8 @@ export default {
   methods: {
 		onKey(e) {
 			if (e.keyCode === 70) this.showFps = !this.showFps
-			if (e.keyCode === 37) this.angle.db += 0.01
-			if (e.keyCode === 39) this.angle.db -= 0.01
+			//if (e.keyCode === 37) this.angle.db += 0.01
+			//if (e.keyCode === 39) this.angle.db -= 0.01
 			//console.log(e.keyCode)
 		},
 		resizeCanvas() {
@@ -112,10 +114,12 @@ export default {
 
 		step () {
 			const { gl } = this
-			this.a =  this.a + 0.0003
-			if (this.a > 2*Math.PI) this.a = this.a - 2*Math.PI
+			this.alpha =  this.alpha + 0.0003
+			if (this.alpha > 2*Math.PI) this.alpha = this.alpha - 2*Math.PI
+			if (this.distance < 1) this.distance = this.distance + 0.0003
 
-			gl.uniform1f(this.u_a, this.a)
+			gl.uniform1f(this.u_alpha, this.alpha)
+			gl.uniform1f(this.u_distance, this.distance)
 
 			gl.drawArrays(gl.POINTS, 0, VERT_COUNT)
 			requestAnimationFrame(this.step)
@@ -186,23 +190,24 @@ export default {
 				attribute vec3 position;
 				attribute float size;
 
-				uniform float timer;
+				uniform float u_alpha;
+				uniform float u_distance;
 
 				void main() {
-						const mat4 projection = mat4(
+						mat4 projection = mat4(
 								vec4(	1.0, 0.0, 0.0, 0.0),
 								vec4( 0.0, 1.0, 0.0, 0.0),
 								vec4( 0.0, 0.0, 1.0, -0.8),
-								vec4( 0.0, 0.0, 0.0, 9.0)
+								vec4( 0.0, 0.0, 0.0, 9.0 * u_distance)
 						);
 						//translate(0.3, 0.0, 0.0) *
 						//view_frustum(radians(98.0), 11.0, 50.0, 7.0) 
-						gl_Position =  projection * translate(0.3, 0.0, -0.5) * rotationY(timer) * rotationX(radians(70.0)) * vec4(position, 1.0);
-						
-						gl_PointSize = gl_Position.z * 0.36;
+						gl_Position =  projection * translate(0.3, 0.0, -0.5) * rotationY(u_alpha) * rotationX(radians(70.0)) * vec4(position, 1.0);
+
+						gl_PointSize = gl_Position.z * 0.36 / (u_distance + 0.0000000001);
 
 						v_color = mix(
-							vec4(0.5, 0.5, 0.6, 1.0),
+							vec4(0.7, 0.7, 0.8, 1.0),
 							vec4(gl_Position.z, gl_Position.z, gl_Position.z, 1.0),  0.084
 						);
 				}
@@ -253,14 +258,16 @@ export default {
 		gl.bufferData(gl.ARRAY_BUFFER, galaxy.verts, gl.STATIC_DRAW)
 		gl.vertexAttribPointer(a_position, 3, gl.FLOAT, false, 0, 0)
 		
+		/*
 		const a_size = gl.getAttribLocation(program, 'size')
 		gl.enableVertexAttribArray(a_size)
 		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
 		gl.bufferData(gl.ARRAY_BUFFER, galaxy.sizes, gl.STATIC_DRAW)
 		gl.vertexAttribPointer(a_size, 1, gl.FLOAT, false, 0, 0)
+8*/
 
-
-		this.u_a = gl.getUniformLocation(program, "timer")
+		this.u_alpha = gl.getUniformLocation(program, "u_alpha")
+		this.u_distance = gl.getUniformLocation(program, "u_distance")
 		
 		this.step()
 
