@@ -4,8 +4,8 @@
 
 <script>
 
-const GALAXY_ARMS_COUNT = 3
-const GALAXY_STARS_PER_ARM = 17500
+const GALAXY_ARMS_COUNT = 5
+const GALAXY_STARS_PER_ARM = 10000
 const VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT// всего вершин
 
 
@@ -20,17 +20,17 @@ function generateGalaxy () {
 	}
 
 	var verts = new Float32Array(VERT_COUNT * 3)  // массив вершин
-//	var sizes = new Array(VERT_COUNT)
+	var sizes = new Float32Array(VERT_COUNT)
 
-	var R = 37 // радиус шага витка спирали (радиус галактики больше т.к. учавствует экспонента + крутим до 3.5Pi)
-	var r = 30 // радиус балджа (центральное скопление)
+	var R = 35 // радиус шага витка спирали (радиус галактики больше т.к. учавствует экспонента + крутим до 3.5Pi)
+	var r = 45 // радиус балджа (центральное скопление)
 
 	for (var i = 0; i < GALAXY_ARMS_COUNT; i++) {
 		var a = i * 2*PI / GALAXY_ARMS_COUNT
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 3.4*PI / GALAXY_STARS_PER_ARM
+			var b = j * 3.2*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm()*r1
@@ -46,21 +46,15 @@ function generateGalaxy () {
 			var x = R * exp(0.27*b)*cos(b)
 			var y = R * exp(0.27*b)*sin(b)
 
-			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = (x * cos(a) - y * sin(a)) + rr1
-			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = (x * sin(a) + y * cos(a)) + rr2 
-			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 2] = rr3
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = ((x * cos(a) - y * sin(a)) + rr1) / 100
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = ((x * sin(a) + y * cos(a)) + rr2) / 100
+			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 2] = rr3 / 100
 
-/*
-			verts[i * GALAXY_STARS_PER_ARM + j + 0] = Math.random() * 2 - 1
-			verts[i * GALAXY_STARS_PER_ARM + j + 1] = Math.random() * 2 - 1
-			verts[i * GALAXY_STARS_PER_ARM + j + 2] = Math.random() * 2 - 1
-*/
-			//var bm = Math.abs(randn_bm())
-			//sizes[i * GALAXY_STARS_PER_ARM + j] = bm > 2.8 ? 3 : (bm > 1.6 ? 2 : 1)
+			sizes[i * GALAXY_STARS_PER_ARM + j] = randn_bm()
 		}
 	}
 
-	return verts
+	return {verts, sizes}
 }
 
 //---------------------------------------------------
@@ -118,7 +112,7 @@ export default {
 
 		step () {
 			const { gl } = this
-			this.a =  this.a + 0.002
+			this.a =  this.a + 0.0003
 			if (this.a > 2*Math.PI) this.a = this.a - 2*Math.PI
 
 			gl.uniform1f(this.u_a, this.a)
@@ -187,21 +181,30 @@ export default {
 						);
 				}
 
+				varying vec4 v_color;
+
 				attribute vec3 position;
+				attribute float size;
+
 				uniform float timer;
 
 				void main() {
 						const mat4 projection = mat4(
-								vec4(3.0/4.0, 0.0, 0.0, 0.0),
-								vec4(    0.0, 1.0, 0.0, 0.0),
-								vec4(    0.0, 0.0, 0.5, 0.5),
-								vec4(    0.0, 0.0, 0.0, 510.0)
+								vec4(	1.0, 0.0, 0.0, 0.0),
+								vec4( 0.0, 1.0, 0.0, 0.0),
+								vec4( 0.0, 0.0, 1.0, -0.8),
+								vec4( 0.0, 0.0, 0.0, 9.0)
 						);
+						//translate(0.3, 0.0, 0.0) *
+						//view_frustum(radians(98.0), 11.0, 50.0, 7.0) 
+						gl_Position =  projection * translate(0.3, 0.0, -0.5) * rotationY(timer) * rotationX(radians(70.0)) * vec4(position, 1.0);
+						
+						gl_PointSize = gl_Position.z * 0.36;
 
-			
-						gl_Position = translate(0.3, 0.0, 0.0) * projection * rotationY(-timer) * rotationX(radians(-70.0)) * scale(4.0/3.0, 1.0, 1.0) * vec4(position, 1.0);
-				
-						gl_PointSize = 0.05;
+						v_color = mix(
+							vec4(0.5, 0.5, 0.6, 1.0),
+							vec4(gl_Position.z, gl_Position.z, gl_Position.z, 1.0),  0.084
+						);
 				}
 				`)
 				gl.compileShader(shader)
@@ -216,25 +219,16 @@ export default {
 			const shader = gl.createShader(gl.FRAGMENT_SHADER)
 			gl.shaderSource(shader, `
 				precision highp float;
+				varying vec4 v_color;
 
 				void main() {
-					gl_FragColor = vec4(1.1, 1.1, 1.1, 1.0);
+						gl_FragColor = v_color;
 				}
 			`)
 			gl.compileShader(shader)
 			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
 			// invalidation.then(() => gl.deleteShader(shader))
 			return shader
-		},
-
-		vertexBuffer () {
-			const { gl } = this
-			const array = generateGalaxy()
-			const buffer = gl.createBuffer()
-			gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-			gl.bufferData(gl.ARRAY_BUFFER, array, gl.STATIC_DRAW)
-			//invalidation.then(() => gl.deleteBuffer(buffer))
-			return buffer
 		}
 		
   },
@@ -249,10 +243,22 @@ export default {
   	//invalidation.then(() => gl.deleteProgram(program));
 
 		gl.useProgram(program)
+		gl.enable(gl.DEPTH_TEST)
+		
+		const galaxy = generateGalaxy()
+
 		const a_position = gl.getAttribLocation(program, 'position')
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer())
-		gl.vertexAttribPointer(a_position, 3, gl.FLOAT, false, 0, 0)
 		gl.enableVertexAttribArray(a_position)
+		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+		gl.bufferData(gl.ARRAY_BUFFER, galaxy.verts, gl.STATIC_DRAW)
+		gl.vertexAttribPointer(a_position, 3, gl.FLOAT, false, 0, 0)
+		
+		const a_size = gl.getAttribLocation(program, 'size')
+		gl.enableVertexAttribArray(a_size)
+		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+		gl.bufferData(gl.ARRAY_BUFFER, galaxy.sizes, gl.STATIC_DRAW)
+		gl.vertexAttribPointer(a_size, 1, gl.FLOAT, false, 0, 0)
+
 
 		this.u_a = gl.getUniformLocation(program, "timer")
 		
