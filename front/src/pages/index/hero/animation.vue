@@ -23,19 +23,19 @@ function generateGalaxy () {
 	var sizes = new Float32Array(VERT_COUNT)
 
 	var R = 35 // радиус шага витка спирали (радиус галактики больше т.к. учавствует экспонента + крутим до 3.5Pi)
-	var r = 45 // радиус балджа (центральное скопление)
+	var r = 95 // радиус балджа (центральное скопление)
 
 	for (var i = 0; i < GALAXY_ARMS_COUNT; i++) {
 		var a = i * 2*PI / GALAXY_ARMS_COUNT
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 3.2*PI / GALAXY_STARS_PER_ARM
+			var b = j * 9.2*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
-			var rr1 = randn_bm()*r1
-			var rr2 = randn_bm()*r1
-			var rr3 = randn_bm()*r1
+			var rr1 = randn_bm() * r1
+			var rr2 = randn_bm() * r1
+			var rr3 = randn_bm() * r1
 
 			/*
 				логарифмическая спираль
@@ -43,14 +43,14 @@ function generateGalaxy () {
 				x(c) = a*Math.exp(b*c)*cos(c)
 				y(c) = a*Math.exp(b*c)*sin(c)
 			*/	
-			var x = R * exp(0.27*b)*cos(b)
-			var y = R * exp(0.27*b)*sin(b)
+			var x = R * exp(0.27*b) * cos(b)
+			var y = R * exp(0.27*b) * sin(b)
 
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = ((x * cos(a) - y * sin(a)) + rr1) / 100
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = ((x * sin(a) + y * cos(a)) + rr2) / 100
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 2] = rr3 / 100
 
-			sizes[i * GALAXY_STARS_PER_ARM + j] = randn_bm()
+			sizes[i * GALAXY_STARS_PER_ARM + j] = randn_bm() * 0.8
 		}
 	}
 
@@ -65,6 +65,9 @@ export default {
 			alpha: 0,
 			u_distance: null,
 			distance: 0,
+			vertexShader: null,
+			fragmentShader: null,
+			vertexBuffer: null,
 			bgColor: '#000',
 			showFps: false,
 			timestamp: 0,
@@ -79,7 +82,10 @@ export default {
     },
     gl () {
       return this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl')
-    }
+		},
+		program () {
+			return this.gl.createProgram()
+		}
   },
   methods: {
 		onKey(e) {
@@ -113,7 +119,9 @@ export default {
 		*/
 
 		step () {
-			const { gl } = this
+			const { gl, vertexBuffer } = this
+			if (this.vertexBuffer === null) return
+
 			this.alpha =  this.alpha + 0.0003
 			if (this.alpha > 2*Math.PI) this.alpha = this.alpha - 2*Math.PI
 			if (this.distance < 1) this.distance = this.distance + 0.0003
@@ -122,13 +130,25 @@ export default {
 			gl.uniform1f(this.u_distance, this.distance)
 
 			gl.drawArrays(gl.POINTS, 0, VERT_COUNT)
-			requestAnimationFrame(this.step)
+		  requestAnimationFrame(this.step)
 		},
 
-		vertexShader () {
+		createShader (type, source) {
 			const { gl } = this
-			const shader = gl.createShader(gl.VERTEX_SHADER)
-			gl.shaderSource(shader, `
+			const shader = gl.createShader(type)
+			gl.shaderSource(shader, source)
+			gl.compileShader(shader)
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
+			return shader
+		}
+
+  },
+  mounted () {
+
+		const { gl, program, createShader } = this
+
+		this.vertexShader = createShader(gl.VERTEX_SHADER,
+		`
 				precision highp float;
 
 				mat4 rotationX( in float angle ) {
@@ -204,67 +224,48 @@ export default {
 						//view_frustum(radians(98.0), 11.0, 50.0, 7.0) 
 						gl_Position =  projection * translate(0.3, 0.0, -0.5) * rotationY(u_alpha) * rotationX(radians(70.0)) * vec4(position, 1.0);
 
-						gl_PointSize = gl_Position.z * 0.36 / (u_distance + 0.0000000001);
-
+						// gl_PointSize = gl_Position.z * 0.36 / (u_distance + 0.0000000001);
+						gl_PointSize = size;
 						v_color = mix(
 							vec4(0.7, 0.7, 0.8, 1.0),
 							vec4(gl_Position.z, gl_Position.z, gl_Position.z, 1.0),  0.084
 						);
 				}
-				`)
-				gl.compileShader(shader)
-				if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
-				// invalidation.then(() => gl.deleteShader(shader));
-				return shader
-		},
+				`
+		)
 
-
-		fragmentShader () {
-			const { gl } = this
-			const shader = gl.createShader(gl.FRAGMENT_SHADER)
-			gl.shaderSource(shader, `
+		this.fragmentShader = createShader(gl.FRAGMENT_SHADER, `
 				precision highp float;
 				varying vec4 v_color;
 
 				void main() {
 						gl_FragColor = v_color;
 				}
-			`)
-			gl.compileShader(shader)
-			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(shader)
-			// invalidation.then(() => gl.deleteShader(shader))
-			return shader
-		}
-		
-  },
-  mounted () {
-		window.tst = this
-		const { gl } = this
-		const program = gl.createProgram()
-  	gl.attachShader(program, this.vertexShader())
-  	gl.attachShader(program, this.fragmentShader())
+			`
+		)
+
+  	gl.attachShader(program, this.vertexShader)
+  	gl.attachShader(program, this.fragmentShader)
   	gl.linkProgram(program)
   	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw gl.getProgramInfoLog(program)
-  	//invalidation.then(() => gl.deleteProgram(program));
-
 		gl.useProgram(program)
 		gl.enable(gl.DEPTH_TEST)
 		
 		const galaxy = generateGalaxy()
 
+		this.vertexBuffer = gl.createBuffer()
 		const a_position = gl.getAttribLocation(program, 'position')
 		gl.enableVertexAttribArray(a_position)
-		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer)
 		gl.bufferData(gl.ARRAY_BUFFER, galaxy.verts, gl.STATIC_DRAW)
 		gl.vertexAttribPointer(a_position, 3, gl.FLOAT, false, 0, 0)
-		
-		/*
+
+		this.sizeBuffer = gl.createBuffer()
 		const a_size = gl.getAttribLocation(program, 'size')
 		gl.enableVertexAttribArray(a_size)
-		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.sizeBuffer)
 		gl.bufferData(gl.ARRAY_BUFFER, galaxy.sizes, gl.STATIC_DRAW)
 		gl.vertexAttribPointer(a_size, 1, gl.FLOAT, false, 0, 0)
-8*/
 
 		this.u_alpha = gl.getUniformLocation(program, "u_alpha")
 		this.u_distance = gl.getUniformLocation(program, "u_distance")
@@ -280,7 +281,16 @@ export default {
 		window.addEventListener('resize', function(event) {
 			self.resizeCanvas()
 		})
-  }
+	},
+	beforeDestroy () {
+		const { gl, program, fragmentShader, vertexShader, vertexBuffer, sizeBuffer } = this
+		gl.deleteBuffer(vertexBuffer)
+		gl.deleteBuffer(sizeBuffer)
+		gl.deleteShader(fragmentShader)
+		gl.deleteShader(vertexShader)
+		gl.deleteProgram(program)
+		this.vertexBuffer = null
+	}
 }
 </script>
 
