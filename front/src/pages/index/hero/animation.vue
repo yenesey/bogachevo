@@ -30,7 +30,7 @@ function generateGalaxy () {
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 9.2*PI / GALAXY_STARS_PER_ARM
+			var b = j * 4.2*PI / GALAXY_STARS_PER_ARM
 
 			var r1 = floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm() * r1
@@ -124,7 +124,7 @@ export default {
 
 			this.alpha =  this.alpha + 0.0003
 			if (this.alpha > 2*Math.PI) this.alpha = this.alpha - 2*Math.PI
-			if (this.distance < 1) this.distance = this.distance + 0.0003
+			if (this.distance < 2) this.distance = this.distance + 0.0003
 
 			gl.uniform1f(this.u_alpha, this.alpha)
 			gl.uniform1f(this.u_distance, this.distance)
@@ -222,7 +222,7 @@ export default {
 						);
 						//translate(0.3, 0.0, 0.0) *
 						//view_frustum(radians(98.0), 11.0, 50.0, 7.0) 
-						gl_Position =  projection * translate(0.3, 0.0, -0.5) * rotationY(u_alpha) * rotationX(radians(70.0)) * vec4(position, 1.0);
+						gl_Position =  projection * translate(0.4, 0.0, -0.5) * rotationY(u_alpha) * rotationX(radians(70.0)) * vec4(position, 1.0);
 
 						// gl_PointSize = gl_Position.z * 0.36 / (u_distance + 0.0000000001);
 						gl_PointSize = size;
