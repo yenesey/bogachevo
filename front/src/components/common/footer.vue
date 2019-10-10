@@ -22,7 +22,7 @@ footer {
   padding: .1rem;
   background-color: $HERO-BK-COLOR;
   justify-content: space-around;
-  max-height: 84px;
+  max-height: 53px;
 }
 
 .links {

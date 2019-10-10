@@ -100,13 +100,12 @@ var config = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          'vue-style-loader',
-          //devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          'vue-style-loader',   // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
             options: {
-              data: `@import "@/assets/styles/base.scss"; @import "@/assets/styles/variables.scss";`
+              prependData: '@import "@/assets/styles/base.scss"; @import "@/assets/styles/variables.scss";'
             }
           }
         ]
@@ -159,7 +158,7 @@ var config = {
 if (devMode) {
   config.plugins.push(
     new webpack.DefinePlugin({
-      'baseUrl': JSON.stringify('http://localhost')
+      baseUrl: JSON.stringify('http://localhost')
     })
   )
 
