@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node dev-server",
     "lint": "eslint --ext .js,.vue src",
-    "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js"
+    "build": "export NODE_ENV=production||set NODE_ENV=production&& webpack --hide-modules --display-error-details --config webpack.config.js",
+    "gh-deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
