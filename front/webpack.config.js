@@ -12,7 +12,7 @@ const WebpackBar = require('webpackbar')
 
 // theese may be useful:
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
@@ -100,13 +100,12 @@ var config = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          'vue-style-loader',
-          //devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          'vue-style-loader',   // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
             options: {
-              data: `@import "@/assets/styles/base.scss"; @import "@/assets/styles/variables.scss";`
+              prependData: '@import "@/assets/styles/base.scss"; @import "@/assets/styles/variables.scss";'
             }
           }
         ]
@@ -137,8 +136,14 @@ var config = {
     */
     new VueLoaderPlugin(),
     // new MiniCssExtractPlugin({ filename: '[name].css' }),
-    new WebpackBar({ minimal: false })
+    new WebpackBar({ minimal: false }),
     // new HardSourceWebpackPlugin()
+    new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: path.join(__dirname, 'dist'),
+      // Required - Routes to render.
+      routes: ['/', '/demos', '/demos/3d-graphics/part-1',  '/demos/3d-graphics/part-2', '/demos/3d-graphics/part-3', '/demos/telegram-contest' ]
+    })
   ],
 
   optimization: {
@@ -159,7 +164,7 @@ var config = {
 if (devMode) {
   config.plugins.push(
     new webpack.DefinePlugin({
-      'baseUrl': JSON.stringify('http://localhost')
+      baseUrl: JSON.stringify('http://localhost')
     })
   )
 

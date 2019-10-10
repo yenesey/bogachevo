@@ -83,6 +83,7 @@ header {
   @include transition(height .5s ease);
   width: 100%;
   position: fixed;
+  top: 0px;
   z-index: 10;
   align-items: center; // vertically
   background-color: $HERO-BK-COLOR;
@@ -138,7 +139,8 @@ header {
 }
 
 img.maskot {
-  height: 95%;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 50%;
   @include transition(all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1));
   @include break('xs') {
