@@ -186,7 +186,7 @@ if (devMode) {
       }
     ])
   )
-  
+
   config.plugins.push(
     new PrerenderSPAPlugin({
       // Required - The path to the webpack-outputted app to prerender.
