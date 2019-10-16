@@ -136,14 +136,8 @@ var config = {
     */
     new VueLoaderPlugin(),
     // new MiniCssExtractPlugin({ filename: '[name].css' }),
-    new WebpackBar({ minimal: false }),
+    new WebpackBar({ minimal: false })
     // new HardSourceWebpackPlugin()
-    new PrerenderSPAPlugin({
-      // Required - The path to the webpack-outputted app to prerender.
-      staticDir: path.join(__dirname, 'dist'),
-      // Required - Routes to render.
-      routes: ['/', '/demos', '/demos/3d-graphics/part-1',  '/demos/3d-graphics/part-2', '/demos/3d-graphics/part-3', '/demos/telegram-contest' ]
-    })
   ],
 
   optimization: {
@@ -192,17 +186,16 @@ if (devMode) {
       }
     ])
   )
-
-  /*
+  
   config.plugins.push(
     new PrerenderSPAPlugin({
       // Required - The path to the webpack-outputted app to prerender.
-      staticDir: resolve('dst'),
+      staticDir: resolve('dist'),
       // Required - Routes to render.
-      routes: [ '/', '/about', '/works', '/contact' ],
+      routes: ['/', '/demos', '/demos/3d-graphics/part-1', '/demos/3d-graphics/part-2', '/demos/3d-graphics/part-3', '/demos/telegram-contest' ]
     })
   )
-  */
+
 }
 
 module.exports = config
