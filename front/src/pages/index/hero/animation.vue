@@ -125,12 +125,15 @@ export default {
 			this.alpha =  this.alpha + 0.0003
 			if (this.alpha > 2*Math.PI) this.alpha = this.alpha - 2*Math.PI
 			if (this.distance < 2) this.distance = this.distance + 0.0003
-
+			
+			gl.clearColor(0, 0, 0, 0);
+  			gl.clear(gl.COLOR_BUFFER_BIT);
+			
 			gl.uniform1f(this.u_alpha, this.alpha)
 			gl.uniform1f(this.u_distance, this.distance)
 
 			gl.drawArrays(gl.POINTS, 0, VERT_COUNT)
-		  requestAnimationFrame(this.step)
+			requestAnimationFrame(this.step)
 		},
 
 		createShader (type, source) {
