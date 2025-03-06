@@ -1,5 +1,7 @@
 <template lang="pug">
-  canvas.hero-animation(width=640, height=480)
+	div
+		canvas.hero-animation(width=640, height=480)
+		canvas.hero-animation(width=35, height=18, style="z-index:10")
 </template>
 
 <script>
@@ -9,14 +11,14 @@ const GALAXY_STARS_PER_ARM = 10000
 const VERT_COUNT = GALAXY_STARS_PER_ARM * GALAXY_ARMS_COUNT// всего вершин
 
 
-function generateGalaxy () {
-	const {sin, cos, PI, floor, exp, log, random, sqrt} = Math
+function generateGalaxy() {
+	const { sin, cos, PI, floor, exp, log, random, sqrt } = Math
 
 	function randn_bm() { // Standard Normal variate using Box-Muller transform.
-    var u = 0, v = 0
-    while(u === 0) u = random() //Converting [0,1) to (0,1)
-    while(v === 0) v = random()
-    return sqrt( -2.0 * log( u ) ) * cos( 2.0 * PI * v )
+		var u = 0, v = 0
+		while (u === 0) u = random() //Converting [0,1) to (0,1)
+		while (v === 0) v = random()
+		return sqrt(-2.0 * log(u)) * cos(2.0 * PI * v)
 	}
 
 	var verts = new Float32Array(VERT_COUNT * 3)  // массив вершин
@@ -26,11 +28,11 @@ function generateGalaxy () {
 	var r = 95 // радиус балджа (центральное скопление)
 
 	for (var i = 0; i < GALAXY_ARMS_COUNT; i++) {
-		var a = i * 2*PI / GALAXY_ARMS_COUNT
+		var a = i * 2 * PI / GALAXY_ARMS_COUNT
 
 		r1 = r
 		for (var j = 0; j < GALAXY_STARS_PER_ARM; j++) {
-			var b = j * 4.2*PI / GALAXY_STARS_PER_ARM
+			var b = j * 4.2 * PI / GALAXY_STARS_PER_ARM
 
 			var r1 = floor(r - (j / GALAXY_STARS_PER_ARM / 2) * r)
 			var rr1 = randn_bm() * r1
@@ -42,9 +44,9 @@ function generateGalaxy () {
 
 				x(c) = a*Math.exp(b*c)*cos(c)
 				y(c) = a*Math.exp(b*c)*sin(c)
-			*/	
-			var x = R * exp(0.27*b) * cos(b)
-			var y = R * exp(0.27*b) * sin(b)
+			*/
+			var x = R * exp(0.27 * b) * cos(b)
+			var y = R * exp(0.27 * b) * sin(b)
 
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 0] = ((x * cos(a) - y * sin(a)) + rr1) / 100
 			verts[i * GALAXY_STARS_PER_ARM * 3 + j * 3 + 1] = ((x * sin(a) + y * cos(a)) + rr2) / 100
@@ -54,15 +56,16 @@ function generateGalaxy () {
 		}
 	}
 
-	return {verts, sizes}
+	return { verts, sizes }
 }
 
 //---------------------------------------------------
 export default {
-  data () {
-    return {
+	data() {
+		return {
 			u_alpha: null,
 			alpha: 0,
+			alphaDelta: 0.0003, 
 			u_distance: null,
 			distance: 0,
 			vertexShader: null,
@@ -74,34 +77,59 @@ export default {
 			timepast: 0,
 			fps: 0,
 			count: 0,
-    }
-  },
-  computed: {
-    canvas () {
-      return this.$el
-    },
-    gl () {
-      return this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl')
+		}
+	},
+	computed: {
+		canvas() {
+			return this.$el.children[0]
 		},
-		program () {
+
+		gl() {
+			let webGl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl')
+			if (!webGl) {
+				console.log("No WebGL context could be found.");
+			}
+			return webGl
+		},
+
+		ctx2d() {
+			return this.$el.children[1].getContext('2d')
+		},
+
+		program() {
 			return this.gl.createProgram()
 		}
-  },
-  methods: {
+	},
+	methods: {
 		onKey(e) {
-			if (e.keyCode === 70) this.showFps = !this.showFps
-			//if (e.keyCode === 37) this.angle.db += 0.01
-			//if (e.keyCode === 39) this.angle.db -= 0.01
-			//console.log(e.keyCode)
+			// console.log("keyPressed: ", e.keyCode)
+			if (e.keyCode === 70) {
+				this.showFps = !this.showFps
+				this.ctx2d.clearRect(0, 0, 35, 18);
+			}
+			if (e.keyCode === 37) this.alphaDelta += 0.001
+			if (e.keyCode === 39) this.alphaDelta -= 0.001
+
 		},
 		resizeCanvas() {
 			const { canvas, gl } = this
 			let { height, width } = this.$parent.$el.getBoundingClientRect()
-			canvas.width  = width
+			canvas.width = width
 			canvas.height = height - 89
 			gl.viewport(0, 0, canvas.width, canvas.height)
 		},
-    /*
+
+		step() {
+			const { gl, vertexBuffer } = this
+			if (this.vertexBuffer === null) return
+
+			this.alpha = this.alpha + this.alphaDelta
+			if (this.alpha > 2 * Math.PI) this.alpha = this.alpha - 2 * Math.PI
+			if (this.distance < 2) this.distance = this.distance + 0.0003
+
+			gl.clearColor(0, 0, 0, 0);
+			gl.clear(gl.COLOR_BUFFER_BIT);
+			
 			var now = performance.now()
 			this.timepast += now - this.timestamp
 			this.timestamp = now
@@ -112,31 +140,18 @@ export default {
 				this.timepast = 0
 			}
 			if (this.showFps) {
-				gl.fillStyle = '#fff'
-				gl.font = '12px Play'
-				gl.fillText(this.fps + ' fps', 20, 20)
-			}
-		*/
-
-		step () {
-			const { gl, vertexBuffer } = this
-			if (this.vertexBuffer === null) return
-
-			this.alpha =  this.alpha + 0.0003
-			if (this.alpha > 2*Math.PI) this.alpha = this.alpha - 2*Math.PI
-			if (this.distance < 2) this.distance = this.distance + 0.0003
-			
-			gl.clearColor(0, 0, 0, 0);
-  			gl.clear(gl.COLOR_BUFFER_BIT);
-			
+				this.ctx2d.fillStyle = '#fff'
+				this.ctx2d.font = '12px Play'
+				this.ctx2d.clearRect(0, 0, 35, 18);
+				this.ctx2d.fillText(this.fps + ' fps', 0, 12)
+			} 
 			gl.uniform1f(this.u_alpha, this.alpha)
 			gl.uniform1f(this.u_distance, this.distance)
-
 			gl.drawArrays(gl.POINTS, 0, VERT_COUNT)
 			requestAnimationFrame(this.step)
 		},
 
-		createShader (type, source) {
+		createShader(type, source) {
 			const { gl } = this
 			const shader = gl.createShader(type)
 			gl.shaderSource(shader, source)
@@ -145,13 +160,13 @@ export default {
 			return shader
 		}
 
-  },
-  mounted () {
+	},
+	mounted() {
 
 		const { gl, program, createShader } = this
 
 		this.vertexShader = createShader(gl.VERTEX_SHADER,
-		`
+			`
 				precision highp float;
 
 				mat4 rotationX( in float angle ) {
@@ -247,13 +262,13 @@ export default {
 			`
 		)
 
-  	gl.attachShader(program, this.vertexShader)
-  	gl.attachShader(program, this.fragmentShader)
-  	gl.linkProgram(program)
-  	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw gl.getProgramInfoLog(program)
+		gl.attachShader(program, this.vertexShader)
+		gl.attachShader(program, this.fragmentShader)
+		gl.linkProgram(program)
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw gl.getProgramInfoLog(program)
 		gl.useProgram(program)
 		gl.enable(gl.DEPTH_TEST)
-		
+
 		const galaxy = generateGalaxy()
 
 		this.vertexBuffer = gl.createBuffer()
@@ -272,7 +287,7 @@ export default {
 
 		this.u_alpha = gl.getUniformLocation(program, "u_alpha")
 		this.u_distance = gl.getUniformLocation(program, "u_distance")
-		
+
 		this.step()
 
 
@@ -281,11 +296,11 @@ export default {
 		window.addEventListener('keydown', this.onKey, false)
 
 		var self = this
-		window.addEventListener('resize', function(event) {
+		window.addEventListener('resize', function (event) {
 			self.resizeCanvas()
 		})
 	},
-	beforeDestroy () {
+	beforeDestroy() {
 		const { gl, program, fragmentShader, vertexShader, vertexBuffer, sizeBuffer } = this
 		gl.deleteBuffer(vertexBuffer)
 		gl.deleteBuffer(sizeBuffer)
@@ -299,8 +314,8 @@ export default {
 
 <style>
 .hero-animation {
-  position: absolute;
-  top: 89px;
+	position: absolute;
+	top: 89px;
 	z-index: 1;
 }
 </style>
