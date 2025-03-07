@@ -1,12 +1,13 @@
 <template lang="pug">
   footer
       .flex.row.links
-        .flex
-          span.p-2 Создано с использованием
-        .flex
-          a.p-2(href="https://nodejs.org") Nodejs
-          a.p-2(href="https://webpack.js.org") Webpack
-          a.p-2(href="https://vuejs.org") Vue.js
+        span.p-2 Сделно вручную c &#x1F497. Мои инструменты:
+      .flex.row.links
+        a.p-2(href="https://nodejs.org") Nodejs
+        span.p-2 /
+        a.p-2(href="https://webpack.js.org") Webpack
+        span.p-2 /
+        a.p-2(href="https://vuejs.org") Vue.js
       .flex.row.links.mb-5
         .flex
           a(href="https://github.com/yenesey/bogachevo") код на GitHub
@@ -22,7 +23,7 @@ footer {
   padding: .1rem;
   background-color: $HERO-BK-COLOR;
   justify-content: space-around;
-  max-height: 53px;
+  max-height: 83px;
 }
 
 .links {
